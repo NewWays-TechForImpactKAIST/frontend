@@ -33,6 +33,12 @@ module.exports = {
       },
     ],
     "import/named": "error",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        packageDir: ["."],
+      },
+    ],
     "import/prefer-default-export": "off",
     "no-param-reassign": [
       "error",
