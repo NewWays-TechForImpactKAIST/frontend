@@ -3,10 +3,11 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+import {Test} from "./test";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
-    <Route path="/" element={<h1>Test Root Page</h1>} />,
+    <Route path="/" element={Test()} />,
   ]),
 );
 
