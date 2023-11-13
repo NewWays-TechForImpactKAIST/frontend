@@ -1,5 +1,7 @@
 # 다양성 평가 리포트 웹사이트 프론트엔드
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/af408c4b-acff-491f-93a8-b49a7b4dd33b/deploy-status)](https://app.netlify.com/sites/serene-granita-bbb7d8/deploys)
+
 React로 개발되는 다양성 평가 리포트 웹사이트의 프론트엔드 레포지토리입니다.
 
 ## 디자인 파일 (작업 중)
