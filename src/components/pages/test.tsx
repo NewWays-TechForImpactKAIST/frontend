@@ -5,7 +5,6 @@ const Test: React.FC = () => (
   <>
     <h1
       css={css`
-        color: red;
         font-size: 50px;
       `}
     >
@@ -14,9 +13,10 @@ const Test: React.FC = () => (
     <button
       type="button"
       css={css`
-        color: blue;
         font-size: 30px;
       `}
+      // eslint-disable-next-line no-alert
+      onClick={() => alert("Button pressed!")}
     >
       Test Button
     </button>
