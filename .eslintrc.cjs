@@ -36,7 +36,7 @@ module.exports = {
     "import/no-extraneous-dependencies": [
       "error",
       {
-        packageDir: ["."],
+        packageDir: [__dirname],
       },
     ],
     "import/prefer-default-export": "off",
