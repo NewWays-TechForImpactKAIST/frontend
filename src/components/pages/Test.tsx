@@ -1,6 +1,8 @@
 import React from "react";
 import { Layout, theme } from "antd";
 
+import { TestChart } from "@/components/organisms";
+
 const { Header, Content, Footer } = Layout;
 
 const Test: React.FC = () => {
@@ -18,7 +20,7 @@ const Test: React.FC = () => {
           className="site-layout-content"
           style={{ background: colorBgContainer }}
         >
-          Content
+          <TestChart />
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>
