@@ -1,11 +1,21 @@
 import { Col, Flex, Layout, Row, Typography } from "antd";
+import { css } from "@emotion/react";
 
 import { SNSHomepage, SNSInstagram, SNSLinkedin, SNSYoutube } from "@/assets";
 
 const { Title, Paragraph, Text } = Typography;
 const { Footer } = Layout;
 
-const FooterTitle = () => <Title level={5}>사단법인 뉴웨이즈(NEWWAYS)</Title>;
+const FooterTitle = () => (
+  <Title
+    level={5}
+    css={css`
+      margin: 0;
+    `}
+  >
+    사단법인 뉴웨이즈(NEWWAYS)
+  </Title>
+);
 
 const FooterDescription = () => (
   <Flex vertical align="start" gap={0}>
@@ -54,7 +64,12 @@ const FooterLinks = () => (
 );
 
 const NewwaysFooter = () => (
-  <Footer style={{ textAlign: "start" }}>
+  <Footer
+    css={css`
+      text-align: start;
+      padding: 28px 0 60px 0;
+    `}
+  >
     <Row justify="center">
       <Col span={16}>
         <Flex vertical align="start" gap="large">

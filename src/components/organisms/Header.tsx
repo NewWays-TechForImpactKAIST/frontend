@@ -5,7 +5,11 @@ import { NewWaysLogo } from "@/assets";
 const { Header } = Layout;
 
 const NewwaysHeader = () => (
-  <Header>
+  <Header
+    css={css`
+      padding: 0;
+    `}
+  >
     <Row
       justify="center"
       align="stretch"

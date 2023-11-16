@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, ConfigProvider, theme } from "antd";
+import { Col, ConfigProvider, Layout, Row, theme } from "antd";
 import { Header, Footer } from "@/components/organisms";
 
 const { Content } = Layout;
@@ -17,11 +17,13 @@ const NewwaysLayout = ({ children }: Props) => {
     <ConfigProvider
       theme={{
         token: {
+          // 기본 폰트는 Pretendard로 설정합니다.
           fontFamily:
             "Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
         },
         components: {
           Layout: {
+            // Header, Content, Footer의 배경색을 설정합니다.
             headerBg: "#F0F0F0",
             bodyBg: "#00E9A1",
             footerBg: "#F0F0F0",
@@ -31,14 +33,18 @@ const NewwaysLayout = ({ children }: Props) => {
     >
       <Layout className="layout">
         <Header />
-        <Content style={{ padding: "0 50px" }}>
-          <div
-            className="site-layout-content"
-            style={{ background: colorBgContainer }}
-          >
-            {children}
-          </div>
-        </Content>
+        <Row justify="center">
+          <Col span={16}>
+            <Content style={{ padding: "0" }}>
+              <div
+                className="site-layout-content"
+                style={{ background: colorBgContainer }}
+              >
+                {children}
+              </div>
+            </Content>
+          </Col>
+        </Row>
         <Footer />
       </Layout>
     </ConfigProvider>
