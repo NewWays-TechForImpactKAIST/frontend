@@ -1,4 +1,5 @@
 import { MapSVG } from "@/../static/MapSVGData";
+import { ReactNode } from "react";
 
 const MapSelector = () => {
   return (
@@ -26,37 +27,41 @@ const MapSelector = () => {
           }
         `}
       </style>
-      <g id="g1">
-        {MapSVG.map(shape => {
-          if (shape.type === `path`) {
-            return (
-              <path
-                key={shape.id}
-                className="piece"
-                id={shape.id}
-                d={shape.data}
-                onClick={() => {
-                  alert(`Test click handle: ${shape.id}`);
-                }}
-              />
-            );
-          }
-          if (shape.type === `polygon`) {
-            return (
-              <polygon
-                key={shape.id}
-                className="piece"
-                id={shape.id}
-                points={shape.data}
-                onClick={() => {
-                  alert(`Test click handle: ${shape.id}`);
-                }}
-              />
-            );
-          }
-          throw new Error(`${shape.id} is not path or polygon`);
-        })}
-      </g>
+      {MapSVG.map<ReactNode>(group => {
+        return (
+          <g id={group.groupid}>
+            {group.component.map(shape => {
+              if (shape.type === `path`) {
+                return (
+                  <path
+                    key={shape.id}
+                    className="piece"
+                    id={shape.id}
+                    d={shape.data}
+                    onClick={() => {
+                      alert(`Test click handle: ${shape.id}`);
+                    }}
+                  />
+                );
+              }
+              if (shape.type === `polygon`) {
+                return (
+                  <polygon
+                    key={shape.id}
+                    className="piece"
+                    id={shape.id}
+                    points={shape.data}
+                    onClick={() => {
+                      alert(`Test click handle: ${shape.id}`);
+                    }}
+                  />
+                );
+              }
+              throw new Error(`${shape.id} is not path or polygon`);
+            })}
+          </g>
+        );
+      })}
     </svg>
   );
 };
