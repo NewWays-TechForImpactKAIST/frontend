@@ -71,7 +71,7 @@ const NewwaysFooter = () => (
     `}
   >
     <Row justify="center">
-      <Col span={16}>
+      <Col span={22}>
         <Flex vertical align="start" gap="large">
           <Flex vertical align="start" gap="mid">
             <FooterTitle />

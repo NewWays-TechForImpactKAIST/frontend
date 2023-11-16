@@ -34,7 +34,7 @@ const NewwaysLayout = ({ children }: Props) => {
       <Layout className="layout">
         <Header />
         <Row justify="center">
-          <Col span={16}>
+          <Col span={22}>
             <Content style={{ padding: "0" }}>
               <div
                 className="site-layout-content"
