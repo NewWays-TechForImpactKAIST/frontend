@@ -1,4 +1,4 @@
-import { Typography, Layout, Flex, Col, Row } from "antd";
+import { Col, Flex, Layout, Row, Typography } from "antd";
 
 import { SNSHomepage, SNSInstagram, SNSLinkedin, SNSYoutube } from "@/assets";
 
@@ -54,7 +54,7 @@ const FooterLinks = () => (
 );
 
 const NewwaysFooter = () => (
-  <Footer style={{ textAlign: "center" }}>
+  <Footer style={{ textAlign: "start" }}>
     <Row justify="center">
       <Col span={16}>
         <Flex vertical align="start" gap="large">
