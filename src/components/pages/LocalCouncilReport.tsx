@@ -3,7 +3,13 @@ import { Flex } from "antd";
 import { css } from "@emotion/react";
 
 import { Layout } from "@/components/templates";
-import { TestChart } from "@/components/organisms";
+import { Histogram, PieChart } from "@/components/organisms";
+
+import {
+  sampleAgeHistogramData,
+  samplePartyPieData,
+  sampleSexPieData,
+} from "@/utils";
 
 const Test: React.FC = () => (
   <Layout>
@@ -14,9 +20,9 @@ const Test: React.FC = () => (
         margin: 40px 0 40px 0;
       `}
     >
-      <TestChart />
-      <TestChart />
-      <TestChart />
+      <Histogram data={sampleAgeHistogramData} />
+      <PieChart data={samplePartyPieData} />
+      <PieChart data={sampleSexPieData} />
     </Flex>
   </Layout>
 );
