@@ -2,7 +2,7 @@ import React from "react";
 import { Layout, theme } from "antd";
 
 import { TestChart } from "@/components/organisms";
-import MapSelector from "@/components/organisms/MapSelector";
+import { MetroSelector } from "@/components/organisms/MapSelector";
 
 const { Header, Content, Footer } = Layout;
 
@@ -22,7 +22,7 @@ const Test: React.FC = () => {
           style={{ background: colorBgContainer }}
         >
           <TestChart />
-          <MapSelector />
+          <MetroSelector />
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>
