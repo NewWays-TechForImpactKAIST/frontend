@@ -2,7 +2,10 @@ import React from "react";
 import { Layout, theme } from "antd";
 
 import { TestChart } from "@/components/organisms";
-import { MetroSelector } from "@/components/organisms/MapSelector";
+import {
+  LocalSelector,
+  MetroSelector,
+} from "@/components/organisms/MapSelector";
 
 const { Header, Content, Footer } = Layout;
 
@@ -22,6 +25,12 @@ const Test: React.FC = () => {
           style={{ background: colorBgContainer }}
         >
           <TestChart />
+          <LocalSelector
+            selected="서울특별시"
+            onClick={id => {
+              alert(id);
+            }}
+          />
           <MetroSelector />
         </div>
       </Content>
