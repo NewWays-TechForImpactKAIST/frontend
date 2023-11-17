@@ -3,7 +3,7 @@ import { Flex } from "antd";
 import { css } from "@emotion/react";
 
 import { Layout } from "@/components/templates";
-import { MapSelector } from "@/components/organisms";
+import { LocalSelector, MetroSelector } from "@/components/organisms";
 
 const LocalCouncil: React.FC = () => (
   <Layout>
@@ -14,7 +14,17 @@ const LocalCouncil: React.FC = () => (
         margin: 40px 0 40px 0;
       `}
     >
-      <MapSelector />
+      <LocalSelector
+        selected="서울특별시"
+        onClick={id => {
+          alert(id);
+        }}
+      />
+      <MetroSelector
+        onClick={id => {
+          alert(id);
+        }}
+      />
     </Flex>
   </Layout>
 );

@@ -1,7 +1,62 @@
+export const MetroInfo = {
+  제주특별자치도: {
+    color: "#4caff4",
+  },
+  경상남도: {
+    color: "#4caff4",
+  },
+  경상북도: {
+    color: "#4c6bf4",
+  },
+  전라남도: {
+    color: "#4c6bf4",
+  },
+  전라북도: {
+    color: "#9cc3ff",
+  },
+  충청남도: {
+    color: "#4c4cf4",
+  },
+  충청북도: {
+    color: "#4caff4",
+  },
+  강원도: {
+    color: "#4c4cf4",
+  },
+  경기도: {
+    color: "#9cc3ff",
+  },
+  세종특별자치시: {
+    color: "#6c6cd4",
+  },
+  울산광역시: {
+    color: "#6c6cd4",
+  },
+  대전광역시: {
+    color: "#9cc3ff",
+  },
+  광주광역시: {
+    color: "#6c6cd4",
+  },
+  대구광역시: {
+    color: "#6c6cd4",
+  },
+  인천광역시: {
+    color: "#4c4cf4",
+  },
+  부산광역시: {
+    color: "#c3e1ff",
+  },
+  서울특별시: {
+    color: "#c3e1ff",
+    viewBox: "100 100 150 150",
+  },
+};
+
 export const MapSVG = [
   // id:`제주특별자치도`>
   {
-    groupid: `제주특별자치도`,
+    groupId: `제주특별자치도`,
     component: [
       {
         type: `path`,
@@ -21,7 +76,7 @@ export const MapSVG = [
   },
 
   {
-    groupid: `경상남도`,
+    groupId: `경상남도`,
     component: [
       {
         type: `polygon`,
@@ -185,7 +240,7 @@ export const MapSVG = [
     ],
   },
   {
-    groupid: `경상북도`,
+    groupId: `경상북도`,
     component: [
       {
         type: `path`,
@@ -360,7 +415,7 @@ export const MapSVG = [
     ],
   },
   {
-    groupid: `전라남도`,
+    groupId: `전라남도`,
     component: [
       {
         type: `path`,
@@ -547,7 +602,7 @@ export const MapSVG = [
     ],
   },
   {
-    groupid: `전라북도`,
+    groupId: `전라북도`,
     component: [
       {
         type: `path`,
@@ -666,7 +721,7 @@ l-7.8,3.3l0,2.8l-8,0.3l-1.4,0.2l-0.2,0l-3.5,0.5l-0.3,0l-1.1,0.1l-0.2-3l-5.4,0.4l
 
   // id:`전라북도`>
   {
-    groupid: `충청남도`,
+    groupId: `충청남도`,
     component: [
       {
         type: `path`,
@@ -783,7 +838,7 @@ l-7.8,3.3l0,2.8l-8,0.3l-1.4,0.2l-0.2,0l-3.5,0.5l-0.3,0l-1.1,0.1l-0.2-3l-5.4,0.4l
     ],
   },
   {
-    groupid: `충청북도`,
+    groupId: `충청북도`,
     component: [
       {
         type: `polygon`,
@@ -886,7 +941,7 @@ l-7.8,3.3l0,2.8l-8,0.3l-1.4,0.2l-0.2,0l-3.5,0.5l-0.3,0l-1.1,0.1l-0.2-3l-5.4,0.4l
     ],
   },
   {
-    groupid: `강원도`,
+    groupId: `강원도`,
     component: [
       {
         type: `polygon`,
@@ -1025,7 +1080,7 @@ l-7.8,3.3l0,2.8l-8,0.3l-1.4,0.2l-0.2,0l-3.5,0.5l-0.3,0l-1.1,0.1l-0.2-3l-5.4,0.4l
     ],
   },
   {
-    groupid: `경기도`,
+    groupId: `경기도`,
     component: [
       {
         type: `polygon`,
@@ -1292,7 +1347,7 @@ l-7.8,3.3l0,2.8l-8,0.3l-1.4,0.2l-0.2,0l-3.5,0.5l-0.3,0l-1.1,0.1l-0.2-3l-5.4,0.4l
     ],
   },
   {
-    groupid: `세종특별자치시`,
+    groupId: `세종특별자치시`,
     component: [
       {
         type: `polygon`,
@@ -1306,7 +1361,7 @@ l-7.8,3.3l0,2.8l-8,0.3l-1.4,0.2l-0.2,0l-3.5,0.5l-0.3,0l-1.1,0.1l-0.2-3l-5.4,0.4l
     ],
   },
   {
-    groupid: `울산광역시`,
+    groupId: `울산광역시`,
     component: [
       {
         type: `path`,
@@ -1342,7 +1397,7 @@ l0.5,1.8l-4.3-0.4l4.4,3l-4.1,4.4l-0.7-1.1L443.1,483L446.8,479.7z`,
     ],
   },
   {
-    groupid: `대전광역시`,
+    groupId: `대전광역시`,
     component: [
       {
         type: `polygon`,
@@ -1380,7 +1435,7 @@ l0.5,1.8l-4.3-0.4l4.4,3l-4.1,4.4l-0.7-1.1L443.1,483L446.8,479.7z`,
     ],
   },
   {
-    groupid: "광주광역시",
+    groupId: "광주광역시",
     component: [
       // id:`광주광역시`>
       {
@@ -1416,7 +1471,7 @@ l0.5,1.8l-4.3-0.4l4.4,3l-4.1,4.4l-0.7-1.1L443.1,483L446.8,479.7z`,
     ],
   },
   {
-    groupid: `대구광역시`,
+    groupId: `대구광역시`,
     component: [
       {
         type: `polygon`,
@@ -1478,7 +1533,7 @@ l-0.8,5.7l4.5,1l2.7,0.5l-0.8,2.9l-4.8,0.3l-1.1,5.4l-11-2.7L335.6,427.6z`,
     ],
   },
   {
-    groupid: `인천광역시`,
+    groupId: `인천광역시`,
     component: [
       // id:`인천광역시`>
       {
@@ -1553,7 +1608,7 @@ M51.7,220.3L51.7,220.3L51.7,220.3L51.7,220.3z M42.9,188l-3.2-0.2l-0.2,1.8l3,1.5v
     ],
   },
   {
-    groupid: `부산광역시`,
+    groupId: `부산광역시`,
     component: [
       // id:`부산광역시`>
       {
@@ -1650,7 +1705,7 @@ l1.6-2.2l1.7,0.2l0.3,3.2l0,3.9l0.5,0.7L417,555.5z`,
     ],
   },
   {
-    groupid: `서울특별시`,
+    groupId: `서울특별시`,
     component: [
       // id:`서울특별시`>
       {
