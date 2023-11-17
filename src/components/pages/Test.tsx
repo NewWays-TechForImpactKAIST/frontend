@@ -1,11 +1,11 @@
 import React from "react";
 import { Layout, theme } from "antd";
 
-import { TestChart } from "@/components/organisms";
 import {
   LocalSelector,
   MetroSelector,
-} from "@/components/organisms/MapSelector";
+  TestChart,
+} from "@/components/organisms";
 
 const { Header, Content, Footer } = Layout;
 
@@ -31,7 +31,11 @@ const Test: React.FC = () => {
               alert(id);
             }}
           />
-          <MetroSelector />
+          <MetroSelector
+            onClick={id => {
+              alert(id);
+            }}
+          />
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>
