@@ -38,7 +38,7 @@ const NewwaysLayout = ({ children }: Props) => {
             <Content style={{ padding: "0" }}>
               <div
                 className="site-layout-content"
-                style={{ background: colorBgContainer }}
+                style={{ background: "#00E9A1" }}
               >
                 {children}
               </div>
