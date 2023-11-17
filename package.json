@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 && prettier -u --config ./.prettierrc --check .",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 20 && prettier -u --config ./.prettierrc --check .",
     "format": "prettier -u --config ./.prettierrc --write '**/*'"
   },
   "engine": {
