@@ -8,19 +8,21 @@ export interface PieChartData {
 
 export interface Props {
   data: PieChartData[];
+  colors: string[];
 }
 
-const PieChart = ({ data }: Props) => {
+const PieChart = ({ data, colors }: Props) => {
   const config: PieConfig = {
     appendPadding: 10,
     data,
     angleField: "value",
-    colorField: "type",
     radius: 0.6,
     label: {
       type: "outer",
       content: "{name} {percentage}",
     },
+    colorField: "type",
+    color: colors,
     interactions: [
       {
         type: "pie-legend-active",

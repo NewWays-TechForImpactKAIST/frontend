@@ -4,3 +4,5 @@ export { default as Footer } from "./Footer";
 export { default as Histogram } from "./Histogram";
 export { default as PieChart } from "./PieChart";
 export { default as TestChart } from "./TestChart";
+export { default as MetroSelector } from "./MetroSelector";
+export { default as LocalSelector } from "./LocalSelector";
