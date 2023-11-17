@@ -1,4 +1,5 @@
 import { Line, type LineConfig } from "@ant-design/charts";
+import { css } from "@emotion/react";
 
 interface RawDataPoint {
   year: string;
@@ -65,7 +66,14 @@ const TestChart = ({ data = defaultData }: Props) => {
       },
     ],
   };
-  return <Line {...config} />;
+  return (
+    <Line
+      css={css`
+        background: #f2f2f2;
+      `}
+      {...config}
+    />
+  );
 };
 
 export default TestChart;

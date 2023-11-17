@@ -3,10 +3,12 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import { Test } from "@/components/pages";
+import { LocalCouncilReport } from "@/components/pages";
 
 const router = createBrowserRouter(
-  createRoutesFromElements([<Route path="/" element={<Test />} />]),
+  createRoutesFromElements([
+    <Route path="/" element={<LocalCouncilReport />} />,
+  ]),
 );
 
 export default router;
