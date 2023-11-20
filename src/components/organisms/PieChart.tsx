@@ -11,7 +11,7 @@ export interface Props {
   colors: string[];
 }
 
-const PieChart = ({ data, colors }: Props) => {
+export const PieChart = ({ data, colors }: Props) => {
   const config: PieConfig = {
     appendPadding: 10,
     data,
@@ -42,5 +42,3 @@ const PieChart = ({ data, colors }: Props) => {
     />
   );
 };
-
-export default PieChart;

@@ -30,10 +30,17 @@ const NewwaysLayout = ({ children }: Props) => (
       <Header />
       <Row justify="center">
         <Col span={22}>
-          <Content style={{ padding: "0" }}>
+          <Content
+            style={{ padding: "0", display: "flex", justifyContent: "center" }}
+          >
             <div
               className="site-layout-content"
-              style={{ background: "#00E9A1" }}
+              style={{
+                background: "#00E9A1",
+                maxWidth: "800px",
+
+                // alignItems: "center",
+              }}
             >
               {children}
             </div>
