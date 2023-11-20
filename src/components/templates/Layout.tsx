@@ -37,7 +37,7 @@ const NewwaysLayout = ({ children }: Props) => (
               className="site-layout-content"
               style={{
                 background: "#00E9A1",
-                maxWidth: "700px",
+                maxWidth: "800px",
 
                 // alignItems: "center",
               }}
