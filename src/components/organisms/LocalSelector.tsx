@@ -1,12 +1,17 @@
 import {MapSVG, type MetroID, MetroInfo} from "@/../static/MapSVGData";
 import {type ReactNode} from "react";
+import {Dropdown, Flex} from "antd";
+import {css} from "@emotion/react";
 
 interface Props {
     selected: MetroID;
     onClick?: (local: string) => void;
 }
 
-const LocalSelector = ({selected, onClick = () => {}}: Props) => (
+const LocalSelector = ({
+                           selected, onClick = () => {
+    }
+                       }: Props) => (
     <div
         style={{
             width: "100%",
@@ -15,6 +20,23 @@ const LocalSelector = ({selected, onClick = () => {}}: Props) => (
             alignItems: "center",
         }}
     >
+        <Dropdown menu={{
+            items: [
+                {key: '1', label: 'One'},
+                {key: '2', label: 'Two'},
+                {type: 'divider'},
+                {key: '3', label: 'Three'},
+                {key: '4', label: 'Four'},
+            ]
+        }}>
+            <div>
+                <Flex vertical css={css`
+                  background-color: aliceblue
+                `}>
+                    TODO: Dropdown으로 선택
+                </Flex>
+            </div>
+        </Dropdown>
         <svg
             version="1.1"
             id="Layer_1"
@@ -24,7 +46,7 @@ const LocalSelector = ({selected, onClick = () => {}}: Props) => (
             y="0px"
             viewBox={MetroInfo[selected]?.viewBox || "0 0 509 716.1"}
             xmlSpace="preserve"
-            style={{width: "40%", backgroundColor: "#f0f0f0"}}
+            style={{width: "40%"}}
         >
             <style type="text/css">
                 {`
