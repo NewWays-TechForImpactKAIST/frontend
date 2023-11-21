@@ -17,60 +17,78 @@ export type MetroID =
   | "인천광역시"
   | "서울특별시";
 
+export const themeColors = ["#031273", "#0504AA", "#2337C6", "#4169E1", "#4CC9F0"]
+
 export const MetroInfo: {
   [id in MetroID]: { color: string; viewBox?: string };
 } = {
   제주특별자치도: {
-    color: "#4caff4",
+    color: themeColors[0],
+    viewBox: "355 600 150 150"
   },
   경상남도: {
-    color: "#4caff4",
+    color: themeColors[3],
+    viewBox: "200 400 250 250"
   },
   경상북도: {
-    color: "#4c6bf4",
+    color: themeColors[4],
+    viewBox: "220 200 300 300"
   },
   전라남도: {
-    color: "#4c6bf4",
+    color: themeColors[4],
+    viewBox: "0 450 280 280"
   },
   전라북도: {
-    color: "#9cc3ff",
+    color: themeColors[1],
+    viewBox: "65 350 220 220"
   },
   충청남도: {
-    color: "#4c4cf4",
+    color: themeColors[3],
+    viewBox: "30 220 220 220"
   },
   충청북도: {
-    color: "#4caff4",
+    color: themeColors[2],
+    viewBox: "150 190 240 240"
   },
   강원도: {
-    color: "#4c4cf4",
+    color: themeColors[3],
+    viewBox: "150 -30 320 320"
   },
   경기도: {
-    color: "#9cc3ff",
+    color: themeColors[4],
+    viewBox: "50 50 240 240"
   },
   세종특별자치시: {
-    color: "#6c6cd4",
+    color: themeColors[1],
+    viewBox: "140 280 100 100"
   },
   울산광역시: {
-    color: "#6c6cd4",
+    color: themeColors[2],
+    viewBox: "390 435 100 100"
   },
   대전광역시: {
-    color: "#9cc3ff",
+    color: themeColors[4],
+    viewBox: "165 320 80 80"
   },
   광주광역시: {
-    color: "#6c6cd4",
+    color: themeColors[3],
+    viewBox: "95 505 80 80"
   },
   대구광역시: {
-    color: "#6c6cd4",
+    color: themeColors[1],
+    viewBox: "285 340 150 150"
   },
   인천광역시: {
-    color: "#4c4cf4",
+    color: themeColors[1],
+    viewBox: "-20 80 180 180"
   },
   부산광역시: {
-    color: "#c3e1ff",
+    color: themeColors[0],
+    viewBox: "365 485 100 100"
   },
   서울특별시: {
-    color: "#c3e1ff",
-    viewBox: "100 100 150 150",
+    color: themeColors[0],
+    viewBox: "115 130 80 80",
   },
 };
 
