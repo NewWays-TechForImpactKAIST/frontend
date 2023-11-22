@@ -1,6 +1,6 @@
 import { selector } from "recoil";
-import axios from "../utils/axios";
-import { MetroID } from "static/MapSVGData";
+import { type MetroID } from "static/MapSVGData";
+import axios from "@/utils/axios";
 
 type RegionInfo = {
   id: number;
@@ -16,7 +16,7 @@ type LocalInfo = {
 export const idMapState = selector({
   key: "idMapState",
   get: async () => {
-    let idMap = new Map<MetroID, Map<string, [number, number]>>();
+    const idMap = new Map<MetroID, Map<string, [number, number]>>();
     const response = await axios.get("/localCouncil/regionInfo");
     response.data.forEach((region: RegionInfo) => {
       region.local.forEach((local: LocalInfo) => {
