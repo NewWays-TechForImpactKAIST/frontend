@@ -2,7 +2,6 @@ import React from "react";
 import { Flex, Typography } from "antd";
 import { css } from "@emotion/react";
 import { useParams } from "react-router-dom";
-
 import { Layout } from "@/components/templates";
 import {
   AgeHistogram,

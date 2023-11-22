@@ -4,13 +4,15 @@ import { css } from "@emotion/react";
 
 import { Layout } from "@/components/templates";
 import { LocalSelector, MetroSelector } from "@/components/organisms";
-
+import { useRecoilValue } from "recoil";
+import { idMapState } from "@/recoil/idMap";
 import { type MetroID } from "static/MapSVGData";
 import { useNavigate } from "react-router-dom";
 
 const LocalCouncil: React.FC = () => {
   const [metroId, setMetroId] = useState<MetroID>();
   const navigate = useNavigate();
+  const idMap = useRecoilValue(idMapState);
   return (
     <Layout>
       <Flex
@@ -24,7 +26,9 @@ const LocalCouncil: React.FC = () => {
           <LocalSelector
             selected={metroId}
             onClick={id => {
-              navigate(`/localCouncilReport/${metroId}/${id}`);
+              const idData = idMap.get(metroId)?.get(id);
+              if (!idData) return;
+              navigate(`/localCouncilReport/${idData[0]}/${idData[1]}`);
             }}
           />
         ) : (
