@@ -31,7 +31,7 @@ const MetroSelector = ({ onClick = () => {} }: Props) => {
             @media (max-width: 768px) {
               width: 80%;
             }
-            width: 30%;
+            width: 50%;
             height: 20pt;
             border-radius: 5pt;
             background-color: white;
@@ -59,7 +59,7 @@ const MetroSelector = ({ onClick = () => {} }: Props) => {
           @media (max-width: 768px) {
             width: 80%;
           }
-          width: 30%;
+          width: 50%;
           .metro {
             -webkit-transition:
               fill 0.2s,
