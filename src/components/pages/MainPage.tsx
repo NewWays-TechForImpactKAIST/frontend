@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { LocalCouncil, LocalCouncilReport } from "@/components/pages";
 import { useParams } from "react-router-dom";
 import { Element, scroller } from "react-scroll";

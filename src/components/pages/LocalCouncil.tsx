@@ -7,7 +7,7 @@ import { LocalSelector, MetroSelector } from "@/components/organisms";
 import { useRecoilValue } from "recoil";
 import { idMapState } from "@/recoil/idMap";
 import { type MetroID } from "static/MapSVGData";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LocalCouncil: React.FC = () => {
   const [metroId, setMetroId] = useState<MetroID>();
