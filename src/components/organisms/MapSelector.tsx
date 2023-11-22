@@ -5,19 +5,19 @@ import { LocalSelector, MetroSelector } from "@/components/molecules";
 import { type MetroID } from "static/MapSVGData";
 import { useNavigate, useParams } from "react-router-dom";
 
-const LocalCouncil = ({
-  idMap,
-}: {
+interface Props {
   idMap: Map<MetroID, Map<string, [number, number]>>;
-}) => {
+}
+
+const LocalCouncil = ({ idMap }: Props) => {
   const [metroId, setMetroId] = useState<MetroID>();
   const { metroId: metroParam } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     if (metroParam) {
-      for (let [key, value] of idMap.entries()) {
+      for (const [key, value] of idMap.entries()) {
         if (value) {
-          if (value.values().next().value[0] == metroParam) {
+          if (value.values().next().value[0] === metroParam) {
             setMetroId(key as MetroID);
             break;
           }

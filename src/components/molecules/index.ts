@@ -1,2 +1,2 @@
-export { default as MetroSelector } from "../molecules/MetroSelector";
-export { default as LocalSelector } from "../molecules/LocalSelector";
+export { default as MetroSelector } from "./MetroSelector";
+export { default as LocalSelector } from "./LocalSelector";

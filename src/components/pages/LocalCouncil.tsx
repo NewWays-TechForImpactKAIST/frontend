@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { MapSelector, LocalCouncilReport } from "@/components/organisms";
 import { useParams } from "react-router-dom";
 import { Element, scroller } from "react-scroll";
-import { Layout } from "../templates";
-import { MetroID } from "static/MapSVGData";
+import { Layout } from "@/components/templates";
+import { type MetroID } from "static/MapSVGData";
 import axios from "@/utils/axios";
 
 type RegionInfo = {
@@ -17,7 +17,7 @@ type LocalInfo = {
   id: number;
 };
 
-export default function LocalCouncil() {
+const LocalCouncil = () => {
   const { metroId, localId } = useParams();
   const [metroLocalMap, setMetroLocalMap] =
     useState<Map<MetroID, Map<string, [number, number]>>>();
@@ -53,10 +53,10 @@ export default function LocalCouncil() {
     <Layout>
       <MapSelector idMap={metroLocalMap} />
       <Element name="Report">
-        {metroId && localId ? <LocalCouncilReport /> : <></>}
+        {metroId && localId ? <LocalCouncilReport /> : null}
       </Element>
     </Layout>
-  ) : (
-    <></>
-  );
-}
+  ) : null;
+};
+
+export default LocalCouncil;

@@ -2,12 +2,9 @@ import React from "react";
 import { Flex, Typography } from "antd";
 import { css } from "@emotion/react";
 import { useParams } from "react-router-dom";
-import {
-  AgeHistogram,
-  PieChart,
-  // type HistogramData,
-  // type PieChartData,
-} from "@/components/organisms";
+import { AgeHistogram } from "@/components/organisms/Histogram";
+import { PieChart } from "@/components/organisms/PieChart";
+
 import {
   sampleAgeHistogramData,
   samplePartyPieData,
