@@ -4,7 +4,12 @@ import { css } from "@emotion/react";
 import { useParams } from "react-router-dom";
 
 import { Layout } from "@/components/templates";
-import { Histogram, PieChart } from "@/components/organisms";
+import {
+  AgeHistogram,
+  PieChart,
+  // type HistogramData,
+  // type PieChartData,
+} from "@/components/organisms";
 import {
   sampleAgeHistogramData,
   samplePartyPieData,
@@ -15,6 +20,7 @@ const { Title } = Typography;
 
 const LocalCouncilReport: React.FC = () => {
   const { metroId, localId } = useParams();
+
   return (
     <Layout>
       <Flex
@@ -28,7 +34,7 @@ const LocalCouncilReport: React.FC = () => {
           level={1}
         >{`MetroId(${metroId}) LocalId(${localId})의 지역의회 다양성 리포트`}</Title>
         <Title level={2}>연령 다양성</Title>
-        <Histogram data={sampleAgeHistogramData} />
+        <AgeHistogram data={sampleAgeHistogramData} />
         <Title level={2}>정당 다양성</Title>
         <PieChart
           data={samplePartyPieData.data}

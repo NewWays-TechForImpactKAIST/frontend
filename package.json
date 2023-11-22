@@ -18,9 +18,11 @@
   },
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
+    "@ant-design/icons": "^5.2.6",
     "@ant-design/plots": "^1.2.5",
     "@emotion/react": "^11.11.1",
     "antd": "^5.11.1",
+    "axios": "^1.6.2",
     "immer": "^10.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

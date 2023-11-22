@@ -1,7 +1,7 @@
 import { Histogram, type HistogramConfig } from "@ant-design/plots";
 import { css } from "@emotion/react";
 
-interface HistogramData {
+export interface HistogramData {
   value: number;
 }
 
@@ -9,7 +9,7 @@ interface Props {
   data: HistogramData[];
 }
 
-const AgeHistogram = ({ data }: Props) => {
+export const AgeHistogram = ({ data }: Props) => {
   const config: HistogramConfig = {
     data,
     binField: "value",
@@ -37,5 +37,3 @@ const AgeHistogram = ({ data }: Props) => {
     />
   );
 };
-
-export default AgeHistogram;

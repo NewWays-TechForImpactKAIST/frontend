@@ -4,7 +4,8 @@ import { css } from "@emotion/react";
 
 import { Layout } from "@/components/templates";
 import { LocalSelector, MetroSelector } from "@/components/organisms";
-import { MetroID } from "static/MapSVGData";
+
+import { type MetroID } from "static/MapSVGData";
 import { useNavigate } from "react-router-dom";
 
 const LocalCouncil: React.FC = () => {
