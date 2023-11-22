@@ -30,7 +30,7 @@ const LocalSelector = ({ selected, onClick = () => {} }: Props) => (
           @media (max-width: 768px) {
             width: 80%;
           }
-          width: 30%;
+          width: 50%;
           height: 20pt;
           border-radius: 5pt;
           background-color: white;
@@ -58,7 +58,7 @@ const LocalSelector = ({ selected, onClick = () => {} }: Props) => (
         @media (max-width: 768px) {
           width: 80%;
         }
-        width: 30%;
+        width: 50%;
         .local {
           fill: ${MetroInfo[selected]?.color || "#4CC9F0"};
           stroke: #080808;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, ConfigProvider, Layout, Row } from "antd";
+import { css } from "@emotion/react";
 import { Header, Footer } from "@/components/organisms";
 
 const { Content } = Layout;
@@ -29,21 +30,14 @@ const NewwaysLayout = ({ children }: Props) => (
     <Layout className="layout">
       <Header />
       <Row justify="center">
-        <Col span={22}>
+        {/* breakpoint: 768px */}
+        <Col span={22} md={11}>
           <Content
-            style={{ padding: "0", display: "flex", justifyContent: "center" }}
+            css={css`
+              padding: 0;
+            `}
           >
-            <div
-              className="site-layout-content"
-              style={{
-                background: "#00E9A1",
-                maxWidth: "800px",
-
-                // alignItems: "center",
-              }}
-            >
-              {children}
-            </div>
+            {children}
           </Content>
         </Col>
       </Row>
