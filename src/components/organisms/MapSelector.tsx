@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Flex } from "antd";
 import { css } from "@emotion/react";
 import { LocalSelector, MetroSelector } from "@/components/molecules";
-import { useRecoilValue } from "recoil";
-import { idMapState } from "@/recoil/idMap";
 import { type MetroID } from "static/MapSVGData";
 import { useNavigate, useParams } from "react-router-dom";
 
-const LocalCouncil: React.FC = () => {
+const LocalCouncil = ({
+  idMap,
+}: {
+  idMap: Map<MetroID, Map<string, [number, number]>>;
+}) => {
   const [metroId, setMetroId] = useState<MetroID>();
   const { metroId: metroParam } = useParams();
   const navigate = useNavigate();
-  const idMap = useRecoilValue(idMapState);
   useEffect(() => {
     if (metroParam) {
       for (let [key, value] of idMap.entries()) {
