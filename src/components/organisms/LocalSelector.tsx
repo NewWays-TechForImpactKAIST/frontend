@@ -1,42 +1,50 @@
-import {MapSVG, type MetroID, MetroInfo} from "@/../static/MapSVGData";
-import {type ReactNode} from "react";
-import {Dropdown, Flex} from "antd";
-import {DownOutlined} from "@ant-design/icons";
-import {css} from "@emotion/react";
+import { MapSVG, type MetroID, MetroInfo } from "@/../static/MapSVGData";
+import { type ReactNode } from "react";
+import { Dropdown, Flex } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+import { css } from "@emotion/react";
 
 interface Props {
   selected: MetroID;
   onClick?: (local: string) => void;
 }
 
-const LocalSelector = ({
-                         selected, onClick = () => {
-  }
-                       }: Props) => (
+const LocalSelector = ({ selected, onClick = () => {} }: Props) => (
   <Flex vertical align="center">
-    <Dropdown menu={{
-      items: [
-        {key: '1', label: 'One'},
-        {key: '2', label: 'Two'},
-        {type: 'divider'},
-        {key: '3', label: 'Three'},
-        {key: '4', label: 'Four'},
-      ]
-    }}>
-      <Flex justify="center" align="center" gap="small" css={css`
-        @media (max-width: 768px) {
-          width: 80%;
-        }
-        width: 30%;
-        height: 20pt;
-        border-radius: 5pt;
-        background-color: white;
-      `}>
+    <Dropdown
+      menu={{
+        items: [
+          { key: "1", label: "One" },
+          { key: "2", label: "Two" },
+          { type: "divider" },
+          { key: "3", label: "Three" },
+          { key: "4", label: "Four" },
+        ],
+      }}
+    >
+      <Flex
+        justify="center"
+        align="center"
+        gap="small"
+        css={css`
+          @media (max-width: 768px) {
+            width: 80%;
+          }
+          width: 30%;
+          height: 20pt;
+          border-radius: 5pt;
+          background-color: white;
+        `}
+      >
         기초 자치 단체 선택하기
-        <DownOutlined/>
+        <DownOutlined />
       </Flex>
     </Dropdown>
-    <div css={css`height: 15pt`}/>
+    <div
+      css={css`
+        height: 15pt;
+      `}
+    />
     <svg
       version="1.1"
       id="Layer_1"
@@ -55,8 +63,9 @@ const LocalSelector = ({
           fill: ${MetroInfo[selected]?.color || "#4CC9F0"};
           stroke: #080808;
           stroke-width: 1px;
-          -webkit-transition: fill 0.2s,
-          stroke 0.2s
+          -webkit-transition:
+            fill 0.2s,
+            stroke 0.2s;
         }
         .local:hover {
           fill: #080808;
@@ -93,7 +102,7 @@ const LocalSelector = ({
             })}
           </g>
         ) : (
-          <g key={group.groupId}/>
+          <g key={group.groupId} />
         ),
       )}
     </svg>

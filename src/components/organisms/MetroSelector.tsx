@@ -1,43 +1,51 @@
-import {MapSVG, MetroInfo} from "@/../static/MapSVGData";
-import {type ReactNode, useState} from "react";
-import {Dropdown, Flex} from "antd";
-import {css} from "@emotion/react";
-import {DownOutlined} from "@ant-design/icons";
+import { MapSVG, MetroInfo } from "@/../static/MapSVGData";
+import { type ReactNode, useState } from "react";
+import { Dropdown, Flex } from "antd";
+import { css } from "@emotion/react";
+import { DownOutlined } from "@ant-design/icons";
 
 interface Props {
   onClick?: (local: string) => void;
 }
 
-const MetroSelector = ({
-                         onClick = () => {
-                         }
-                       }: Props) => {
+const MetroSelector = ({ onClick = () => {} }: Props) => {
   const [hover, setHover] = useState<string>("");
   return (
     <Flex vertical align="center">
-      <Dropdown menu={{
-        items: [
-          {key: '1', label: 'One'},
-          {key: '2', label: 'Two'},
-          {type: 'divider'},
-          {key: '3', label: 'Three'},
-          {key: '4', label: 'Four'},
-        ]
-      }}>
-        <Flex justify="center" align="center" gap="small" css={css`
-          @media (max-width: 768px) {
-            width: 80%;
-          }
-          width: 30%;
-          height: 20pt;
-          border-radius: 5pt;
-          background-color: white;
-        `}>
+      <Dropdown
+        menu={{
+          items: [
+            { key: "1", label: "One" },
+            { key: "2", label: "Two" },
+            { type: "divider" },
+            { key: "3", label: "Three" },
+            { key: "4", label: "Four" },
+          ],
+        }}
+      >
+        <Flex
+          justify="center"
+          align="center"
+          gap="small"
+          css={css`
+            @media (max-width: 768px) {
+              width: 80%;
+            }
+            width: 30%;
+            height: 20pt;
+            border-radius: 5pt;
+            background-color: white;
+          `}
+        >
           광역 자치 단체 선택하기
-          <DownOutlined/>
+          <DownOutlined />
         </Flex>
       </Dropdown>
-      <div css={css`height: 15pt`}/>
+      <div
+        css={css`
+          height: 15pt;
+        `}
+      />
       <svg
         version="1.1"
         id="Layer_1"
@@ -53,8 +61,9 @@ const MetroSelector = ({
           }
           width: 30%;
           .metro {
-            -webkit-transition: fill 0.2s,
-            stroke 0.2s
+            -webkit-transition:
+              fill 0.2s,
+              stroke 0.2s;
           }
         `}
       >
@@ -64,8 +73,12 @@ const MetroSelector = ({
             id={group.groupId}
             className="metro"
             css={css`
-              fill: ${hover !== group.groupId ? MetroInfo[group.groupId].color : "#060606"};
-              stroke: ${hover !== group.groupId ? MetroInfo[group.groupId].color : "#060606"};
+              fill: ${hover !== group.groupId
+                ? MetroInfo[group.groupId].color
+                : "#060606"};
+              stroke: ${hover !== group.groupId
+                ? MetroInfo[group.groupId].color
+                : "#060606"};
             `}
             onMouseEnter={() => {
               setHover(group.groupId);
@@ -79,11 +92,11 @@ const MetroSelector = ({
           >
             {group.component.map(shape => {
               if (shape.type === `path`) {
-                return <path key={shape.id} id={shape.id} d={shape.data}/>;
+                return <path key={shape.id} id={shape.id} d={shape.data} />;
               }
               if (shape.type === `polygon`) {
                 return (
-                  <polygon key={shape.id} id={shape.id} points={shape.data}/>
+                  <polygon key={shape.id} id={shape.id} points={shape.data} />
                 );
               }
               throw new Error(`${shape.id} is not path or polygon`);
