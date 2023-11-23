@@ -22,8 +22,8 @@ const NewwaysLayout = ({ children }: Props) => (
         Layout: {
           // Header, Content, Footer의 배경색을 설정합니다.
           headerBg: "#F0F0F0",
-          // bodyBg: "#00E9A1",
-          bodyBg: "#F1F1F1",
+          // bodyBg: "#00E9A1", // ugly...
+          bodyBg: "#F1F1F1", // much better
           footerBg: "#F0F0F0",
         },
       },
