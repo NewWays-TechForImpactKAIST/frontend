@@ -48,7 +48,7 @@ const LocalSelector = ({ selected, onClick = () => {} }: Props) => (
                   className="local"
                   id={shape.id}
                   d={shape.data}
-                  onClick={() => onClick(shape.id)}
+                  onClick={() => onClick(shape.id.split(`_`)[0])}
                 />
               );
             }
@@ -59,7 +59,7 @@ const LocalSelector = ({ selected, onClick = () => {} }: Props) => (
                   className="local"
                   id={shape.id}
                   points={shape.data}
-                  onClick={() => onClick(shape.id)}
+                  onClick={() => onClick(shape.id.split(`_`)[0])}
                 />
               );
             }
