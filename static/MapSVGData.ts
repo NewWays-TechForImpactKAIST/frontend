@@ -18,10 +18,10 @@ export type MetroID =
   | "서울특별시";
 
 export const themeColors = [
-  "#031273",
-  "#0504AA",
-  "#2337C6",
-  "#4169E1",
+  "#5169F1",
+  "#97ECF1",
+  "#23A7F6",
+  "#86CEF1",
   "#4CC9F0",
 ];
 
@@ -65,19 +65,19 @@ export const MetroInfo: {
     viewBox: "50 50 240 240",
   },
   세종특별자치시: {
-    color: themeColors[1],
-    viewBox: "140 280 100 100",
+    color: themeColors[0],
+    viewBox: "150 285 80 80",
   },
   울산광역시: {
     color: themeColors[2],
     viewBox: "390 435 100 100",
   },
   대전광역시: {
-    color: themeColors[4],
+    color: themeColors[1],
     viewBox: "165 320 80 80",
   },
   광주광역시: {
-    color: themeColors[3],
+    color: themeColors[0],
     viewBox: "95 505 80 80",
   },
   대구광역시: {
@@ -94,7 +94,7 @@ export const MetroInfo: {
   },
   서울특별시: {
     color: themeColors[0],
-    viewBox: "115 130 80 80",
+    viewBox: "122 135 70 70",
   },
 };
 

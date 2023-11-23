@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { LocalSelector, MetroSelector } from "@/components/molecules";
 import { type MetroID } from "static/MapSVGData";
 import { useNavigate, useParams } from "react-router-dom";
+import DropdownSelector from "@/components/molecules/DropdownSelector";
 
 interface Props {
   idMap: Map<MetroID, Map<string, [number, number]>>;
@@ -27,26 +28,46 @@ const LocalCouncil = ({ idMap }: Props) => {
   return (
     <Flex
       vertical
+      justify="center"
+      align="center"
       gap={40}
       css={css`
         margin: 40px 0 40px 0;
       `}
     >
       {metroId ? (
-        <LocalSelector
-          selected={metroId}
-          onClick={id => {
-            const idData = idMap.get(metroId)?.get(id);
-            if (!idData) return;
-            navigate(`/localCouncilReport/${idData[0]}/${idData[1]}`);
-          }}
-        />
+        <>
+          <DropdownSelector
+            innerText="기초 의회를 선택하세요."
+            options={[...(idMap.get(metroId)?.keys() || [])]}
+            onClick={id => {
+              const idData = idMap.get(metroId)?.get(id);
+              if (!idData) return;
+              navigate(`/localCouncilReport/${idData[0]}/${idData[1]}`);
+            }}
+          />
+          <LocalSelector
+            selected={metroId}
+            onClick={id => {
+              const idData = idMap.get(metroId)?.get(id);
+              if (!idData) return;
+              navigate(`/localCouncilReport/${idData[0]}/${idData[1]}`);
+            }}
+          />
+        </>
       ) : (
-        <MetroSelector
-          onClick={id => {
-            setMetroId(id as MetroID);
-          }}
-        />
+        <>
+          <DropdownSelector
+            innerText="광역 의회를 선택하세요."
+            options={[...idMap.keys()]}
+            onClick={value => setMetroId(value as MetroID)}
+          />
+          <MetroSelector
+            onClick={id => {
+              setMetroId(id as MetroID);
+            }}
+          />
+        </>
       )}
     </Flex>
   );
