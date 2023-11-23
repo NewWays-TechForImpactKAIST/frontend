@@ -6,4 +6,4 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Access-Control-Allow-Origin = "https://diversity.tech4impact.kr/"
+    Access-Control-Allow-Origin = "https://diversity-api.tech4impact.kr/"
