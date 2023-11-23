@@ -9,8 +9,8 @@ interface Props {
   idMap: Map<MetroID, Map<string, [number, number]>>;
 }
 
-const LocalCouncil = ({ idMap }: Props) => {
-  const [metroId, setMetroId] = useState<MetroID>();
+const LocalCouncilMapSelector = ({ idMap }: Props) => {
+  const [metroName, setMetroName] = useState<MetroID>();
   const { metroId: metroParam } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
@@ -18,7 +18,7 @@ const LocalCouncil = ({ idMap }: Props) => {
       idMap.forEach((value, key) => {
         if (value) {
           if (value.values().next().value[0] === metroParam) {
-            setMetroId(key as MetroID);
+            setMetroName(key as MetroID);
           }
         }
       });
@@ -32,19 +32,19 @@ const LocalCouncil = ({ idMap }: Props) => {
         margin: 40px 0 40px 0;
       `}
     >
-      {metroId ? (
+      {metroName ? (
         <LocalSelector
-          selected={metroId}
-          onClick={id => {
-            const idData = idMap.get(metroId)?.get(id);
+          selected={metroName}
+          onClick={localName => {
+            const idData = idMap.get(metroName)?.get(localName);
             if (!idData) return;
-            navigate(`/localCouncilReport/${idData[0]}/${idData[1]}`);
+            navigate(`/localCouncil/${metroName}/${localName}`);
           }}
         />
       ) : (
         <MetroSelector
           onClick={id => {
-            setMetroId(id as MetroID);
+            setMetroName(id as MetroID);
           }}
         />
       )}
@@ -52,4 +52,4 @@ const LocalCouncil = ({ idMap }: Props) => {
   );
 };
 
-export default LocalCouncil;
+export default LocalCouncilMapSelector;

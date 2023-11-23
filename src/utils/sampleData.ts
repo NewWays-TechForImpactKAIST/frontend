@@ -45,7 +45,7 @@ export const samplePartyPieData = {
   ],
 };
 
-export const sampleSexPieData = {
+export const sampleGenderPieData = {
   colors: ["#FF0000", "#0000FF"],
   data: [
     {

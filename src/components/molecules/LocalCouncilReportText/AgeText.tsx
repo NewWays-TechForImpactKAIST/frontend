@@ -5,29 +5,26 @@ const { Paragraph, Text } = Typography;
 export type AgeTextVariation = 1 | 2;
 
 export interface AgeTextData {
-  foo: string;
-  bar: string;
+  ageDiversityIndex: number;
 }
 
 interface Props {
   /** text variation을 선택할 수 있습니다(기본값: 1). */
-  textVariation?: AgeTextVariation;
+  variation?: AgeTextVariation;
   /** text에 들어갈 데이터입니다. */
-  textData: AgeTextData;
+  data?: AgeTextData;
 }
 
-export const AgeText = ({ textVariation = 1, textData }: Props) => {
-  const { foo, bar } = textData;
+export const AgeText = ({ variation = 1, data = undefined }: Props) => {
+  if (!data) return <Paragraph>데이터를 불러오는 중입니다..</Paragraph>;
 
-  if (textVariation === 1)
+  const { ageDiversityIndex } = data;
+  if (variation === 1)
     return (
       <Paragraph>
-        foo=<Text strong>{foo}</Text>
+        이 지역의 연령 다양성 지표의 값은{" "}
+        <Text strong>{ageDiversityIndex}</Text>입니다.
       </Paragraph>
     );
-  return (
-    <Paragraph>
-      bar=<Text strong>{bar}</Text>
-    </Paragraph>
-  );
+  return <Paragraph>존재하지 않는 템플릿입니다.</Paragraph>;
 };
