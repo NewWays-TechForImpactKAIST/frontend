@@ -46,23 +46,54 @@ interface Props {
   variation?: AgeTextVariation;
   /** text에 들어갈 데이터입니다. */
   data?: AgeTextData;
+  getNameFromId: (id: number) => [string, string] | undefined;
 }
 
-export const AgeText = ({ variation = 1, data = undefined }: Props) => {
+export const AgeText = ({
+  variation = 1,
+  data = undefined,
+  getNameFromId,
+}: Props) => {
   if (!data) return <Paragraph>데이터를 불러오는 중입니다..</Paragraph>;
 
   const {
-    metroId,
     localId,
     // rankingParagraph,
     // indexHistoryParagraph,
-    // ageHistogramParagraph,
+    ageHistogramParagraph,
   } = data;
   if (variation === 1)
     return (
       <Paragraph>
-        이 지역의 metroId는 <Text strong>{metroId}</Text>, localId는{" "}
-        <Text strong>{localId}</Text>입니다.
+        <Text strong>{ageHistogramParagraph.year}</Text>년 전국동시지방선거에서{" "}
+        <Text strong>{getNameFromId(localId)?.join(" ")}</Text>
+        에는 <Text strong>{ageHistogramParagraph.candidateCount}</Text>명이{" "}
+        후보로 나와 <Text strong>{ageHistogramParagraph.electedCount}</Text>명이{" "}
+        당선됐어요. 당선자의 20%가{" "}
+        <Text strong>{ageHistogramParagraph.firstQuintile}</Text>세 미만, 20%가{" "}
+        {ageHistogramParagraph.lastQuintile}세 이상이에요.
+        <br />
+        <br />
+        참고로 다양성 지표 전국 1위는 전체 인원의 20%가{" "}
+        <Text strong>{ageHistogramParagraph.divArea.firstQuintile}</Text>세{" "}
+        미만, 20%가{" "}
+        <Text strong>{ageHistogramParagraph.divArea.lastQuintile}</Text>세{" "}
+        이상인{" "}
+        <Text strong>
+          {getNameFromId(ageHistogramParagraph.divArea.localId)?.join(" ")}
+        </Text>
+        , 전국 뒤에서 1위는 전체 인원의 20%가{" "}
+        <Text strong>{ageHistogramParagraph.uniArea.firstQuintile}</Text>세
+        미만, 20%가{" "}
+        <Text strong>{ageHistogramParagraph.uniArea.lastQuintile}</Text>세
+        이상인{" "}
+        <Text strong>
+          {getNameFromId(ageHistogramParagraph.uniArea.localId)?.join(" ")}
+        </Text>
+        예요.
+        <br />
+        <br />
+        이전 정보를 확인하려면 아래의 슬라이더를 밀어 보세요.
       </Paragraph>
     );
   return <Paragraph>존재하지 않는 템플릿입니다.</Paragraph>;

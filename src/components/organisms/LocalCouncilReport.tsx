@@ -19,6 +19,7 @@ import {
   sampleAgeHistogramData,
   samplePartyPieData,
   sampleGenderPieData,
+  useGetNameFromId,
 } from "@/utils";
 
 const { Title } = Typography;
@@ -35,8 +36,10 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
   const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [partyTextData, setPartyTextData] = useState<PartyTextData>();
 
+  const getNameFromId = useGetNameFromId(idMap);
+
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
-  useEffect(() => {
+  const fetchText = () => {
     axios
       .get(`localCouncil/template-data/${metroId}/${localId}?factor=age`)
       .then(response => {
@@ -61,7 +64,11 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
       .catch(() => {
         alert("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchText();
+  }, [metroName, localName]);
 
   return (
     <Flex
@@ -76,7 +83,7 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
       >{`${metroName} ${localName}의 지역의회 다양성 리포트`}</Title>
       <Title level={2}>연령 다양성</Title>
       <AgeHistogram data={sampleAgeHistogramData} />
-      <AgeText data={ageTextData} />
+      <AgeText data={ageTextData} getNameFromId={getNameFromId} />
       <Title level={2}>성별 다양성</Title>
       <PieChart
         data={sampleGenderPieData.data}
