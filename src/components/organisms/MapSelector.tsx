@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Flex } from "antd";
 import { css } from "@emotion/react";
 import { LocalSelector, MetroSelector } from "@/components/molecules";
@@ -15,14 +15,13 @@ const LocalCouncil = ({ idMap }: Props) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (metroParam) {
-      for (const [key, value] of idMap.entries()) {
+      idMap.forEach((value, key) => {
         if (value) {
           if (value.values().next().value[0] === metroParam) {
             setMetroId(key as MetroID);
-            break;
           }
         }
-      }
+      });
     }
   }, [metroParam]);
   return (
