@@ -58,7 +58,7 @@ const LocalCouncil = () => {
       <Element name="Report">
         {metroName && localName ? (
           <LocalCouncilReport
-            metroName={metroName}
+            metroName={metroName as MetroID}
             localName={localName}
             idMap={metroLocalMap}
           />

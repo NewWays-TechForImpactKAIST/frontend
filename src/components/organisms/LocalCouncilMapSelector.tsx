@@ -10,20 +10,9 @@ interface Props {
 }
 
 const LocalCouncilMapSelector = ({ idMap }: Props) => {
-  const [metroName, setMetroName] = useState<MetroID>();
-  const { metroId: metroParam } = useParams();
+  const { metroName } = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (metroParam) {
-      idMap.forEach((value, key) => {
-        if (value) {
-          if (value.values().next().value[0] === metroParam) {
-            setMetroName(key as MetroID);
-          }
-        }
-      });
-    }
-  }, [metroParam]);
+
   return (
     <Flex
       vertical
@@ -34,17 +23,17 @@ const LocalCouncilMapSelector = ({ idMap }: Props) => {
     >
       {metroName ? (
         <LocalSelector
-          selected={metroName}
+          selected={metroName as MetroID}
           onClick={localName => {
-            const idData = idMap.get(metroName)?.get(localName);
+            const idData = idMap.get(metroName as MetroID)?.get(localName);
             if (!idData) return;
             navigate(`/localCouncil/${metroName}/${localName}`);
           }}
         />
       ) : (
         <MetroSelector
-          onClick={id => {
-            setMetroName(id as MetroID);
+          onClick={newMetroName => {
+            navigate(`/localCouncil/${newMetroName}`);
           }}
         />
       )}
