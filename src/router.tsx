@@ -4,14 +4,15 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { LocalCouncil, LocalCouncilReport } from "@/components/pages";
+import { LocalCouncil } from "@/components/pages";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
     <Route path="/localCouncil" element={<LocalCouncil />} />,
+    <Route path="/localCouncil/:metroId" element={<LocalCouncil />} />,
     <Route
       path="/localCouncilReport/:metroId/:localId"
-      element={<LocalCouncilReport />}
+      element={<LocalCouncil />}
     />,
     <Route path="*" element={<Navigate to="/localCouncil" />} />,
   ]),
