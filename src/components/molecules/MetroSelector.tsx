@@ -22,7 +22,7 @@ const MetroSelector = ({ onClick = () => {} }: Props) => {
         @media (max-width: 768px) {
           width: 80%;
         }
-        width: 50%;
+        width: 60%;
 
         .metro {
           -webkit-transition:

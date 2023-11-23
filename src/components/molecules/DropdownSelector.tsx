@@ -31,7 +31,7 @@ const DropdownSelector = ({
         @media (max-width: 768px) {
           width: 80%;
         }
-        width: 50%;
+        width: 60%;
         height: 20pt;
         border-radius: 5pt;
         background-color: white;
