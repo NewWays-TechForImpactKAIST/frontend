@@ -16,11 +16,13 @@ const DropdownSelector = ({
   <Dropdown
     menu={{
       items: options.map((value, i) => {
-        return {
+        const ret = {
           key: i,
-          label: <div onClick={() => onClick(value)}>{value}</div>,
+          label: value,
         };
+        return ret;
       }),
+      onClick: ({ key }) => onClick(options[parseInt(key)]),
     }}
   >
     <Flex
