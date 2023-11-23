@@ -39,7 +39,7 @@ const LocalCouncil = ({ idMap }: Props) => {
         <>
           <DropdownSelector
             innerText="기초 의회를 선택하세요."
-            options={idMap.has(metroId) ? [...idMap.get(metroId).keys()] : []}
+            options={[...(idMap.get(metroId)?.keys() || [])]}
             onClick={id => {
               const idData = idMap.get(metroId)?.get(id);
               if (!idData) return;
