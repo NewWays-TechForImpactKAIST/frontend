@@ -41,9 +41,6 @@ dependencies:
   react-scroll:
     specifier: ^1.9.0
     version: 1.9.0(react-dom@18.2.0)(react@18.2.0)
-  recoil:
-    specifier: ^0.7.7
-    version: 0.7.7(react-dom@18.2.0)(react@18.2.0)
   zustand:
     specifier: ^4.4.3
     version: 4.4.3(@types/react@18.2.25)(immer@10.0.3)(react@18.2.0)
@@ -3944,10 +3941,6 @@ packages:
     engines: {node: '>=0.8.0'}
     dev: false
 
-  /hamt_plus@1.0.2:
-    resolution: {integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==}
-    dev: false
-
   /has-ansi@2.0.0:
     resolution: {integrity: sha512-C8vBJ8DwUCx19vhm7urhTuUsr4/IyP6l4VzNQDv+ryHQObW3TTTp9yB68WpYgRe2bbaGuZ/se74IqFeVnMnLZg==}
     engines: {node: '>=0.10.0'}
@@ -5666,23 +5659,6 @@ packages:
     dependencies:
       lodash: 4.17.21
       react: 18.2.0
-    dev: false
-
-  /recoil@0.7.7(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-8Og5KPQW9LwC577Vc7Ug2P0vQshkv1y3zG3tSSkWMqkWSwHmE+by06L8JtnGocjW6gcCvfwB3YtrJG6/tWivNQ==}
-    peerDependencies:
-      react: '>=16.13.1'
-      react-dom: '*'
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      hamt_plus: 1.0.2
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /reflect-metadata@0.1.13:
