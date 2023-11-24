@@ -11,7 +11,7 @@ import {
   type GenderTextData,
   type PartyTextData,
 } from "@/components/molecules/LocalCouncilReportText";
-import { AgeHistogram } from "@/components/organisms/Histogram";
+// import { Histogram } from "@/components/organisms/Histogram";
 import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
 import { axios, sampleAgeHistogramData, useGetNameFromId } from "@/utils";
@@ -173,7 +173,7 @@ const MetroCouncilReport = ({ metroName, localName, idMap }: Props) => {
         level={1}
       >{`${metroName} ${localName}의 지역의회 다양성 리포트`}</Title>
       <Title level={2}>연령 다양성</Title>
-      <AgeHistogram data={sampleAgeHistogramData} />
+      {/* <Histogram data={sampleAgeHistogramData} /> */}
       <AgeText data={ageTextData} getNameFromId={getNameFromId} />
       <Title level={2}>성별 다양성</Title>
       {genderPieChartData && genderPieChartColorMap ? (
