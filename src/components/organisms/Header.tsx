@@ -27,7 +27,7 @@ const NewwaysHeader = () => (
         span={22}
       >
         <Link
-          to="/"
+          to="/localCouncil"
           aria-label="메인 페이지로 이동"
           css={css`
             display: flex;
