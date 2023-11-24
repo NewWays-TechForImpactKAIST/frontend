@@ -11,9 +11,10 @@ import { RollbackOutlined } from "@ant-design/icons";
 
 interface Props {
   idMap: Map<MetroID, Map<string, [number, number]>>;
+  type: "metro" | "local";
 }
 
-const LocalCouncilMapSelector = ({ idMap }: Props) => {
+const LocalCouncilMapSelector = ({ idMap, type = "local" }: Props) => {
   const { metroName } = useParams();
   const navigate = useNavigate();
 
@@ -77,12 +78,18 @@ const LocalCouncilMapSelector = ({ idMap }: Props) => {
           <DropdownSelector
             innerText="광역 의회를 선택하세요."
             options={[...idMap.keys()]}
-            onClick={newMetroName => navigate(`/localCouncil/${newMetroName}`)}
+            onClick={newMetroName =>
+              type === "local"
+                ? navigate(`/localCouncil/${newMetroName}`)
+                : navigate(`/metroCouncil/${newMetroName}`)
+            }
           />{" "}
           <MetroSelector
-            onClick={newMetroName => {
-              navigate(`/localCouncil/${newMetroName}`);
-            }}
+            onClick={newMetroName =>
+              type === "local"
+                ? navigate(`/localCouncil/${newMetroName}`)
+                : navigate(`/metroCouncil/${newMetroName}`)
+            }
           />
         </>
       )}
