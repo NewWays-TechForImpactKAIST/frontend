@@ -34,7 +34,7 @@ const DropdownSelector = ({
           width: 80%;
         }
         width: 60%;
-        height: 20pt;
+        height: 25pt;
         border-radius: 5pt;
         background-color: white;
       `}
