@@ -14,12 +14,7 @@ import {
 import { AgeHistogram } from "@/components/organisms/Histogram";
 import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
-import {
-  axios,
-  sampleAgeHistogramData,
-  samplePartyPieData,
-  useGetNameFromId,
-} from "@/utils";
+import { axios, sampleAgeHistogramData, useGetNameFromId } from "@/utils";
 
 const { Title } = Typography;
 
