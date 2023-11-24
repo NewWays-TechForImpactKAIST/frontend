@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MapSelector, LocalCouncilReport } from "@/components/organisms";
+import { MapSelector, MetroCouncilReport } from "@/components/organisms";
 import { useParams } from "react-router-dom";
 import { Element, scroller } from "react-scroll";
 import { Layout } from "@/components/templates";
@@ -17,18 +17,18 @@ type LocalInfo = {
   id: number;
 };
 
-const LocalCouncil = () => {
-  const { metroName, localName } = useParams();
+const MetroCouncilPage = () => {
+  const { metroName } = useParams();
   const [metroLocalMap, setMetroLocalMap] =
     useState<Map<MetroID, Map<string, [number, number]>>>();
   useEffect(() => {
-    if (!metroName || !localName) return;
+    if (!metroName) return;
     scroller.scrollTo("Report", {
       duration: 1000,
       delay: 50,
       smooth: "easeInOutQuart",
     });
-  }, [metroName, localName]);
+  }, [metroName]);
   useEffect(() => {
     const idMap = new Map<MetroID, Map<string, [number, number]>>();
     axios.get("/localCouncil/regionInfo").then(response => {
@@ -51,12 +51,12 @@ const LocalCouncil = () => {
   }, []);
   return metroLocalMap ? (
     <Layout>
-      <MapSelector idMap={metroLocalMap} />
+      <MapSelector idMap={metroLocalMap} type="metro" />
       <Element name="Report">
-        {metroName && localName ? (
-          <LocalCouncilReport
+        {metroName ? (
+          <MetroCouncilReport
             metroName={metroName as MetroID}
-            localName={localName}
+            localName="삼척"
             idMap={metroLocalMap}
           />
         ) : null}
@@ -65,4 +65,4 @@ const LocalCouncil = () => {
   ) : null;
 };
 
-export default LocalCouncil;
+export default MetroCouncilPage;
