@@ -4,7 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { LocalCouncilPage } from "@/components/pages";
+import { LocalCouncilPage, MetroCouncilPage } from "@/components/pages";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
@@ -14,6 +14,8 @@ const router = createBrowserRouter(
       path="/localCouncil/:metroName/:localName"
       element={<LocalCouncilPage />}
     />,
+    <Route path="/metroCouncil" element={<MetroCouncilPage />} />,
+    <Route path="/metroCouncil/:metroName" element={<MetroCouncilPage />} />,
     <Route path="*" element={<Navigate to="/localCouncil" replace={true} />} />,
   ]),
 );

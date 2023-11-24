@@ -11,10 +11,10 @@ import { RollbackOutlined } from "@ant-design/icons";
 
 interface Props {
   idMap: Map<MetroID, Map<string, [number, number]>>;
-  type: "metro" | "local";
+  type?: "metro" | "local";
 }
 
-const LocalCouncilMapSelector = ({ idMap, type = "local" }: Props) => {
+const MapSelector = ({ idMap, type = "local" }: Props) => {
   const { metroName } = useParams();
   const navigate = useNavigate();
 
@@ -97,4 +97,4 @@ const LocalCouncilMapSelector = ({ idMap, type = "local" }: Props) => {
   );
 };
 
-export default LocalCouncilMapSelector;
+export default MapSelector;
