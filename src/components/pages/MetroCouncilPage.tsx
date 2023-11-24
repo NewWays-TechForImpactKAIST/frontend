@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  MapSelector,
-  LocalCouncilReport,
-  MetroCouncilReport,
-} from "@/components/organisms";
+import { MapSelector, MetroCouncilReport } from "@/components/organisms";
 import { useParams } from "react-router-dom";
 import { Element, scroller } from "react-scroll";
 import { Layout } from "@/components/templates";
@@ -55,12 +51,12 @@ const MetroCouncilPage = () => {
   }, []);
   return metroLocalMap ? (
     <Layout>
-      <MapSelector idMap={metroLocalMap} type={"metro"} />
+      <MapSelector idMap={metroLocalMap} type="metro" />
       <Element name="Report">
         {metroName ? (
           <MetroCouncilReport
             metroName={metroName as MetroID}
-            localName={"삼척"}
+            localName="삼척"
             idMap={metroLocalMap}
           />
         ) : null}

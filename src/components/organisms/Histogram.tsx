@@ -5,7 +5,7 @@ import {
 } from "@ant-design/plots";
 import { css } from "@emotion/react";
 
-export type ColorGroup = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export type ColorGroup = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export interface BinData {
   binMin: number;
@@ -16,43 +16,76 @@ export interface BinData {
 
 type HistogramData = {
   value: number;
+  colorGroup?: ColorGroup;
 }[];
 
 interface Props {
   data: BinData[];
 }
 
+interface CustomHistogramConfig extends HistogramConfig {
+  colorField: string;
+}
+
 export const Histogram = ({ data }: Props) => {
+  const ageMin = data[0].binMin - 1;
+  const ageMax = data[data.length - 1].binMax + 1;
+  const [countMax, setCountMax] = useState<number>(data[0].count);
+
   const [binWidth, setBinWidth] = useState<number>(
     data[0].binMax - data[0].binMin,
   );
   const [histogramData, setHistogramData] = useState<HistogramData>([]);
 
+  const getColorGroup = (minAge: number): ColorGroup =>
+    data.find(({ binMin }) => binMin === minAge)?.colorGroup ?? 0;
+
+  const getColor = (colorGroup: ColorGroup): string => {
+    const colors = [
+      "#FA9189",
+      "#FCAE7C",
+      "#FFE699",
+      "#F9FFB5",
+      "#B3F5BC",
+      "#D6F6FF",
+      "#E2CBF7",
+      "#D1BDFF",
+    ];
+    return colors[colorGroup];
+  };
+
   useEffect(() => {
     const newHistogramData: HistogramData = [];
-    data.forEach(({ binMin, count }) => {
+    data.forEach(({ binMin, count, colorGroup }) => {
+      if (count > countMax) setCountMax(count);
       Array(count)
         .fill(0)
         .forEach(() => {
-          newHistogramData.push({ value: binMin });
+          newHistogramData.push({ value: binMin, colorGroup });
         });
     });
     setHistogramData(newHistogramData);
     setBinWidth(data[0].binMax - data[0].binMin);
   }, [data]);
 
-  const config: HistogramConfig = {
+  const config: CustomHistogramConfig = {
     data: histogramData,
     binField: "value",
     binWidth,
-    color: "#00BCE9",
+    colorField: "type",
+    color: param => {
+      const [binMin] = param.range as [number, number];
+      return getColor(getColorGroup(binMin));
+    },
     meta: {
       range: {
-        tickInterval: 5,
+        min: ageMin,
+        max: ageMax,
+        tickInterval: 1,
       },
       count: {
         min: 0,
-        max: 10,
+        max: countMax + 1,
         tickInterval: 1,
         nice: true,
       },

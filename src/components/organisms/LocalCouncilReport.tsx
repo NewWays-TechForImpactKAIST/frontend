@@ -145,12 +145,23 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
       .then(response => {
         const data = response.data as AgeHistogramDataAPIResponse;
         const newAgeHistogramData: BinData[] = [];
+
+        // colorGroup이 백엔드에서 정렬되어 도착한다는 보장이 없습니다.
+        // 예를 들어, 35세의 colorGroup이 1이지만, 36세의 colorGroup이 0일 수 있습니다.
+        const colorGroupMap = new Map<ColorGroup, ColorGroup>();
+        let lastColorGroup: ColorGroup = 0;
+
         data.data.forEach(({ minAge, maxAge, count, ageGroup }) => {
+          if (!colorGroupMap.has(ageGroup as ColorGroup)) {
+            colorGroupMap.set(ageGroup as ColorGroup, lastColorGroup);
+            lastColorGroup += 1;
+          }
           newAgeHistogramData.push({
             binMin: minAge,
             binMax: maxAge,
             count,
-            colorGroup: ageGroup as ColorGroup,
+            colorGroup: colorGroupMap.get(ageGroup as ColorGroup) || 0,
+            // colorGroup: ageGroup as ColorGroup,
           });
         });
         setAgeHistogramData(newAgeHistogramData);

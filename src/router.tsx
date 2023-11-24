@@ -16,7 +16,7 @@ const router = createBrowserRouter(
     />,
     <Route path="/metroCouncil" element={<MetroCouncilPage />} />,
     <Route path="/metroCouncil/:metroName" element={<MetroCouncilPage />} />,
-    <Route path="*" element={<Navigate to="/localCouncil" replace={true} />} />,
+    <Route path="*" element={<Navigate to="/localCouncil" replace />} />,
   ]),
 );
 
