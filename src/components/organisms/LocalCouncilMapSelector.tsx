@@ -1,31 +1,22 @@
-import { useState, useEffect } from "react";
 import { Button, Flex } from "antd";
 import { css } from "@emotion/react";
-import { LocalSelector, MetroSelector } from "@/components/molecules";
+import {
+  LocalSelector,
+  MetroSelector,
+  DropdownSelector,
+} from "@/components/molecules";
 import { type MetroID } from "static/MapSVGData";
 import { useNavigate, useParams } from "react-router-dom";
-import DropdownSelector from "@/components/molecules/DropdownSelector";
 import { RollbackOutlined } from "@ant-design/icons";
 
 interface Props {
   idMap: Map<MetroID, Map<string, [number, number]>>;
 }
 
-const LocalCouncil = ({ idMap }: Props) => {
-  const [metroId, setMetroId] = useState<MetroID>();
-  const { metroId: metroParam } = useParams();
+const LocalCouncilMapSelector = ({ idMap }: Props) => {
+  const { metroName } = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (metroParam) {
-      idMap.forEach((value, key) => {
-        if (value) {
-          if (value.values().next().value[0] === metroParam) {
-            setMetroId(key as MetroID);
-          }
-        }
-      });
-    }
-  }, [metroParam]);
+
   return (
     <Flex
       vertical
@@ -36,7 +27,7 @@ const LocalCouncil = ({ idMap }: Props) => {
         margin: 40px 0 40px 0;
       `}
     >
-      {metroId ? (
+      {metroName ? (
         <>
           <Flex
             justify="center"
@@ -47,11 +38,11 @@ const LocalCouncil = ({ idMap }: Props) => {
           >
             <DropdownSelector
               innerText="기초 의회를 선택하세요."
-              options={[...(idMap.get(metroId)?.keys() || [])]}
-              onClick={id => {
-                const idData = idMap.get(metroId)?.get(id);
+              options={[...(idMap.get(metroName as MetroID)?.keys() || [])]}
+              onClick={localName => {
+                const idData = idMap.get(metroName as MetroID)?.get(localName);
                 if (!idData) return;
-                navigate(`/localCouncilReport/${idData[0]}/${idData[1]}`);
+                navigate(`/localCouncil/${metroName}/${localName}`);
               }}
             />
             <div
@@ -65,7 +56,6 @@ const LocalCouncil = ({ idMap }: Props) => {
                 height: 25pt;
               `}
               onClick={() => {
-                setMetroId(undefined);
                 navigate(`/localCouncil`);
               }}
             >
@@ -73,24 +63,25 @@ const LocalCouncil = ({ idMap }: Props) => {
             </Button>
           </Flex>
           <LocalSelector
-            selected={metroId}
-            onClick={id => {
-              const idData = idMap.get(metroId)?.get(id);
+            selected={metroName as MetroID}
+            onClick={localName => {
+              const idData = idMap.get(metroName as MetroID)?.get(localName);
               if (!idData) return;
-              navigate(`/localCouncilReport/${idData[0]}/${idData[1]}`);
+              navigate(`/localCouncil/${metroName}/${localName}`);
             }}
           />
         </>
       ) : (
         <>
+          {" "}
           <DropdownSelector
             innerText="광역 의회를 선택하세요."
             options={[...idMap.keys()]}
-            onClick={value => setMetroId(value as MetroID)}
-          />
+            onClick={newMetroName => navigate(`/localCouncil/${newMetroName}`)}
+          />{" "}
           <MetroSelector
-            onClick={id => {
-              setMetroId(id as MetroID);
+            onClick={newMetroName => {
+              navigate(`/localCouncil/${newMetroName}`);
             }}
           />
         </>
@@ -99,4 +90,4 @@ const LocalCouncil = ({ idMap }: Props) => {
   );
 };
 
-export default LocalCouncil;
+export default LocalCouncilMapSelector;

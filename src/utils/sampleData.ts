@@ -45,8 +45,8 @@ export const samplePartyPieData = {
   ],
 };
 
-export const sampleSexPieData = {
-  colors: ["#FF0000", "#0000FF"],
+export const sampleGenderPieData = {
+  colors: ["#289FD4", "#AE2D6C"],
   data: [
     {
       type: "남성",

@@ -16,12 +16,14 @@ const NewwaysLayout = ({ children }: Props) => (
         // 기본 폰트는 Pretendard로 설정합니다.
         fontFamily:
           "Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+        fontSize: 16,
       },
       components: {
         Layout: {
           // Header, Content, Footer의 배경색을 설정합니다.
           headerBg: "#F0F0F0",
-          bodyBg: "#00E9A1",
+          bodyBg: "#00E9A1", // ugly...
+          // bodyBg: "#F1F1F1", // much better
           footerBg: "#F0F0F0",
         },
       },

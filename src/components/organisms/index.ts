@@ -5,4 +5,4 @@ export * from "./Histogram";
 export * from "./PieChart";
 export { default as TestChart } from "./TestChart";
 export { default as LocalCouncilReport } from "./LocalCouncilReport";
-export { default as MapSelector } from "./MapSelector";
+export { default as LocalCouncilMapSelector } from "./LocalCouncilMapSelector";

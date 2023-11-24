@@ -8,10 +8,10 @@ export interface PieChartData {
 
 export interface Props {
   data: PieChartData[];
-  colors: string[];
+  colorMap: Map<string, string>;
 }
 
-export const PieChart = ({ data, colors }: Props) => {
+export const PieChart = ({ data, colorMap }: Props) => {
   const config: PieConfig = {
     appendPadding: 10,
     data,
@@ -22,7 +22,7 @@ export const PieChart = ({ data, colors }: Props) => {
       content: "{name} {percentage}",
     },
     colorField: "type",
-    color: colors,
+    color: data.map(({ type }) => colorMap.get(type) || "#888888"),
     interactions: [
       {
         type: "pie-legend-active",
