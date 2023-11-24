@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Flex } from "antd";
+import { Button, Flex } from "antd";
 import { css } from "@emotion/react";
 import { LocalSelector, MetroSelector } from "@/components/molecules";
 import { type MetroID } from "static/MapSVGData";
 import { useNavigate, useParams } from "react-router-dom";
 import DropdownSelector from "@/components/molecules/DropdownSelector";
+import { RollbackOutlined } from "@ant-design/icons";
 
 interface Props {
   idMap: Map<MetroID, Map<string, [number, number]>>;
@@ -37,15 +38,40 @@ const LocalCouncil = ({ idMap }: Props) => {
     >
       {metroId ? (
         <>
-          <DropdownSelector
-            innerText="기초 의회를 선택하세요."
-            options={[...(idMap.get(metroId)?.keys() || [])]}
-            onClick={id => {
-              const idData = idMap.get(metroId)?.get(id);
-              if (!idData) return;
-              navigate(`/localCouncilReport/${idData[0]}/${idData[1]}`);
-            }}
-          />
+          <Flex
+            justify="center"
+            align="center"
+            css={css`
+              width: 100%;
+            `}
+          >
+            <DropdownSelector
+              innerText="기초 의회를 선택하세요."
+              options={[...(idMap.get(metroId)?.keys() || [])]}
+              onClick={id => {
+                const idData = idMap.get(metroId)?.get(id);
+                if (!idData) return;
+                navigate(`/localCouncilReport/${idData[0]}/${idData[1]}`);
+              }}
+            />
+            <div
+              css={css`
+                width: 5%;
+              `}
+            />
+            <Button
+              type="primary"
+              css={css`
+                height: 25pt;
+              `}
+              onClick={() => {
+                setMetroId(undefined);
+                navigate(`/localCouncil`);
+              }}
+            >
+              <RollbackOutlined />
+            </Button>
+          </Flex>
           <LocalSelector
             selected={metroId}
             onClick={id => {
