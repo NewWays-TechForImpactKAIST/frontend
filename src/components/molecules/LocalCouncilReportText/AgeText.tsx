@@ -70,13 +70,13 @@ export const AgeText = ({
         에는 <Text strong>{ageHistogramParagraph.candidateCount}</Text>명이{" "}
         후보로 나와 <Text strong>{ageHistogramParagraph.electedCount}</Text>명이{" "}
         당선됐어요. 당선자의 20%가{" "}
-        <Text strong>{ageHistogramParagraph.firstQuintile}</Text>세 미만, 20%가{" "}
+        <Text strong>{ageHistogramParagraph.firstQuintile}</Text>세 이하, 20%가{" "}
         <Text strong>{ageHistogramParagraph.lastQuintile}</Text>세 이상이에요.
         <br />
         <br />
         참고로 다양성 지표 전국 1위는 전체 인원의 20%가{" "}
         <Text strong>{ageHistogramParagraph.divArea.firstQuintile}</Text>세{" "}
-        미만, 20%가{" "}
+        이하, 20%가{" "}
         <Text strong>{ageHistogramParagraph.divArea.lastQuintile}</Text>세{" "}
         이상인{" "}
         <Text strong>
@@ -84,7 +84,7 @@ export const AgeText = ({
         </Text>
         , 전국 뒤에서 1위는 전체 인원의 20%가{" "}
         <Text strong>{ageHistogramParagraph.uniArea.firstQuintile}</Text>세
-        미만, 20%가{" "}
+        이하, 20%가{" "}
         <Text strong>{ageHistogramParagraph.uniArea.lastQuintile}</Text>세
         이상인{" "}
         <Text strong>
