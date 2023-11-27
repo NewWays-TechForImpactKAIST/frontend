@@ -28,7 +28,7 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
         margin: 40px 0 40px 0;
       `}
     >
-      {metroName && type == "local" ? (
+      {metroName && type === "local" ? (
         <>
           <Flex
             justify="center"

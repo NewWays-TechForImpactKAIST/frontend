@@ -32,7 +32,7 @@ const MetroCouncilPage = () => {
   }, [metroName]);
   useEffect(() => {
     const idMap = new Map<MetroID, Map<string, [number, number]>>();
-    const metroMap = new Map<MetroID, number>();
+    const metroAPIMap = new Map<MetroID, number>();
     axios.get("/localCouncil/regionInfo").then(response => {
       response.data.forEach((region: RegionInfo) => {
         region.local.forEach((local: LocalInfo) => {
@@ -46,11 +46,11 @@ const MetroCouncilPage = () => {
               [local.name, [region.id, local.id]],
             ]),
           );
-          metroMap.set(region.name, region.id);
+          metroAPIMap.set(region.name, region.id);
         });
       });
       setMetroLocalMap(idMap);
-      setMetroMap(metroMap);
+      setMetroMap(metroAPIMap);
     });
   }, []);
   return metroLocalMap ? (
