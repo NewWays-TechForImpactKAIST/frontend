@@ -42,6 +42,25 @@ interface Props {
 }
 
 const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
+  const defaultData: GenderTextData = {
+    metroName: metroName,
+    now: {
+      year: 2020,
+      malePopulation: 50,
+      femalePopulation: 40,
+    },
+    prev: {
+      year: 2016,
+      malePopulation: 35,
+      femalePopulation: 55,
+    },
+    mean: {
+      year: 2020,
+      malePopulation: 60,
+      femalePopulation: 40,
+    },
+  };
+
   const metroId = metroMap?.get(metroName) || 1;
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
   const [genderTextData, setGenderTextData] = useState<GenderTextData>();
@@ -177,7 +196,7 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
-      <GenderText data={genderTextData} />
+      <GenderText data={defaultData} />
       <Title level={2}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
