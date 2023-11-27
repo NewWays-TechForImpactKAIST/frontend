@@ -221,6 +221,7 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
       </Flex>
       <Title level={2}>연령 다양성</Title>
       {/* <Histogram data={sampleAgeHistogramData} /> */}
+
       <AgeText data={ageTextData} getNameFromId={getNameFromId} />
       <Title level={2}>성별 다양성</Title>
       {genderPieChartData && genderPieChartColorMap ? (
