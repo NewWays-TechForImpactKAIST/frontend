@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Flex, Space, Switch, Typography } from "antd";
+import { Flex, Switch, Typography } from "antd";
 import { css } from "@emotion/react";
 import { type MetroID } from "static/MapSVGData";
 
+import { DropdownSelector } from "@/components/molecules";
 import {
   AgeText,
   GenderText,
@@ -19,7 +20,6 @@ import {
 import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
 import { axios, useGetNameFromId } from "@/utils";
-import { DropdownSelector } from "../molecules";
 
 const { Title } = Typography;
 
@@ -58,8 +58,8 @@ interface Props {
 
 const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
   const defaultData: GenderTextData = {
-    metroName: metroName,
-    localName: localName,
+    metroName,
+    localName,
     now: {
       year: 2020,
       malePopulation: 50,
@@ -82,7 +82,7 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
   const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
 
-  const [genderTextData, setGenderTextData] = useState<GenderTextData>();
+  // const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [sgType, setSgType] = useState<"elected" | "candidate">("elected");
   const [sgYear, setSgYear] = useState<number>(2022);
 
@@ -108,14 +108,14 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
       .catch(() => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
-    axios
-      .get(`localCouncil/template-data/${metroId}/${localId}?factor=gender`)
-      .then(response => {
-        setGenderTextData(response.data as GenderTextData);
-      })
-      .catch(() => {
-        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-      });
+    // axios
+    //   .get(`localCouncil/template-data/${metroId}/${localId}?factor=gender`)
+    //   .then(response => {
+    //     setGenderTextData(response.data as GenderTextData);
+    //   })
+    //   .catch(() => {
+    //     throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+    //   });
     // axios
     //   .get(`localCouncil/template-data/${metroId}/${localId}?factor=party`)
     //   .then(response => {
@@ -262,7 +262,7 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
           }}
         />
         <Switch
-          size={"default"}
+          size="default"
           checkedChildren="당선자"
           unCheckedChildren="후보자"
           onClick={checked => {
