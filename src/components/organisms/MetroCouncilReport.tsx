@@ -3,6 +3,7 @@ import { Flex, Switch, Typography } from "antd";
 import { css } from "@emotion/react";
 import { type MetroID } from "static/MapSVGData";
 
+import { DropdownSelector } from "@/components/molecules";
 import {
   AgeText,
   GenderText,
@@ -15,7 +16,6 @@ import {
 import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
 import { axios, useGetNameFromId } from "@/utils";
-import { DropdownSelector } from "../molecules";
 
 const { Title } = Typography;
 
@@ -44,7 +44,7 @@ interface Props {
 
 const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
   const defaultData: GenderTextData = {
-    metroName: metroName,
+    metroName,
     now: {
       year: 2020,
       malePopulation: 50,
@@ -64,7 +64,7 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
 
   const metroId = metroMap?.get(metroName) || 1;
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
-  const [genderTextData, setGenderTextData] = useState<GenderTextData>();
+  // const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [sgYear, setSgYear] = useState<number>(2022);
   const [sgType, setSgType] = useState<"candidate" | "elected">("elected");
   const [genderPieChartData, setGenderPieChartData] =
@@ -88,14 +88,14 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
       .catch(() => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
-    axios
-      .get(`metroCouncil/template-data/${metroId}?factor=gender`)
-      .then(response => {
-        setGenderTextData(response.data as GenderTextData);
-      })
-      .catch(() => {
-        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-      });
+    // axios
+    //   .get(`metroCouncil/template-data/${metroId}?factor=gender`)
+    //   .then(response => {
+    //     setGenderTextData(response.data as GenderTextData);
+    //   })
+    //   .catch(() => {
+    //     throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+    //   });
     // axios
     //   .get(`metroCouncil/template-data/${metroId}?factor=party`)
     //   .then(response => {
@@ -210,7 +210,7 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
           }}
         />
         <Switch
-          size={"default"}
+          size="default"
           checkedChildren="당선자"
           unCheckedChildren="후보자"
           onClick={checked => {

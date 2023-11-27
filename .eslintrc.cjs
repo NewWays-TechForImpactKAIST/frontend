@@ -19,6 +19,7 @@ module.exports = {
   },
   plugins: ["import", "@typescript-eslint", "react", "react-refresh"],
   rules: {
+    "no-nested-ternary": "off",
     "no-alert": "off",
     "react-refresh/only-export-components": [
       "warn",
