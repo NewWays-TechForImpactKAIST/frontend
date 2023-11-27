@@ -1,13 +1,8 @@
-import { Button, Flex } from "antd";
+import { Flex } from "antd";
 import { css } from "@emotion/react";
-import {
-  LocalSelector,
-  MetroSelector,
-  DropdownSelector,
-} from "@/components/molecules";
+import { MetroSelector, DropdownSelector } from "@/components/molecules";
 import { type MetroID } from "static/MapSVGData";
-import { useNavigate, useParams } from "react-router-dom";
-import { RollbackOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   idMap: Map<MetroID, Map<string, [number, number]>>;
@@ -15,7 +10,6 @@ interface Props {
 }
 
 const MapSelector = ({ idMap, type = "local" }: Props) => {
-  const { metroName } = useParams();
   const navigate = useNavigate();
 
   return (
