@@ -9,7 +9,7 @@ import {
   PartyText,
   type AgeTextData,
   type GenderTextData,
-  type PartyTextData,
+  // type PartyTextData,
 } from "@/components/molecules/MetroCouncilReportText";
 // import { Histogram } from "@/components/organisms/Histogram";
 import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
@@ -74,7 +74,7 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
   const [partyPieChartData, setPartyPieChartData] = useState<PieChartData[]>();
   const [partyPieChartColorMap, setPartyPieChartColorMap] =
     useState<Map<string, string>>();
-  const [partyTextData, setPartyTextData] = useState<PartyTextData>();
+  // const [partyTextData, setPartyTextData] = useState<PartyTextData>();
 
   const getNameFromId = useGetNameFromId(idMap);
 
@@ -96,14 +96,14 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
       .catch(() => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
-    axios
-      .get(`metroCouncil/template-data/${metroId}?factor=party`)
-      .then(response => {
-        setPartyTextData(response.data as PartyTextData);
-      })
-      .catch(() => {
-        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-      });
+    // axios
+    //   .get(`metroCouncil/template-data/${metroId}?factor=party`)
+    //   .then(response => {
+    //     setPartyTextData(response.data as PartyTextData);
+    //   })
+    //   .catch(() => {
+    //     throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+    //   });
   };
 
   // 백엔드로부터 그래프 색상들을 가져옵니다.
@@ -229,7 +229,7 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
       ) : null}
-      <PartyText data={partyTextData} />
+      <PartyText />
     </Flex>
   );
 };

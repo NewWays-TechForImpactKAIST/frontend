@@ -1,5 +1,5 @@
 import { Typography } from "antd";
-import { bigParties } from "@/utils/constants";
+import { bigParties, type ElectionYears } from "@/utils/constants";
 
 const { Paragraph, Text } = Typography;
 
@@ -7,9 +7,7 @@ export type PartyTextVariation = 1 | 2;
 
 export interface PartyTextData {
   /** 현재 연도 */
-  nowYear: number;
-  /** 지역의회 id */
-  localId: number;
+  nowYear: ElectionYears;
   /** 정당별 당선자 수 (이전 선거) */
   prevElectedPartyList: {
     party: string;
@@ -32,20 +30,31 @@ interface Props {
   variation?: PartyTextVariation;
   /** text에 들어갈 데이터입니다. */
   data?: PartyTextData;
-  /** localId로부터 지역의회 이름을 얻어내는 함수입니다. */
-  getNameFromId: (id: number) => [string, string] | undefined;
 }
 
-export const PartyText = ({
-  variation = 1,
-  data = undefined,
-  getNameFromId,
-}: Props) => {
+const defaultData: PartyTextData = {
+  nowYear: 2022,
+  prevElectedPartyList: [
+    { party: "국민의힘", count: 5 },
+    { party: "더불어민주당", count: 5 },
+  ],
+  nowCandidatePartyList: [
+    { party: "국민의힘", count: 10 },
+    { party: "더불어민주당", count: 8 },
+    { party: "정의당", count: 2 },
+  ],
+  nowElectedPartyList: [
+    { party: "국민의힘", count: 5 },
+    { party: "더불어민주당", count: 4 },
+    { party: "정의당", count: 1 },
+  ],
+};
+
+export const PartyText = ({ variation = 1, data = defaultData }: Props) => {
   if (!data) return <Paragraph>데이터를 불러오는 중입니다..</Paragraph>;
 
   const {
     nowYear,
-    localId,
     prevElectedPartyList,
     nowCandidatePartyList,
     nowElectedPartyList,
@@ -54,7 +63,7 @@ export const PartyText = ({
   const minorPartyIncreased =
     nowElectedPartyList.length > prevElectedPartyList.length;
   const minorPartyList = nowElectedPartyList.filter(
-    partyItem => bigParties.indexOf(partyItem.party) === -1,
+    partyItem => bigParties[nowYear].indexOf(partyItem.party) === -1,
   );
   const anonymousCount = nowElectedPartyList.filter(
     partyItem => partyItem.party === "무소속",
@@ -74,29 +83,24 @@ export const PartyText = ({
           <Text>
             지난 선거에서는 <Text strong>{prevElectedPartyList.length}</Text>개{" "}
             정당에서만 당선자가 나왔던 걸 생각하면, 이번엔 진짜 다양한 목소리가{" "}
-            들린다는 거죠! 여러분의{" "}
-            <Text strong>{getNameFromId(localId)?.join(" ")}</Text>에서 다양성의{" "}
-            바람이 솔솔~ 역대급 변화가 느껴지지 않나요?
+            들린다는 거죠! 여러분의 광역의회에서 다양성의 바람이 솔솔~ 역대급
+            변화가 느껴지지 않나요?
           </Text>
         ) : (
           // 소수정당 당성자 수가 줄었다면 아래 텍스트 표시
           <Text>
             이번 선거는 군소정당과 무소속 후보에게 어려웠어요.. 두 거대 양당에서{" "}
-            더 많은 당선자가! {bigParties[0]}에서는{" "}
+            더 많은 당선자가! {bigParties[nowYear][0]}에서{" "}
             <Text strong>
-              {
-                nowElectedPartyList.filter(
-                  partyItem => partyItem.party === bigParties[0],
-                )[0].count
-              }
+              {nowElectedPartyList.filter(
+                partyItem => partyItem.party === bigParties[nowYear][0],
+              )[0]?.count || 0}
             </Text>
-            명의 당선자가, {bigParties[1]}에서는{" "}
+            명의 당선자가, {bigParties[nowYear][1]}에서{" "}
             <Text strong>
-              {
-                nowElectedPartyList.filter(
-                  partyItem => partyItem.party === bigParties[1],
-                )[0].count
-              }
+              {nowElectedPartyList.filter(
+                partyItem => partyItem.party === bigParties[nowYear][1],
+              )[0]?.count || 0}
             </Text>{" "}
             명의 당선자가 나왔어요. 지난 선거에 비하면 소수정당의 목소리가 좀{" "}
             줄어든 느낌이에요.
@@ -108,10 +112,13 @@ export const PartyText = ({
             <br />
             <br />
             이번 지방선거에서는{" "}
-            {minorPartyList
-              .map(partyItem => partyItem.party)
-              .join(", ")}에서도 {"각각 "}
-            {minorPartyList.map(partyItem => partyItem.count).join("명, ")}
+            <Text strong>
+              {minorPartyList.map(partyItem => partyItem.party).join(", ")}
+            </Text>
+            에서도 {minorPartyList.length === 1 ? "" : "각각 "}
+            <Text strong>
+              {minorPartyList.map(partyItem => partyItem.count).join("명, ")}
+            </Text>
             명의 당선자가 나왔어요.{" "}
           </>
         ) : null}
