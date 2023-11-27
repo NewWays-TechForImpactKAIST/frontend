@@ -191,6 +191,9 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
         margin: 40px 0 40px 0;
       `}
     >
+      <Title level={1}>{`${metroName}의 ${sgYear}년도 ${
+        sgType === "candidate" ? "후보자" : "당선인"
+      } 광역의회 다양성 리포트`}</Title>
       <Flex
         css={css`
           flex-direction: row;
@@ -208,15 +211,14 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
         />
         <Switch
           size={"default"}
-          checkedChildren="후보자"
-          unCheckedChildren="당선자"
+          checkedChildren="당선자"
+          unCheckedChildren="후보자"
           onClick={checked => {
-            setSgType(checked ? "candidate" : "elected");
+            setSgType(checked ? "elected" : "candidate");
           }}
           defaultChecked
         />
       </Flex>
-      <Title level={1}>{`${metroName}의 광역의회 다양성 리포트`}</Title>
       <Title level={2}>연령 다양성</Title>
       {/* <Histogram data={sampleAgeHistogramData} /> */}
       <AgeText data={ageTextData} getNameFromId={getNameFromId} />
