@@ -37,12 +37,12 @@ type PartyPieChartDataAPIResponse = {
 
 interface Props {
   metroName: MetroID;
-  localName: string;
   idMap: Map<MetroID, Map<string, [number, number]>>;
+  metroMap: Map<MetroID, number> | undefined;
 }
 
-const MetroCouncilReport = ({ metroName, localName, idMap }: Props) => {
-  const [metroId] = idMap.get(metroName)?.get(localName) || [1, 1];
+const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
+  const metroId = metroMap?.get(metroName) || 1;
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
   const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [genderPieChartData, setGenderPieChartData] =

@@ -66,9 +66,8 @@ export const AgeText = ({
     return (
       <Paragraph>
         <Text strong>{ageHistogramParagraph.year}</Text>년 전국동시지방선거에서{" "}
-        <Text strong>{getNameFromId(localId)?.join(" ")}</Text>
-        에는 <Text strong>{ageHistogramParagraph.candidateCount}</Text>명이{" "}
-        후보로 나와 <Text strong>{ageHistogramParagraph.electedCount}</Text>명이{" "}
+        <Text strong>{ageHistogramParagraph.candidateCount}</Text>명이 후보로
+        나와 <Text strong>{ageHistogramParagraph.electedCount}</Text>명이{" "}
         당선됐어요. 당선자의 20%가{" "}
         <Text strong>{ageHistogramParagraph.firstQuintile}</Text>세 이하, 20%가{" "}
         <Text strong>{ageHistogramParagraph.lastQuintile}</Text>세 이상이에요.

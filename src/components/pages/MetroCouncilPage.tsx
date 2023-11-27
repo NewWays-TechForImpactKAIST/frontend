@@ -21,6 +21,7 @@ const MetroCouncilPage = () => {
   const { metroName } = useParams();
   const [metroLocalMap, setMetroLocalMap] =
     useState<Map<MetroID, Map<string, [number, number]>>>();
+  const [metroMap, setMetroMap] = useState<Map<MetroID, number>>();
   useEffect(() => {
     if (!metroName) return;
     scroller.scrollTo("Report", {
@@ -31,6 +32,7 @@ const MetroCouncilPage = () => {
   }, [metroName]);
   useEffect(() => {
     const idMap = new Map<MetroID, Map<string, [number, number]>>();
+    const metroMap = new Map<MetroID, number>();
     axios.get("/localCouncil/regionInfo").then(response => {
       response.data.forEach((region: RegionInfo) => {
         region.local.forEach((local: LocalInfo) => {
@@ -44,9 +46,11 @@ const MetroCouncilPage = () => {
               [local.name, [region.id, local.id]],
             ]),
           );
+          metroMap.set(region.name, region.id);
         });
       });
       setMetroLocalMap(idMap);
+      setMetroMap(metroMap);
     });
   }, []);
   return metroLocalMap ? (
@@ -56,7 +60,7 @@ const MetroCouncilPage = () => {
         {metroName ? (
           <MetroCouncilReport
             metroName={metroName as MetroID}
-            localName="삼척"
+            metroMap={metroMap}
             idMap={metroLocalMap}
           />
         ) : null}
