@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Flex, Typography } from "antd";
+import { Flex, Switch, Typography } from "antd";
 import { css } from "@emotion/react";
 import { type MetroID } from "static/MapSVGData";
 
@@ -15,6 +15,7 @@ import {
 import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
 import { axios, useGetNameFromId } from "@/utils";
+import { DropdownSelector } from "../molecules";
 
 const { Title } = Typography;
 
@@ -64,6 +65,8 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
   const metroId = metroMap?.get(metroName) || 1;
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
   const [genderTextData, setGenderTextData] = useState<GenderTextData>();
+  const [sgYear, setSgYear] = useState<number>(2022);
+  const [sgType, setSgType] = useState<"candidate" | "elected">("elected");
   const [genderPieChartData, setGenderPieChartData] =
     useState<PieChartData[]>();
   const [genderPieChartColorMap, setGenderPieChartColorMap] =
@@ -188,6 +191,31 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
         margin: 40px 0 40px 0;
       `}
     >
+      <Flex
+        css={css`
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+        `}
+      >
+        <DropdownSelector
+          innerText="연도를 선택하세요."
+          options={["2022", "2020", "2016", "2014"]}
+          onClick={key => {
+            setSgYear(parseInt(key));
+          }}
+        />
+        <Switch
+          size={"default"}
+          checkedChildren="후보자"
+          unCheckedChildren="당선자"
+          onClick={checked => {
+            setSgType(checked ? "candidate" : "elected");
+          }}
+          defaultChecked
+        />
+      </Flex>
       <Title level={1}>{`${metroName}의 광역의회 다양성 리포트`}</Title>
       <Title level={2}>연령 다양성</Title>
       {/* <Histogram data={sampleAgeHistogramData} /> */}

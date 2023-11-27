@@ -31,7 +31,7 @@ const DropdownSelector = ({
       gap="small"
       css={css`
         @media (max-width: 768px) {
-          width: 80%;
+          width: 70%;
         }
         width: 60%;
         height: 25pt;
