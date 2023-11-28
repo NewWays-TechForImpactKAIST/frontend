@@ -41,11 +41,33 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
               items={(
                 [
                   {
-                    title: <a href="/localCouncil">뉴웨이즈 다양성 리포트</a>,
+                    title: (
+                      // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                      <a onClick={() => navigate("/localCouncil")}>
+                        뉴웨이즈 다양성 리포트
+                      </a>
+                    ),
                   },
                 ] as { title: string | JSX.Element }[]
               )
-                .concat(metroName ? [{ title: metroName }] : [])
+                .concat(
+                  metroName
+                    ? [
+                        {
+                          title: (
+                            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                            <a
+                              onClick={() =>
+                                navigate(`/localCouncil/${metroName}`)
+                              }
+                            >
+                              {metroName}
+                            </a>
+                          ),
+                        },
+                      ]
+                    : [],
+                )
                 .concat(localName ? [{ title: localName }] : [])}
             />
           </div>
@@ -59,10 +81,10 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
             <DropdownSelector
               innerText="기초 의회를 선택하세요."
               options={[...(idMap.get(metroName as MetroID)?.keys() || [])]}
-              onClick={localName => {
-                const idData = idMap.get(metroName as MetroID)?.get(localName);
+              onClick={local => {
+                const idData = idMap.get(metroName as MetroID)?.get(local);
                 if (!idData) return;
-                navigate(`/localCouncil/${metroName}/${localName}`);
+                navigate(`/localCouncil/${metroName}/${local}`);
               }}
             />
             <div
@@ -84,10 +106,10 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
           </Flex>
           <LocalSelector
             selected={metroName as MetroID}
-            onClick={localName => {
-              const idData = idMap.get(metroName as MetroID)?.get(localName);
+            onClick={local => {
+              const idData = idMap.get(metroName as MetroID)?.get(local);
               if (!idData) return;
-              navigate(`/localCouncil/${metroName}/${localName}`);
+              navigate(`/localCouncil/${metroName}/${local}`);
             }}
           />
         </>
