@@ -1,4 +1,4 @@
-import { Button, Flex } from "antd";
+import { Button, Flex, Breadcrumb } from "antd";
 import { css } from "@emotion/react";
 import {
   LocalSelector,
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const MapSelector = ({ idMap, type = "local" }: Props) => {
-  const { metroName } = useParams();
+  const { metroName, localName } = useParams();
   const navigate = useNavigate();
 
   return (
@@ -30,6 +30,25 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
     >
       {metroName && type === "local" ? (
         <>
+          <div
+            css={css`
+              text-align: left;
+              width: 100%;
+              font-size: 24pt;
+            `}
+          >
+            <Breadcrumb
+              items={(
+                [
+                  {
+                    title: <a href="/localCouncil">뉴웨이즈 다양성 리포트</a>,
+                  },
+                ] as { title: string | JSX.Element }[]
+              )
+                .concat(metroName ? [{ title: metroName }] : [])
+                .concat(localName ? [{ title: localName }] : [])}
+            />
+          </div>
           <Flex
             justify="center"
             align="center"
