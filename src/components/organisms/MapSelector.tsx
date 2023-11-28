@@ -43,32 +43,25 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
                   {
                     title: (
                       // eslint-disable-next-line jsx-a11y/anchor-is-valid
-                      <a onClick={() => navigate("/localCouncil")}>
-                        뉴웨이즈 다양성 리포트
-                      </a>
+                      <a>뉴웨이즈 다양성 리포트</a>
                     ),
+                    onClick: () => navigate(`/localCouncil`),
                   },
-                ] as { title: string | JSX.Element }[]
+                ] as { title: string | JSX.Element; onClick: () => void }[]
               )
                 .concat(
                   metroName
                     ? [
                         {
-                          title: (
-                            // eslint-disable-next-line jsx-a11y/anchor-is-valid
-                            <a
-                              onClick={() =>
-                                navigate(`/localCouncil/${metroName}`)
-                              }
-                            >
-                              {metroName}
-                            </a>
-                          ),
+                          title: <a>{metroName}</a>,
+                          onClick: () => navigate(`/localCouncil/${metroName}`),
                         },
                       ]
                     : [],
                 )
-                .concat(localName ? [{ title: localName }] : [])}
+                .concat(
+                  localName ? [{ title: localName, onClick: () => {} }] : [],
+                )}
             />
           </div>
           <Flex
