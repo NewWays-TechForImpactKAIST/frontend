@@ -53,6 +53,7 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
                   metroName
                     ? [
                         {
+                          // eslint-disable-next-line jsx-a11y/anchor-is-valid
                           title: <a>{metroName}</a>,
                           onClick: () => navigate(`/localCouncil/${metroName}`),
                         },
