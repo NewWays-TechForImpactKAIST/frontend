@@ -5,7 +5,7 @@ import { Element, scroller } from "react-scroll";
 import { type MetroID } from "static/MapSVGData";
 import axios from "@/utils/axios";
 import MapSelector from "./MapSelector";
-import LocalCouncilReport from "./LocalCouncilReport";
+import NationalCouncilReport from "./NationalCouncilReport";
 
 type RegionInfo = {
   id: number;
@@ -18,7 +18,7 @@ type LocalInfo = {
   id: number;
 };
 
-const LocalCouncilCard = () => {
+const NationalCouncilCard = () => {
   const { metroName, localName } = useParams();
   const [metroLocalMap, setMetroLocalMap] =
     useState<Map<MetroID, Map<string, [number, number]>>>();
@@ -58,7 +58,7 @@ const LocalCouncilCard = () => {
       <MapSelector idMap={metroLocalMap} />
       <Element name="Report">
         {metroName && localName ? (
-          <LocalCouncilReport
+          <NationalCouncilReport
             metroName={metroName as MetroID}
             localName={localName}
             idMap={metroLocalMap}
@@ -70,4 +70,4 @@ const LocalCouncilCard = () => {
   ) : null;
 };
 
-export default LocalCouncilCard;
+export default NationalCouncilCard;

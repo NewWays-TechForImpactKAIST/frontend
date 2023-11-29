@@ -11,7 +11,7 @@ import {
   type AgeTextData,
   type GenderTextData,
   type PartyTextData,
-} from "@/components/molecules/LocalCouncilReportText";
+} from "@/components/molecules/NationalCouncilReportText";
 import {
   Histogram,
   type ColorGroup,
@@ -63,7 +63,7 @@ interface Props {
   onLoaded: () => void;
 }
 
-const LocalCouncilReport = ({
+const NationalCouncilReport = ({
   metroName,
   localName,
   idMap,
@@ -94,7 +94,7 @@ const LocalCouncilReport = ({
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {
     axios
-      .get(`localCouncil/template-data/${metroId}/${localId}?factor=age`)
+      .get(`nationalCouncil/template-data?factor=age`)
       .then(response => {
         setAgeTextData(response.data as AgeTextData);
       })
@@ -102,7 +102,7 @@ const LocalCouncilReport = ({
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(`localCouncil/template-data/${metroId}/${localId}?factor=gender`)
+      .get(`nationalCouncil/template-data?factor=gender`)
       .then(response => {
         setGenderTextData(response.data as GenderTextData);
       })
@@ -110,7 +110,7 @@ const LocalCouncilReport = ({
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(`localCouncil/template-data/${metroId}/${localId}?factor=party`)
+      .get(`nationalCouncil/template-data?factor=party`)
       .then(response => {
         setPartyTextData(response.data as PartyTextData);
       })
@@ -155,9 +155,7 @@ const LocalCouncilReport = ({
   // 백엔드로부터 그래프 데이터를 가져옵니다.
   const fetchGraphData = () => {
     axios
-      .get(
-        `age-hist/${metroId}/${localId}?ageHistType=elected&year=${sgYear}&method=equal`,
-      )
+      .get(`age-hist?ageHistType=elected&year=${sgYear}&method=equal`)
       .then(response => {
         const data = response.data as AgeHistogramDataAPIResponse;
         const newAgeHistogramData: BinData[] = [];
@@ -186,7 +184,7 @@ const LocalCouncilReport = ({
       });
 
     axios
-      .get(`localCouncil/chart-data/${metroId}/${localId}?factor=gender`)
+      .get(`nationalCouncil/chart-data?factor=gender`)
       .then(response => {
         const data = response.data.data as GenderPieChartDataAPIResponse;
         const newGenderPieChartData: PieChartData[] = [];
@@ -203,7 +201,7 @@ const LocalCouncilReport = ({
       });
 
     axios
-      .get(`localCouncil/chart-data/${metroId}/${localId}?factor=party`)
+      .get(`nationalCouncil/chart-data?factor=party`)
       .then(response => {
         const data = response.data.data as PartyPieChartDataAPIResponse;
         const newPartyPieChartData: PieChartData[] = [];
@@ -295,4 +293,4 @@ const LocalCouncilReport = ({
   );
 };
 
-export default LocalCouncilReport;
+export default NationalCouncilReport;
