@@ -5,6 +5,7 @@ import { Card } from "@/components/atoms";
 import {
   LocalCouncilCard,
   MetroCouncilCard,
+  NationalCouncilCard,
   ReportIntro,
   TabSelector,
 } from "@/components/organisms";
@@ -24,6 +25,8 @@ const MainPage = () => {
               return <LocalCouncilCard />;
             case "metroCouncil":
               return <MetroCouncilCard />;
+            case "nationalCouncil":
+              return <NationalCouncilCard />;
             default:
               return <LocalCouncilCard />;
           }
