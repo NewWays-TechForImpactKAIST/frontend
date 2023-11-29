@@ -121,11 +121,11 @@ const MetroCouncilReport = ({
     const newGenderPieChartColorMap = new Map<string, string>();
     const genderColors = [
       {
-        type: "남",
+        type: "남성",
         color: "#289FD4",
       },
       {
-        type: "여",
+        type: "여성",
         color: "#AE2D6C",
       },
     ];
@@ -189,7 +189,7 @@ const MetroCouncilReport = ({
         const newGenderPieChartData: PieChartData[] = [];
         data.forEach(({ gender, count }) => {
           newGenderPieChartData.push({
-            type: gender,
+            type: `${gender}성`,
             value: count,
           });
         });

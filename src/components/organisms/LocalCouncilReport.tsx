@@ -124,11 +124,11 @@ const LocalCouncilReport = ({
     const newGenderPieChartColorMap = new Map<string, string>();
     const genderColors = [
       {
-        type: "남",
+        type: "남성",
         color: "#289FD4",
       },
       {
-        type: "여",
+        type: "여성",
         color: "#AE2D6C",
       },
     ];
@@ -177,7 +177,6 @@ const LocalCouncilReport = ({
             binMax: maxAge,
             count,
             colorGroup: colorGroupMap.get(ageGroup as ColorGroup) || 0,
-            // colorGroup: ageGroup as ColorGroup,
           });
         });
         setAgeHistogramData(newAgeHistogramData);
@@ -193,7 +192,7 @@ const LocalCouncilReport = ({
         const newGenderPieChartData: PieChartData[] = [];
         data.forEach(({ gender, count }) => {
           newGenderPieChartData.push({
-            type: gender,
+            type: `${gender}성`,
             value: count,
           });
         });
