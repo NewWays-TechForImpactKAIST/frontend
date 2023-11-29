@@ -1,9 +1,9 @@
-import { Col, Flex, Layout, Row, Typography } from "antd";
+import { Col, ConfigProvider, Flex, Layout, Row, Typography } from "antd";
 import { css } from "@emotion/react";
-
 import { SNSHomepage, SNSInstagram, SNSLinkedin, SNSYoutube } from "@/assets";
+import colors from "@/styles/colors";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph, Text, Link } = Typography;
 const { Footer } = Layout;
 
 const FooterTitle = () => (
@@ -22,7 +22,20 @@ const FooterDescription = () => (
     <Paragraph type="secondary">젊치인의 도전과 성장을 돕는 에이전시</Paragraph>
     <Text type="secondary">대표 박혜민</Text>
     <Text type="secondary">고유번호 767-82-00531</Text>
-    <Text type="secondary">문의 build@newways.kr</Text>
+    <Text type="secondary">
+      문의{" "}
+      <ConfigProvider
+        theme={{
+          token: {
+            colorInfo: colors.gray140,
+          },
+        }}
+      >
+        <Link underline href="mailto:build@newways.kr">
+          build@newways.kr
+        </Link>
+      </ConfigProvider>
+    </Text>
   </Flex>
 );
 
