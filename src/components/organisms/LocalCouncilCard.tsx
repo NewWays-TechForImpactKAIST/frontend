@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { MapSelector, MetroCouncilReport } from "@/components/organisms";
 import { useParams } from "react-router-dom";
 import { Element, scroller } from "react-scroll";
-import { Layout } from "@/components/templates";
+
 import { type MetroID } from "static/MapSVGData";
 import axios from "@/utils/axios";
+import MapSelector from "./MapSelector";
+import LocalCouncilReport from "./LocalCouncilReport";
 
 type RegionInfo = {
   id: number;
@@ -17,22 +18,20 @@ type LocalInfo = {
   id: number;
 };
 
-const MetroCouncilPage = () => {
-  const { metroName } = useParams();
+const LocalCouncil = () => {
+  const { metroName, localName } = useParams();
   const [metroLocalMap, setMetroLocalMap] =
     useState<Map<MetroID, Map<string, [number, number]>>>();
-  const [metroMap, setMetroMap] = useState<Map<MetroID, number>>();
   useEffect(() => {
-    if (!metroName) return;
+    if (!metroName || !localName) return;
     scroller.scrollTo("Report", {
       duration: 1000,
       delay: 50,
       smooth: "easeInOutQuart",
     });
-  }, [metroName]);
+  }, [metroName, localName]);
   useEffect(() => {
     const idMap = new Map<MetroID, Map<string, [number, number]>>();
-    const metroAPIMap = new Map<MetroID, number>();
     axios.get("/localCouncil/regionInfo").then(response => {
       response.data.forEach((region: RegionInfo) => {
         region.local.forEach((local: LocalInfo) => {
@@ -46,27 +45,25 @@ const MetroCouncilPage = () => {
               [local.name, [region.id, local.id]],
             ]),
           );
-          metroAPIMap.set(region.name, region.id);
         });
       });
       setMetroLocalMap(idMap);
-      setMetroMap(metroAPIMap);
     });
   }, []);
   return metroLocalMap ? (
-    <Layout>
-      <MapSelector idMap={metroLocalMap} type="metro" />
+    <>
+      <MapSelector idMap={metroLocalMap} />
       <Element name="Report">
-        {metroName ? (
-          <MetroCouncilReport
+        {metroName && localName ? (
+          <LocalCouncilReport
             metroName={metroName as MetroID}
-            metroMap={metroMap}
+            localName={localName}
             idMap={metroLocalMap}
           />
         ) : null}
       </Element>
-    </Layout>
+    </>
   ) : null;
 };
 
-export default MetroCouncilPage;
+export default LocalCouncil;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, ConfigProvider, Layout, Row } from "antd";
 import { css } from "@emotion/react";
-import { Header, Footer } from "@/components/organisms";
+import { Header, NavigationCard, Footer } from "@/components/organisms";
 
 const { Content } = Layout;
 
@@ -21,10 +21,9 @@ const NewwaysLayout = ({ children }: Props) => (
       components: {
         Layout: {
           // Header, Content, Footer의 배경색을 설정합니다.
-          headerBg: "#F0F0F0",
-          bodyBg: "#00E9A1", // ugly...
-          // bodyBg: "#F1F1F1", // much better
-          footerBg: "#F0F0F0",
+          headerBg: "#CCCCCC",
+          bodyBg: "#F1F1F1",
+          footerBg: "#CCCCCC",
         },
       },
     }}
@@ -34,6 +33,7 @@ const NewwaysLayout = ({ children }: Props) => (
       <Row justify="center">
         {/* breakpoint: 768px */}
         <Col span={22} md={11}>
+          <NavigationCard />
           <Content
             css={css`
               padding: 0;
