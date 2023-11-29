@@ -25,7 +25,7 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
       align="center"
       gap={40}
       css={css`
-        margin: 40px 0 40px 0;
+        margin: 0 0 40px 0;
       `}
     >
       {metroName && type === "local" ? (

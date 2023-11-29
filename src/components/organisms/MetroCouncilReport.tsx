@@ -208,7 +208,7 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
         `}
       >
         <DropdownSelector
-          innerText="연도를 선택하세요."
+          innerText="연도를 선택해주세요."
           options={["2022", "2020", "2016", "2014"]}
           onClick={key => {
             setSgYear(parseInt(key));
