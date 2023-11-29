@@ -1,6 +1,7 @@
 # 다양성 평가 리포트 웹사이트 프론트엔드
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/af408c4b-acff-491f-93a8-b49a7b4dd33b/deploy-status)](https://app.netlify.com/sites/newways-tech4impact-diversity/deploys)
+![CI Status](https://github.com/NewWays-TechForImpactKAIST/frontend/actions/workflows/ci.yml/badge.svg)
 
 React로 개발되는 다양성 평가 리포트 웹사이트의 프론트엔드 레포지토리입니다.
 
