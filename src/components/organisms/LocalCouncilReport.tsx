@@ -10,7 +10,7 @@ import {
   PartyText,
   type AgeTextData,
   type GenderTextData,
-  // type PartyTextData,
+  type PartyTextData,
 } from "@/components/molecules/LocalCouncilReportText";
 import {
   Histogram,
@@ -19,7 +19,12 @@ import {
 } from "@/components/organisms/Histogram";
 import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
-import { axios, useGetNameFromId, useLocalElectionYears } from "@/utils";
+import {
+  axios,
+  useGetNameFromId,
+  useLocalElectionYears,
+  type ElectionYears,
+} from "@/utils";
 
 const { Title } = Typography;
 
@@ -82,7 +87,7 @@ const LocalCouncilReport = ({
   const [partyPieChartData, setPartyPieChartData] = useState<PieChartData[]>();
   const [partyPieChartColorMap, setPartyPieChartColorMap] =
     useState<Map<string, string>>();
-  // const [partyTextData, setPartyTextData] = useState<PartyTextData>();
+  const [partyTextData, setPartyTextData] = useState<PartyTextData>();
 
   const getNameFromId = useGetNameFromId(idMap);
 
@@ -104,14 +109,14 @@ const LocalCouncilReport = ({
       .catch(() => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
-    // axios
-    //   .get(`localCouncil/template-data/${metroId}/${localId}?factor=party`)
-    //   .then(response => {
-    //     setPartyTextData(response.data as PartyTextData);
-    //   })
-    //   .catch(() => {
-    //     throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-    //   });
+    axios
+      .get(`localCouncil/template-data/${metroId}/${localId}?factor=party`)
+      .then(response => {
+        setPartyTextData(response.data as PartyTextData);
+      })
+      .catch(() => {
+        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+      });
   };
 
   // 백엔드로부터 그래프 색상들을 가져옵니다.
@@ -282,7 +287,11 @@ const LocalCouncilReport = ({
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
       ) : null}
-      <PartyText getNameFromId={getNameFromId} />
+      <PartyText
+        sgYear={sgYear as ElectionYears}
+        data={partyTextData}
+        getNameFromId={getNameFromId}
+      />
     </Flex>
   );
 };
