@@ -99,6 +99,7 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
             </Button>
           </Flex>
           <LocalSelector
+            idMap={idMap}
             selected={metroName as MetroID}
             onClick={local => {
               const idData = idMap.get(metroName as MetroID)?.get(local);
