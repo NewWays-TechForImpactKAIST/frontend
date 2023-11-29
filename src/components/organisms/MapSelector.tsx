@@ -1,4 +1,4 @@
-import { Button, Flex } from "antd";
+import { Button, Flex, Breadcrumb } from "antd";
 import { css } from "@emotion/react";
 import {
   LocalSelector,
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const MapSelector = ({ idMap, type = "local" }: Props) => {
-  const { metroName } = useParams();
+  const { metroName, localName } = useParams();
   const navigate = useNavigate();
 
   return (
@@ -30,6 +30,41 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
     >
       {metroName && type === "local" ? (
         <>
+          <div
+            css={css`
+              text-align: left;
+              width: 100%;
+              font-size: 24pt;
+            `}
+          >
+            <Breadcrumb
+              items={(
+                [
+                  {
+                    title: (
+                      // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                      <a>뉴웨이즈 다양성 리포트</a>
+                    ),
+                    onClick: () => navigate(`/localCouncil`),
+                  },
+                ] as { title: string | JSX.Element; onClick: () => void }[]
+              )
+                .concat(
+                  metroName
+                    ? [
+                        {
+                          // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                          title: <a>{metroName}</a>,
+                          onClick: () => navigate(`/localCouncil/${metroName}`),
+                        },
+                      ]
+                    : [],
+                )
+                .concat(
+                  localName ? [{ title: localName, onClick: () => {} }] : [],
+                )}
+            />
+          </div>
           <Flex
             justify="center"
             align="center"
@@ -40,10 +75,10 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
             <DropdownSelector
               innerText="기초 의회를 선택하세요."
               options={[...(idMap.get(metroName as MetroID)?.keys() || [])]}
-              onClick={localName => {
-                const idData = idMap.get(metroName as MetroID)?.get(localName);
+              onClick={local => {
+                const idData = idMap.get(metroName as MetroID)?.get(local);
                 if (!idData) return;
-                navigate(`/localCouncil/${metroName}/${localName}`);
+                navigate(`/localCouncil/${metroName}/${local}`);
               }}
             />
             <div
@@ -65,10 +100,10 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
           </Flex>
           <LocalSelector
             selected={metroName as MetroID}
-            onClick={localName => {
-              const idData = idMap.get(metroName as MetroID)?.get(localName);
+            onClick={local => {
+              const idData = idMap.get(metroName as MetroID)?.get(local);
               if (!idData) return;
-              navigate(`/localCouncil/${metroName}/${localName}`);
+              navigate(`/localCouncil/${metroName}/${local}`);
             }}
           />
         </>
