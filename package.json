@@ -20,7 +20,6 @@
     "@ant-design/charts": "^1.4.2",
     "@ant-design/icons": "^5.2.6",
     "@ant-design/plots": "^1.2.5",
-    "@ant-design/pro-components": "^2.6.43",
     "@emotion/react": "^11.11.1",
     "@types/react-scroll": "^1.8.10",
     "antd": "^5.11.1",
