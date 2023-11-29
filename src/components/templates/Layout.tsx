@@ -1,7 +1,7 @@
 import React from "react";
-import { Col, ConfigProvider, Layout, Row, Card } from "antd";
+import { Col, ConfigProvider, Layout, Row } from "antd";
 import { css } from "@emotion/react";
-import { Header, TabSelector, Footer } from "@/components/organisms";
+import { Header, Footer } from "@/components/organisms";
 import colors from "@/styles/colors";
 
 const { Content } = Layout;
@@ -43,24 +43,13 @@ const NewwaysLayout = ({ children }: Props) => (
           lg={14}
           xl={13}
         >
-          <TabSelector />
-          <Card
-            bodyStyle={{
-              backgroundColor: colors.white,
-            }}
+          <Content
             css={css`
-              border-radius: 0px;
-              border: 0px;
+              padding: 0;
             `}
           >
-            <Content
-              css={css`
-                padding: 0;
-              `}
-            >
-              {children}
-            </Content>
-          </Card>
+            {children}
+          </Content>
         </Col>
       </Row>
       <Footer />
