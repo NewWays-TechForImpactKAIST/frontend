@@ -18,7 +18,7 @@ type LocalInfo = {
   id: number;
 };
 
-const LocalCouncil = () => {
+const LocalCouncilCard = () => {
   const { metroName, localName } = useParams();
   const [metroLocalMap, setMetroLocalMap] =
     useState<Map<MetroID, Map<string, [number, number]>>>();
@@ -70,4 +70,4 @@ const LocalCouncil = () => {
   ) : null;
 };
 
-export default LocalCouncil;
+export default LocalCouncilCard;

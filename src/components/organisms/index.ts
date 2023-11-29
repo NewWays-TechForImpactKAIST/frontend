@@ -10,3 +10,4 @@ export { default as MapSelector } from "./MapSelector";
 export { default as MetroCouncilReport } from "./MetroCouncilReport";
 export { default as MetroCouncilCard } from "./MetroCouncilCard";
 export { default as TabSelector } from "./TabSelector";
+export { default as ReportIntro } from "./ReportIntro";

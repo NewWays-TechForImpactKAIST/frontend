@@ -199,7 +199,7 @@ const MetroCouncilReport = ({
       `}
     >
       <Title
-        level={1}
+        level={2}
         css={css`
           word-break: keep-all;
         `}
@@ -231,15 +231,15 @@ const MetroCouncilReport = ({
           defaultChecked
         />
       </Flex>
-      <Title level={2}>연령 다양성</Title>
+      <Title level={3}>연령 다양성</Title>
       {/* <Histogram data={sampleAgeHistogramData} /> */}
       <AgeText data={ageTextData} getNameFromId={getNameFromId} />
-      <Title level={2}>성별 다양성</Title>
+      <Title level={3}>성별 다양성</Title>
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
       <GenderText data={defaultData} />
-      <Title level={2}>정당 다양성</Title>
+      <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
       ) : null}

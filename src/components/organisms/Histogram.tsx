@@ -72,7 +72,7 @@ export const Histogram = ({ data }: Props) => {
     data: histogramData,
     binField: "value",
     binWidth,
-    height: 200,
+    height: 250,
     colorField: "type",
     color: param => {
       const [binMin] = param.range as [number, number];

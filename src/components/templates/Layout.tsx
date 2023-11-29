@@ -36,7 +36,7 @@ const NewwaysLayout = ({ children }: Props) => (
           css={css`
             margin: 40px 0 40px 0;
           `}
-          // xs: 22, sm: 17, md: 11, lg: 11, xl: 11
+          // breakpoint 기준: https://ant.design/components/grid#col
           xs={22}
           sm={17}
           md={14}
