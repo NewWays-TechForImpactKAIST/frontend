@@ -10,7 +10,7 @@ import {
   PartyText,
   type AgeTextData,
   type GenderTextData,
-  // type PartyTextData,
+  type PartyTextData,
 } from "@/components/molecules/LocalCouncilReportText";
 import {
   Histogram,
@@ -19,12 +19,18 @@ import {
 } from "@/components/organisms/Histogram";
 import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
-import { axios, useGetNameFromId } from "@/utils";
+import {
+  axios,
+  useGetNameFromId,
+  useLocalElectionYears,
+  type ElectionYears,
+} from "@/utils";
 
 const { Title } = Typography;
 
 interface AgeHistogramDataAPIResponse {
-  LocalCouncil: number;
+  metroId: number;
+  localId: number;
   data: {
     minAge: number;
     maxAge: number;
@@ -63,32 +69,13 @@ const LocalCouncilReport = ({
   idMap,
   onLoaded,
 }: Props) => {
-  const defaultData: GenderTextData = {
-    metroName,
-    localName,
-    now: {
-      year: 2020,
-      malePopulation: 50,
-      femalePopulation: 40,
-    },
-    prev: {
-      year: 2016,
-      malePopulation: 35,
-      femalePopulation: 55,
-    },
-    mean: {
-      year: 2020,
-      malePopulation: 60,
-      femalePopulation: 40,
-    },
-  };
   const [metroId, localId] = idMap.get(metroName)?.get(localName) || [1, 1];
+  const localElectionYears = useLocalElectionYears();
 
-  const [ageHistYear] = useState<number>(2022);
   const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
 
-  // const [genderTextData, setGenderTextData] = useState<GenderTextData>();
+  const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [sgType, setSgType] = useState<"elected" | "candidate">("elected");
   const [sgYear, setSgYear] = useState<number>(2022);
 
@@ -100,7 +87,7 @@ const LocalCouncilReport = ({
   const [partyPieChartData, setPartyPieChartData] = useState<PieChartData[]>();
   const [partyPieChartColorMap, setPartyPieChartColorMap] =
     useState<Map<string, string>>();
-  // const [partyTextData, setPartyTextData] = useState<PartyTextData>();
+  const [partyTextData, setPartyTextData] = useState<PartyTextData>();
 
   const getNameFromId = useGetNameFromId(idMap);
 
@@ -114,22 +101,22 @@ const LocalCouncilReport = ({
       .catch(() => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
-    // axios
-    //   .get(`localCouncil/template-data/${metroId}/${localId}?factor=gender`)
-    //   .then(response => {
-    //     setGenderTextData(response.data as GenderTextData);
-    //   })
-    //   .catch(() => {
-    //     throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-    //   });
-    // axios
-    //   .get(`localCouncil/template-data/${metroId}/${localId}?factor=party`)
-    //   .then(response => {
-    //     setPartyTextData(response.data as PartyTextData);
-    //   })
-    //   .catch(() => {
-    //     throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-    //   });
+    axios
+      .get(`localCouncil/template-data/${metroId}/${localId}?factor=gender`)
+      .then(response => {
+        setGenderTextData(response.data as GenderTextData);
+      })
+      .catch(() => {
+        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+      });
+    axios
+      .get(`localCouncil/template-data/${metroId}/${localId}?factor=party`)
+      .then(response => {
+        setPartyTextData(response.data as PartyTextData);
+      })
+      .catch(() => {
+        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+      });
   };
 
   // 백엔드로부터 그래프 색상들을 가져옵니다.
@@ -137,11 +124,11 @@ const LocalCouncilReport = ({
     const newGenderPieChartColorMap = new Map<string, string>();
     const genderColors = [
       {
-        type: "남",
+        type: "남성",
         color: "#289FD4",
       },
       {
-        type: "여",
+        type: "여성",
         color: "#AE2D6C",
       },
     ];
@@ -169,7 +156,7 @@ const LocalCouncilReport = ({
   const fetchGraphData = () => {
     axios
       .get(
-        `age-hist/${metroId}/${localId}?ageHistType=elected&year=${ageHistYear}&method=equal`,
+        `age-hist/${metroId}/${localId}?ageHistType=elected&year=${sgYear}&method=equal`,
       )
       .then(response => {
         const data = response.data as AgeHistogramDataAPIResponse;
@@ -190,7 +177,6 @@ const LocalCouncilReport = ({
             binMax: maxAge,
             count,
             colorGroup: colorGroupMap.get(ageGroup as ColorGroup) || 0,
-            // colorGroup: ageGroup as ColorGroup,
           });
         });
         setAgeHistogramData(newAgeHistogramData);
@@ -206,7 +192,7 @@ const LocalCouncilReport = ({
         const newGenderPieChartData: PieChartData[] = [];
         data.forEach(({ gender, count }) => {
           newGenderPieChartData.push({
-            type: gender,
+            type: `${gender}성`,
             value: count,
           });
         });
@@ -268,9 +254,12 @@ const LocalCouncilReport = ({
       >
         <DropdownSelector
           innerText="연도를 선택해주세요."
-          options={["2022", "2020", "2016", "2014"]}
+          options={localElectionYears.map(
+            election => `${election.year}년 (제${election.ordinal}대)`,
+          )}
           onClick={key => {
-            setSgYear(parseInt(key));
+            // key: "YYYY년 (제NN대)"
+            setSgYear(parseInt(key.split("년")[0]));
           }}
         />
         <Switch
@@ -290,12 +279,18 @@ const LocalCouncilReport = ({
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
-      <GenderText data={defaultData} />
+      {genderTextData ? (
+        <GenderText data={genderTextData} getNameFromId={getNameFromId} />
+      ) : null}
       <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
       ) : null}
-      <PartyText getNameFromId={getNameFromId} />
+      <PartyText
+        sgYear={sgYear as ElectionYears}
+        data={partyTextData}
+        getNameFromId={getNameFromId}
+      />
     </Flex>
   );
 };

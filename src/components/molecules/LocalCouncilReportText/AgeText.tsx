@@ -46,6 +46,7 @@ interface Props {
   variation?: AgeTextVariation;
   /** text에 들어갈 데이터입니다. */
   data?: AgeTextData;
+  /** localId를 지역명으로 변환하는 함수입니다. */
   getNameFromId: (id: number) => [string, string] | undefined;
 }
 
@@ -91,9 +92,6 @@ export const AgeText = ({
           {getNameFromId(ageHistogramParagraph.uniArea.localId)?.join(" ")}
         </Text>
         예요.
-        <br />
-        <br />
-        이전 정보를 확인하려면 아래의 슬라이더를 밀어 보세요.
       </Paragraph>
     );
   return <Paragraph>존재하지 않는 템플릿입니다.</Paragraph>;

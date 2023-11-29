@@ -89,9 +89,6 @@ export const AgeText = ({
           {getNameFromId(ageHistogramParagraph.uniArea.localId)?.join(" ")}
         </Text>
         예요.
-        <br />
-        <br />
-        이전 정보를 확인하려면 아래의 슬라이더를 밀어 보세요.
       </Paragraph>
     );
   return <Paragraph>존재하지 않는 템플릿입니다.</Paragraph>;
