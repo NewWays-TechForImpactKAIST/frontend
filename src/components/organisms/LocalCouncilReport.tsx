@@ -156,7 +156,7 @@ const LocalCouncilReport = ({
   const fetchGraphData = () => {
     axios
       .get(
-        `age-hist/${metroId}/${localId}?ageHistType=elected&year=${sgYear}&method=equal`,
+        `age-hist/${metroId}/${localId}?ageHistType=${sgType}&year=${sgYear}&method=equal`,
       )
       .then(response => {
         const data = response.data as AgeHistogramDataAPIResponse;
