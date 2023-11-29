@@ -20,7 +20,7 @@ type LocalInfo = {
 };
 
 const NationalCouncilCard = () => {
-  const { metroName, localName } = useParams();
+  const { metroName, localName = "" } = useParams();
   const [metroLocalMap, setMetroLocalMap] =
     useState<Map<MetroID, Map<string, [number, number]>>>();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -56,17 +56,13 @@ const NationalCouncilCard = () => {
   }, []);
   return metroLocalMap ? (
     <>
-      <MapSelector idMap={metroLocalMap} />
-      <Divider />
       <Element name="Report">
-        {metroName && localName ? (
-          <NationalCouncilReport
-            metroName={metroName as MetroID}
-            localName={localName}
-            idMap={metroLocalMap}
-            onLoaded={() => setIsLoaded(true)}
-          />
-        ) : null}
+        <NationalCouncilReport
+          metroName={metroName as MetroID}
+          localName={localName}
+          idMap={metroLocalMap}
+          onLoaded={() => setIsLoaded(true)}
+        />
       </Element>
     </>
   ) : null;

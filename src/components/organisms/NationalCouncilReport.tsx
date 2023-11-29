@@ -239,9 +239,9 @@ const NationalCouncilReport = ({
         css={css`
           word-break: keep-all;
         `}
-      >{`${metroName} ${localName}의 ${sgYear}년도 ${
+      >{`${sgYear}년도 ${
         sgType === "candidate" ? "후보자" : "당선인"
-      } 지역의회 다양성 리포트`}</Title>
+      } 총선 다양성 리포트`}</Title>
       <Flex
         css={css`
           flex-direction: row;
