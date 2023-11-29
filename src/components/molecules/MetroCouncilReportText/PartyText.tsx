@@ -116,7 +116,7 @@ export const PartyText = ({
               {currentElected.filter(
                 partyItem => partyItem.party === bigParties[sgYear][1],
               )[0]?.count || 0}
-            </Text>{" "}
+            </Text>
             명의 당선자가 나왔어요. 지난 선거에 비하면 소수정당의 목소리가 좀{" "}
             줄어든 느낌이에요.
           </Text>
