@@ -54,9 +54,15 @@ interface Props {
   metroName: MetroID;
   localName: string;
   idMap: Map<MetroID, Map<string, [number, number]>>;
+  onLoaded: () => void;
 }
 
-const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
+const LocalCouncilReport = ({
+  metroName,
+  localName,
+  idMap,
+  onLoaded,
+}: Props) => {
   const defaultData: GenderTextData = {
     metroName,
     localName,
@@ -231,6 +237,7 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
   useEffect(fetchGraphColors, []);
 
   useEffect(() => {
+    onLoaded();
     fetchTextData();
     fetchGraphData();
   }, [metroName, localName]);
@@ -243,9 +250,14 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
         margin: 40px 0 40px 0;
       `}
     >
-      <Title level={1}>{`${metroName} ${localName}의 ${sgYear}년도 ${
+      <Title
+        level={2}
+        css={css`
+          word-break: keep-all;
+        `}
+      >{`${metroName} ${localName}의 ${sgYear}년도 ${
         sgType === "candidate" ? "후보자" : "당선인"
-      } 광역의회 다양성 리포트`}</Title>
+      } 지역의회 다양성 리포트`}</Title>
       <Flex
         css={css`
           flex-direction: row;
@@ -255,7 +267,7 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
         `}
       >
         <DropdownSelector
-          innerText="연도를 선택하세요."
+          innerText="연도를 선택해주세요."
           options={["2022", "2020", "2016", "2014"]}
           onClick={key => {
             setSgYear(parseInt(key));
@@ -271,15 +283,15 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
           defaultChecked
         />
       </Flex>
-      <Title level={2}>연령 다양성</Title>
+      <Title level={3}>연령 다양성</Title>
       {ageHistogramData ? <Histogram data={ageHistogramData} /> : null}
       <AgeText data={ageTextData} getNameFromId={getNameFromId} />
-      <Title level={2}>성별 다양성</Title>
+      <Title level={3}>성별 다양성</Title>
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
       <GenderText data={defaultData} />
-      <Title level={2}>정당 다양성</Title>
+      <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
       ) : null}

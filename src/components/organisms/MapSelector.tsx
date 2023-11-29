@@ -25,7 +25,7 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
       align="center"
       gap={40}
       css={css`
-        margin: 40px 0 40px 0;
+        margin: 0 0 40px 0;
       `}
     >
       {metroName && type === "local" ? (
@@ -43,7 +43,7 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
                   {
                     title: (
                       // eslint-disable-next-line jsx-a11y/anchor-is-valid
-                      <a>뉴웨이즈 다양성 리포트</a>
+                      <a>지역의회 다양성 리포트</a>
                     ),
                     onClick: () => navigate(`/localCouncil`),
                   },
@@ -73,7 +73,7 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
             `}
           >
             <DropdownSelector
-              innerText="기초 의회를 선택하세요."
+              innerText="시/군/구를 선택해주세요."
               options={[...(idMap.get(metroName as MetroID)?.keys() || [])]}
               onClick={local => {
                 const idData = idMap.get(metroName as MetroID)?.get(local);
@@ -112,7 +112,7 @@ const MapSelector = ({ idMap, type = "local" }: Props) => {
         <>
           {" "}
           <DropdownSelector
-            innerText="광역 의회를 선택하세요."
+            innerText="광역시/도를 선택해주세요."
             options={[...idMap.keys()]}
             onClick={newMetroName =>
               type === "local"

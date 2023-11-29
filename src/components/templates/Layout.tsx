@@ -2,6 +2,7 @@ import React from "react";
 import { Col, ConfigProvider, Layout, Row } from "antd";
 import { css } from "@emotion/react";
 import { Header, Footer } from "@/components/organisms";
+import colors from "@/styles/colors";
 
 const { Content } = Layout;
 
@@ -20,11 +21,10 @@ const NewwaysLayout = ({ children }: Props) => (
       },
       components: {
         Layout: {
-          // Header, Content, Footer의 배경색을 설정합니다.
-          headerBg: "#F0F0F0",
-          bodyBg: "#00E9A1", // ugly...
-          // bodyBg: "#F1F1F1", // much better
-          footerBg: "#F0F0F0",
+          // Header, Footer의 배경색을 설정합니다.
+          headerBg: colors.white,
+          bodyBg: colors.black,
+          footerBg: colors.white,
         },
       },
     }}
@@ -32,8 +32,17 @@ const NewwaysLayout = ({ children }: Props) => (
     <Layout className="layout">
       <Header />
       <Row justify="center">
-        {/* breakpoint: 768px */}
-        <Col span={22} md={11}>
+        <Col
+          css={css`
+            margin: 40px 0 40px 0;
+          `}
+          // breakpoint 기준: https://ant.design/components/grid#col
+          xs={22}
+          sm={17}
+          md={14}
+          lg={14}
+          xl={13}
+        >
           <Content
             css={css`
               padding: 0;

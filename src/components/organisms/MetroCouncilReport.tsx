@@ -40,9 +40,15 @@ interface Props {
   metroName: MetroID;
   idMap: Map<MetroID, Map<string, [number, number]>>;
   metroMap: Map<MetroID, number> | undefined;
+  onLoaded: () => void;
 }
 
-const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
+const MetroCouncilReport = ({
+  metroName,
+  idMap,
+  metroMap,
+  onLoaded,
+}: Props) => {
   const defaultData: GenderTextData = {
     metroName,
     now: {
@@ -179,6 +185,7 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
   useEffect(fetchGraphColors, []);
 
   useEffect(() => {
+    onLoaded();
     fetchTextData();
     fetchGraphData();
   }, [metroName]);
@@ -191,7 +198,12 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
         margin: 40px 0 40px 0;
       `}
     >
-      <Title level={1}>{`${metroName}의 ${sgYear}년도 ${
+      <Title
+        level={2}
+        css={css`
+          word-break: keep-all;
+        `}
+      >{`${metroName}의 ${sgYear}년도 ${
         sgType === "candidate" ? "후보자" : "당선인"
       } 광역의회 다양성 리포트`}</Title>
       <Flex
@@ -203,7 +215,7 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
         `}
       >
         <DropdownSelector
-          innerText="연도를 선택하세요."
+          innerText="연도를 선택해주세요."
           options={["2022", "2020", "2016", "2014"]}
           onClick={key => {
             setSgYear(parseInt(key));
@@ -219,15 +231,15 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
           defaultChecked
         />
       </Flex>
-      <Title level={2}>연령 다양성</Title>
+      <Title level={3}>연령 다양성</Title>
       {/* <Histogram data={sampleAgeHistogramData} /> */}
       <AgeText data={ageTextData} getNameFromId={getNameFromId} />
-      <Title level={2}>성별 다양성</Title>
+      <Title level={3}>성별 다양성</Title>
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
       <GenderText data={defaultData} />
-      <Title level={2}>정당 다양성</Title>
+      <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
       ) : null}

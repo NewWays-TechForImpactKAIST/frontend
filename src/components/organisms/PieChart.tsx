@@ -16,6 +16,7 @@ export const PieChart = ({ data, colorMap }: Props) => {
     appendPadding: 10,
     data,
     angleField: "value",
+    height: 250,
     radius: 0.6,
     label: {
       type: "outer",
