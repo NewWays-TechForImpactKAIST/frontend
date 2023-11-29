@@ -9,6 +9,9 @@ const NavigationCard = () => {
         { tab: "지역의회", key: "localCouncil" },
         { tab: "광역의회", key: "metroCouncil" },
       ]}
+      tabProps={{
+        type: "card",
+      }}
       onTabChange={key => {
         navigate(`/${key}`);
       }}
