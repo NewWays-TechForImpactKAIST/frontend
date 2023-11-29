@@ -14,7 +14,7 @@ type Color = { r: number; g: number; b: number };
 
 const LocalSelector = ({ selected, idMap, onClick = () => {} }: Props) => {
   const partyColorMap = new Map<string, Color>();
-  const [coloring, setColoring] = useState<"none" | "party">("none");
+  const [coloring, setColoring] = useState<"none" | "party">("party");
   const [localPartyColor, setLocalPartyColor] = useState<Map<string, string>>();
 
   const fetchPartyColor = async () => {
@@ -158,8 +158,9 @@ const LocalSelector = ({ selected, idMap, onClick = () => {} }: Props) => {
       >
         <Switch
           size="default"
+          defaultChecked
           checkedChildren="정당 보기"
-          unCheckedChildren="기본"
+          unCheckedChildren="단색 보기"
           onClick={checked => {
             setColoring(checked ? "party" : "none");
           }}

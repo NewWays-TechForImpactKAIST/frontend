@@ -26,13 +26,13 @@ export type MetroID =
 //   "#4CC9F0",
 // ];
 
-// temporary color (green-ish)
+// new colors (pink-ish)
 export const themeColors = [
-  "#00CB83",
-  "#00DA92",
-  "#00E9A1",
-  "#0FF8B0",
-  "#1EFFBF",
+  "#EE87F3",
+  "#F395F3",
+  "#F7A3F2",
+  "#FBB0F2",
+  "#FFBDF1",
 ];
 
 export const MetroInfo: {

@@ -39,10 +39,10 @@ const MetroSelector = ({ onClick = () => {} }: Props) => {
           css={css`
             fill: ${hover !== group.groupId
               ? MetroInfo[group.groupId].color
-              : "#060606"};
+              : "#E466F5"};
             stroke: ${hover !== group.groupId
               ? MetroInfo[group.groupId].color
-              : "#060606"};
+              : "#E977F4"};
           `}
           onMouseEnter={() => {
             setHover(group.groupId);
