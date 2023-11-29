@@ -51,16 +51,11 @@ function calculateGenderDiversity(a: number, b: number) {
   return Math.max(a / b, b / a);
 }
 
-function calculateFemaleRatio(femalePop: number, malePop: number) {
-  return femalePop / (femalePop + malePop);
-}
-
 export const GenderText = ({ variation = 1, data = defaultData }: Props) => {
   if (!data) return <Paragraph>데이터를 불러오는 중입니다..</Paragraph>;
 
-  const { current, prev, meanMalePop, meanFemalePop } = data;
+  const { current, prev } = data;
   const nowPercentage = calculatePercentage(current.femalePop, current.malePop);
-  const meanPercentage = calculatePercentage(meanFemalePop, meanMalePop);
   const nowGenderDiversity = calculateGenderDiversity(
     current.femalePop,
     current.malePop,
@@ -69,11 +64,6 @@ export const GenderText = ({ variation = 1, data = defaultData }: Props) => {
     prev.femalePop,
     prev.malePop,
   );
-  const nowGenderRatio = calculateFemaleRatio(
-    current.femalePop,
-    current.malePop,
-  );
-  const meanGenderRatio = calculateFemaleRatio(meanFemalePop, meanMalePop);
 
   if (variation === 1)
     return (

@@ -4,9 +4,7 @@ import { Element, scroller } from "react-scroll";
 
 import { type MetroID } from "static/MapSVGData";
 import axios from "@/utils/axios";
-import MapSelector from "./MapSelector";
 import NationalCouncilReport from "./NationalCouncilReport";
-import { Divider } from "antd";
 
 type RegionInfo = {
   id: number;
@@ -55,16 +53,14 @@ const NationalCouncilCard = () => {
     });
   }, []);
   return metroLocalMap ? (
-    <>
-      <Element name="Report">
-        <NationalCouncilReport
-          metroName={metroName as MetroID}
-          localName={localName}
-          idMap={metroLocalMap}
-          onLoaded={() => setIsLoaded(true)}
-        />
-      </Element>
-    </>
+    <Element name="Report">
+      <NationalCouncilReport
+        metroName={metroName as MetroID}
+        localName={localName}
+        idMap={metroLocalMap}
+        onLoaded={() => setIsLoaded(true)}
+      />
+    </Element>
   ) : null;
 };
 

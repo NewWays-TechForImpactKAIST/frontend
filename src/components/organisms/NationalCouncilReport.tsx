@@ -5,7 +5,6 @@ import { type MetroID } from "static/MapSVGData";
 
 import { DropdownSelector } from "@/components/molecules";
 import {
-  AgeText,
   GenderText,
   PartyText,
   type AgeTextData,
@@ -21,7 +20,7 @@ import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
 import {
   axios,
-  useGetMetroNameFromId,
+  // useGetMetroNameFromId,
   useNationalElectionYears,
   type NationalElectionYears,
 } from "@/utils";
@@ -59,21 +58,20 @@ type PartyPieChartDataAPIResponse = {
 interface Props {
   metroName: MetroID;
   localName: string;
-  idMap: Map<MetroID, Map<string, [number, number]>>;
+  // idMap: Map<MetroID, Map<string, [number, number]>>;
   onLoaded: () => void;
 }
 
 const NationalCouncilReport = ({
   metroName,
   localName,
-  idMap,
+  // idMap,
   onLoaded,
 }: Props) => {
-  const [metroId, localId] = idMap.get(metroName)?.get(localName) || [1, 1];
   const nationalElectionYears = useNationalElectionYears();
 
   const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
-  const [ageTextData, setAgeTextData] = useState<AgeTextData>();
+  const [, setAgeTextData] = useState<AgeTextData>();
 
   const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [sgType, setSgType] = useState<"elected" | "candidate">("elected");
@@ -89,7 +87,7 @@ const NationalCouncilReport = ({
     useState<Map<string, string>>();
   const [partyTextData, setPartyTextData] = useState<PartyTextData>();
 
-  const getNameFromId = useGetMetroNameFromId(idMap);
+  // const getNameFromId = useGetMetroNameFromId(idMap);
 
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {

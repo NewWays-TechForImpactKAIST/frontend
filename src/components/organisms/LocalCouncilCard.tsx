@@ -4,9 +4,9 @@ import { Element, scroller } from "react-scroll";
 
 import { type MetroID } from "static/MapSVGData";
 import axios from "@/utils/axios";
+import { Divider } from "antd";
 import MapSelector from "./MapSelector";
 import LocalCouncilReport from "./LocalCouncilReport";
-import { Divider } from "antd";
 
 type RegionInfo = {
   id: number;
