@@ -21,7 +21,7 @@ import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
 import {
   axios,
-  useGetNameFromId,
+  useGetMetroNameFromId,
   useLocalElectionYears,
   type ElectionYears,
 } from "@/utils";
@@ -57,17 +57,11 @@ type PartyPieChartDataAPIResponse = {
 
 interface Props {
   metroName: MetroID;
-  idMap: Map<MetroID, Map<string, [number, number]>>;
-  metroMap: Map<MetroID, number> | undefined;
+  metroMap: Map<MetroID, number>;
   onLoaded: () => void;
 }
 
-const MetroCouncilReport = ({
-  metroName,
-  idMap,
-  metroMap,
-  onLoaded,
-}: Props) => {
+const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
   const metroId = metroMap?.get(metroName) || 1;
   const localElectionYears = useLocalElectionYears();
 
@@ -86,7 +80,7 @@ const MetroCouncilReport = ({
     useState<Map<string, string>>();
   const [partyTextData, setPartyTextData] = useState<PartyTextData>();
 
-  const getNameFromId = useGetNameFromId(idMap);
+  const getNameFromId = useGetMetroNameFromId(metroMap);
 
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {

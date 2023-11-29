@@ -60,11 +60,10 @@ const MetroCouncilCard = () => {
     <>
       <MapSelector idMap={metroLocalMap} type="metro" />
       <Element name="Report">
-        {metroName ? (
+        {metroName && metroMap ? (
           <MetroCouncilReport
             metroName={metroName as MetroID}
             metroMap={metroMap}
-            idMap={metroLocalMap}
             onLoaded={() => setIsLoaded(true)}
           />
         ) : null}

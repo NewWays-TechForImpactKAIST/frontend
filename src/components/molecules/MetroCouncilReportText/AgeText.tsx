@@ -1,4 +1,5 @@
 import { Typography } from "antd";
+import { type MetroID } from "static/MapSVGData";
 
 const { Paragraph, Text } = Typography;
 
@@ -6,7 +7,6 @@ export type AgeTextVariation = 1 | 2;
 
 export interface AgeTextData {
   metroId: number;
-  localId: number;
   rankingParagraph: {
     ageDiversityIndex: number;
     allIndices: { localId: number; rank: number; ageDiversityIndex: number }[];
@@ -29,12 +29,12 @@ export interface AgeTextData {
     firstQuintile: number;
     lastQuintile: number;
     divArea: {
-      localId: number;
+      metroId: number;
       firstQuintile: number;
       lastQuintile: number;
     };
     uniArea: {
-      localId: number;
+      metroId: number;
       firstQuintile: number;
       lastQuintile: number;
     };
@@ -46,7 +46,7 @@ interface Props {
   variation?: AgeTextVariation;
   /** text에 들어갈 데이터입니다. */
   data?: AgeTextData;
-  getNameFromId: (id: number) => [string, string] | undefined;
+  getNameFromId: (id: number) => MetroID | undefined;
 }
 
 export const AgeText = ({
@@ -78,7 +78,7 @@ export const AgeText = ({
         <Text strong>{ageHistogramParagraph.divArea.lastQuintile}</Text>세{" "}
         이상인{" "}
         <Text strong>
-          {getNameFromId(ageHistogramParagraph.divArea.localId)?.join(" ")}
+          {getNameFromId(ageHistogramParagraph.divArea.metroId)}
         </Text>
         , 전국 뒤에서 1위는 전체 인원의 20%가{" "}
         <Text strong>{ageHistogramParagraph.uniArea.firstQuintile}</Text>세
@@ -86,7 +86,7 @@ export const AgeText = ({
         <Text strong>{ageHistogramParagraph.uniArea.lastQuintile}</Text>세
         이상인{" "}
         <Text strong>
-          {getNameFromId(ageHistogramParagraph.uniArea.localId)?.join(" ")}
+          {getNameFromId(ageHistogramParagraph.uniArea.metroId)}
         </Text>
         예요.
       </Paragraph>

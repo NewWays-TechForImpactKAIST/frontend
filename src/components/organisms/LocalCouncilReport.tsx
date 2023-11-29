@@ -21,7 +21,7 @@ import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
 import {
   axios,
-  useGetNameFromId,
+  useGetLocalNameFromId,
   useLocalElectionYears,
   type ElectionYears,
 } from "@/utils";
@@ -89,7 +89,7 @@ const LocalCouncilReport = ({
     useState<Map<string, string>>();
   const [partyTextData, setPartyTextData] = useState<PartyTextData>();
 
-  const getNameFromId = useGetNameFromId(idMap);
+  const getNameFromId = useGetLocalNameFromId(idMap);
 
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {
