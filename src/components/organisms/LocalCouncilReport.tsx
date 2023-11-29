@@ -245,7 +245,7 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
     >
       <Title level={1}>{`${metroName} ${localName}의 ${sgYear}년도 ${
         sgType === "candidate" ? "후보자" : "당선인"
-      } 광역의회 다양성 리포트`}</Title>
+      } 지역의회 다양성 리포트`}</Title>
       <Flex
         css={css`
           flex-direction: row;
