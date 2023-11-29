@@ -9,7 +9,7 @@ import {
   GenderText,
   PartyText,
   type AgeTextData,
-  // type GenderTextData,
+  type GenderTextData,
   // type PartyTextData,
 } from "@/components/molecules/MetroCouncilReportText";
 import {
@@ -69,7 +69,7 @@ const MetroCouncilReport = ({
   const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
 
-  // const [genderTextData, setGenderTextData] = useState<GenderTextData>();
+  const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [sgYear, setSgYear] = useState<number>(2022);
   const [sgType, setSgType] = useState<"candidate" | "elected">("elected");
   const [genderPieChartData, setGenderPieChartData] =
@@ -93,14 +93,14 @@ const MetroCouncilReport = ({
       .catch(() => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
-    // axios
-    //   .get(`metroCouncil/template-data/${metroId}?factor=gender`)
-    //   .then(response => {
-    //     setGenderTextData(response.data as GenderTextData);
-    //   })
-    //   .catch(() => {
-    //     throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-    //   });
+    axios
+      .get(`metroCouncil/template-data/${metroId}?factor=gender`)
+      .then(response => {
+        setGenderTextData(response.data as GenderTextData);
+      })
+      .catch(() => {
+        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+      });
     // axios
     //   .get(`metroCouncil/template-data/${metroId}?factor=party`)
     //   .then(response => {
@@ -272,7 +272,7 @@ const MetroCouncilReport = ({
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
-      <GenderText />
+      {genderTextData ? <GenderText data={genderTextData} /> : null}
       <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />

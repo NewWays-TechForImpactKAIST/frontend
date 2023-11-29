@@ -5,22 +5,19 @@ const { Paragraph, Text } = Typography;
 export type GenderTextVariation = 1 | 2;
 
 export interface GenderTextData {
-  metroName: string;
-  now: {
+  metroId: number;
+  current: {
     year: number;
-    malePopulation: number;
-    femalePopulation: number;
+    malePop: number;
+    femalePop: number;
   };
   prev: {
     year: number;
-    malePopulation: number;
-    femalePopulation: number;
+    malePop: number;
+    femalePop: number;
   };
-  mean: {
-    year: number;
-    malePopulation: number;
-    femalePopulation: number;
-  };
+  meanMalePop: number;
+  meanFemalePop: number;
 }
 
 interface Props {
@@ -31,22 +28,19 @@ interface Props {
 }
 
 const defaultData: GenderTextData = {
-  metroName: "서울특별시",
-  now: {
+  metroId: 1,
+  current: {
     year: 2020,
-    malePopulation: 50,
-    femalePopulation: 40,
+    malePop: 50,
+    femalePop: 40,
   },
   prev: {
     year: 2016,
-    malePopulation: 35,
-    femalePopulation: 55,
+    malePop: 35,
+    femalePop: 55,
   },
-  mean: {
-    year: 2020,
-    malePopulation: 60,
-    femalePopulation: 40,
-  },
+  meanMalePop: 60,
+  meanFemalePop: 40,
 };
 
 function calculatePercentage(a: number, b: number) {
@@ -60,28 +54,19 @@ function calculateGenderRatio(a: number, b: number) {
 export const GenderText = ({ variation = 1, data = defaultData }: Props) => {
   if (!data) return <Paragraph>데이터를 불러오는 중입니다..</Paragraph>;
 
-  const { metroName, now, prev, mean } = data;
-  const nowPercentage = calculatePercentage(
-    now.femalePopulation,
-    now.malePopulation,
-  );
-  const meanPercentage = calculatePercentage(
-    mean.femalePopulation,
-    mean.malePopulation,
-  );
+  const { current, prev, meanMalePop, meanFemalePop } = data;
+  const nowPercentage = calculatePercentage(current.femalePop, current.malePop);
+  const meanPercentage = calculatePercentage(meanFemalePop, meanMalePop);
   const nowGenderRatio = calculateGenderRatio(
-    now.femalePopulation,
-    now.malePopulation,
+    current.femalePop,
+    current.malePop,
   );
-  const prevGenderRatio = calculateGenderRatio(
-    prev.femalePopulation,
-    prev.malePopulation,
-  );
+  const prevGenderRatio = calculateGenderRatio(prev.femalePop, prev.malePop);
 
   if (variation === 1)
     return (
       <Paragraph>
-        {now.year}년 지방선거 당선자의 성비는{" "}
+        {current.year}년 지방선거 당선자의 성비는{" "}
         <Text strong>
           {nowGenderRatio > prevGenderRatio
             ? "퇴보했습니다."
@@ -90,13 +75,13 @@ export const GenderText = ({ variation = 1, data = defaultData }: Props) => {
             : "나아졌습니다."}
         </Text>{" "}
         <br /> <br />
-        {now.year}년 지방선거에서 {metroName}의 당선자의 성별은 남성{" "}
+        {current.year}년 지방선거에서 당선자의 성별은 남성{" "}
         <Text strong>
-          {now.malePopulation}명({100 - nowPercentage}%){" "}
+          {current.malePop}명({100 - nowPercentage}%){" "}
         </Text>
         , 여성{" "}
         <Text strong>
-          {now.femalePopulation}명({nowPercentage}%){" "}
+          {current.femalePop}명({nowPercentage}%){" "}
         </Text>
         입니다. <br /> <br /> 전국 지역 의회는 평균적으로 남성이{" "}
         <Text strong>{100 - meanPercentage}%</Text>, 여성이{" "}

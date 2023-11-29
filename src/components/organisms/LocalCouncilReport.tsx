@@ -9,7 +9,7 @@ import {
   GenderText,
   PartyText,
   type AgeTextData,
-  // type GenderTextData,
+  type GenderTextData,
   // type PartyTextData,
 } from "@/components/molecules/LocalCouncilReportText";
 import {
@@ -70,7 +70,7 @@ const LocalCouncilReport = ({
   const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
 
-  // const [genderTextData, setGenderTextData] = useState<GenderTextData>();
+  const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [sgType, setSgType] = useState<"elected" | "candidate">("elected");
   const [sgYear, setSgYear] = useState<number>(2022);
 
@@ -96,14 +96,14 @@ const LocalCouncilReport = ({
       .catch(() => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
-    // axios
-    //   .get(`localCouncil/template-data/${metroId}/${localId}?factor=gender`)
-    //   .then(response => {
-    //     setGenderTextData(response.data as GenderTextData);
-    //   })
-    //   .catch(() => {
-    //     throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-    //   });
+    axios
+      .get(`localCouncil/template-data/${metroId}/${localId}?factor=gender`)
+      .then(response => {
+        setGenderTextData(response.data as GenderTextData);
+      })
+      .catch(() => {
+        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+      });
     // axios
     //   .get(`localCouncil/template-data/${metroId}/${localId}?factor=party`)
     //   .then(response => {
@@ -275,7 +275,9 @@ const LocalCouncilReport = ({
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
-      <GenderText />
+      {genderTextData ? (
+        <GenderText data={genderTextData} getNameFromId={getNameFromId} />
+      ) : null}
       <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />

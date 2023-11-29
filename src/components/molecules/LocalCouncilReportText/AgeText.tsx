@@ -46,6 +46,7 @@ interface Props {
   variation?: AgeTextVariation;
   /** text에 들어갈 데이터입니다. */
   data?: AgeTextData;
+  /** localId를 지역명으로 변환하는 함수입니다. */
   getNameFromId: (id: number) => [string, string] | undefined;
 }
 
