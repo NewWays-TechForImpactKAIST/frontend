@@ -6,6 +6,7 @@ import { type MetroID } from "static/MapSVGData";
 import axios from "@/utils/axios";
 import MapSelector from "./MapSelector";
 import NationalCouncilReport from "./NationalCouncilReport";
+import { Divider } from "antd";
 
 type RegionInfo = {
   id: number;
@@ -56,6 +57,7 @@ const NationalCouncilCard = () => {
   return metroLocalMap ? (
     <>
       <MapSelector idMap={metroLocalMap} />
+      <Divider />
       <Element name="Report">
         {metroName && localName ? (
           <NationalCouncilReport

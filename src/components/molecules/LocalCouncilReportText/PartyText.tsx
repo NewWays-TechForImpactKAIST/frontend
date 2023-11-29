@@ -90,7 +90,7 @@ export const PartyText = ({
   );
   const independentCount = currentElected.filter(
     partyItem => partyItem.party === "무소속",
-  ).length;
+  )[0]?.count;
 
   if (variation === 1)
     return (

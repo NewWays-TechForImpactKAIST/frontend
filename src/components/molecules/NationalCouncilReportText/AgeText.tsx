@@ -64,7 +64,7 @@ export const AgeText = ({
   if (variation === 1)
     return (
       <Paragraph>
-        <Text strong>{ageHistogramParagraph.year}</Text>년 전국동시지방선거에서{" "}
+        <Text strong>{ageHistogramParagraph.year}</Text>년 총선에서{" "}
         <Text strong>{ageHistogramParagraph.candidateCount}</Text>명이 후보로
         나와 <Text strong>{ageHistogramParagraph.electedCount}</Text>명이{" "}
         당선됐어요. 당선자의 20%가{" "}

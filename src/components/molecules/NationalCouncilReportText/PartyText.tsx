@@ -1,5 +1,8 @@
 import { Typography } from "antd";
-import { bigParties, type ElectionYears } from "@/utils/constants";
+import {
+  bigPartiesAtNational,
+  type NationalElectionYears,
+} from "@/utils/constants";
 
 const { Paragraph, Text } = Typography;
 
@@ -29,7 +32,7 @@ export interface PartyTextData {
 
 interface Props {
   /** 보고서 연도입니다. */
-  sgYear: ElectionYears;
+  sgYear: NationalElectionYears;
   /** text variation을 선택할 수 있습니다(기본값: 1). */
   variation?: PartyTextVariation;
   /** text에 들어갈 데이터입니다. */
@@ -69,20 +72,22 @@ export const PartyText = ({
    */
   const minorPartyIncreased =
     currentElected.filter(
-      ({ party }) => bigParties[sgYear].indexOf(party) === -1,
+      ({ party }) => bigPartiesAtNational[sgYear].indexOf(party) === -1,
     ).length >
     (sgYear !== 2010
       ? prevElected.filter(
           ({ party }) =>
-            bigParties[(sgYear - 4) as ElectionYears].indexOf(party) === -1,
+            bigPartiesAtNational[(sgYear - 4) as NationalElectionYears].indexOf(
+              party,
+            ) === -1,
         ).length
       : 0);
   const minorPartyList = currentElected.filter(
-    partyItem => bigParties[sgYear].indexOf(partyItem.party) === -1,
+    partyItem => bigPartiesAtNational[sgYear].indexOf(partyItem.party) === -1,
   );
   const independentCount = currentElected.filter(
     partyItem => partyItem.party === "무소속",
-  ).length;
+  )[0]?.count;
 
   if (variation === 1)
     return (
@@ -105,16 +110,18 @@ export const PartyText = ({
           // 소수정당 당성자 수가 줄었다면 아래 텍스트 표시
           <Text>
             이번 선거는 군소정당과 무소속 후보에게 어려웠어요.. 두 거대 양당에서{" "}
-            더 많은 당선자가! {bigParties[sgYear][0]}에서{" "}
+            더 많은 당선자가! {bigPartiesAtNational[sgYear][0]}에서{" "}
             <Text strong>
               {currentElected.filter(
-                partyItem => partyItem.party === bigParties[sgYear][0],
+                partyItem =>
+                  partyItem.party === bigPartiesAtNational[sgYear][0],
               )[0]?.count || 0}
             </Text>
-            명의 당선자가, {bigParties[sgYear][1]}에서{" "}
+            명의 당선자가, {bigPartiesAtNational[sgYear][1]}에서{" "}
             <Text strong>
               {currentElected.filter(
-                partyItem => partyItem.party === bigParties[sgYear][1],
+                partyItem =>
+                  partyItem.party === bigPartiesAtNational[sgYear][1],
               )[0]?.count || 0}
             </Text>{" "}
             명의 당선자가 나왔어요. 지난 선거에 비하면 소수정당의 목소리가 좀{" "}

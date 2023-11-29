@@ -21,9 +21,9 @@ import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
 import {
   axios,
-  useGetLocalNameFromId,
-  useLocalElectionYears,
-  type ElectionYears,
+  useGetMetroNameFromId,
+  useNationalElectionYears,
+  type NationalElectionYears,
 } from "@/utils";
 
 const { Title } = Typography;
@@ -70,14 +70,14 @@ const NationalCouncilReport = ({
   onLoaded,
 }: Props) => {
   const [metroId, localId] = idMap.get(metroName)?.get(localName) || [1, 1];
-  const localElectionYears = useLocalElectionYears();
+  const nationalElectionYears = useNationalElectionYears();
 
   const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
 
   const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [sgType, setSgType] = useState<"elected" | "candidate">("elected");
-  const [sgYear, setSgYear] = useState<number>(2022);
+  const [sgYear, setSgYear] = useState<number>(2020);
 
   const [genderPieChartData, setGenderPieChartData] =
     useState<PieChartData[]>();
@@ -89,7 +89,7 @@ const NationalCouncilReport = ({
     useState<Map<string, string>>();
   const [partyTextData, setPartyTextData] = useState<PartyTextData>();
 
-  const getNameFromId = useGetLocalNameFromId(idMap);
+  const getNameFromId = useGetMetroNameFromId(idMap);
 
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {
@@ -252,7 +252,7 @@ const NationalCouncilReport = ({
       >
         <DropdownSelector
           innerText="연도를 선택해주세요."
-          options={localElectionYears.map(
+          options={nationalElectionYears.map(
             election => `${election.year}년 (제${election.ordinal}대)`,
           )}
           onClick={key => {
@@ -272,23 +272,22 @@ const NationalCouncilReport = ({
       </Flex>
       <Title level={3}>연령 다양성</Title>
       {ageHistogramData ? <Histogram data={ageHistogramData} /> : null}
-      <AgeText data={ageTextData} getNameFromId={getNameFromId} />
+      {/* <AgeText data={ageTextData} getNameFromId={getNameFromId} /> */}
       <Title level={3}>성별 다양성</Title>
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
-      {genderTextData ? (
-        <GenderText data={genderTextData} getNameFromId={getNameFromId} />
-      ) : null}
+      {genderTextData ? <GenderText data={genderTextData} /> : null}
       <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
       ) : null}
-      <PartyText
-        sgYear={sgYear as ElectionYears}
-        data={partyTextData}
-        getNameFromId={getNameFromId}
-      />
+      {partyTextData ? (
+        <PartyText
+          sgYear={sgYear as NationalElectionYears}
+          data={partyTextData}
+        />
+      ) : null}
     </Flex>
   );
 };
