@@ -32,13 +32,16 @@ const NewwaysLayout = ({ children }: Props) => (
     <Layout className="layout">
       <Header />
       <Row justify="center">
-        {/* breakpoint: 768px */}
         <Col
           css={css`
             margin: 40px 0 40px 0;
           `}
-          span={22}
-          md={11}
+          // xs: 22, sm: 17, md: 11, lg: 11, xl: 11
+          xs={22}
+          sm={17}
+          md={14}
+          lg={14}
+          xl={13}
         >
           <TabSelector />
           <Card
