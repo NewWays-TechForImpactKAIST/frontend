@@ -243,7 +243,12 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
         margin: 40px 0 40px 0;
       `}
     >
-      <Title level={1}>{`${metroName} ${localName}의 ${sgYear}년도 ${
+      <Title
+        level={1}
+        css={css`
+          word-break: keep-all;
+        `}
+      >{`${metroName} ${localName}의 ${sgYear}년도 ${
         sgType === "candidate" ? "후보자" : "당선인"
       } 지역의회 다양성 리포트`}</Title>
       <Flex

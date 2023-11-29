@@ -191,7 +191,12 @@ const MetroCouncilReport = ({ metroName, idMap, metroMap }: Props) => {
         margin: 40px 0 40px 0;
       `}
     >
-      <Title level={1}>{`${metroName}의 ${sgYear}년도 ${
+      <Title
+        level={1}
+        css={css`
+          word-break: keep-all;
+        `}
+      >{`${metroName}의 ${sgYear}년도 ${
         sgType === "candidate" ? "후보자" : "당선인"
       } 광역의회 다양성 리포트`}</Title>
       <Flex
