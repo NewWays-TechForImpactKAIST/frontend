@@ -22,9 +22,9 @@ const NewwaysLayout = ({ children }: Props) => (
       components: {
         Layout: {
           // Header, Footer의 배경색을 설정합니다.
-          headerBg: colors.gray220,
+          headerBg: colors.white,
           bodyBg: colors.black,
-          footerBg: colors.gray220,
+          footerBg: colors.white,
         },
       },
     }}

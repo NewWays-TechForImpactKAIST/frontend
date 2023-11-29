@@ -54,9 +54,15 @@ interface Props {
   metroName: MetroID;
   localName: string;
   idMap: Map<MetroID, Map<string, [number, number]>>;
+  onLoaded: () => void;
 }
 
-const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
+const LocalCouncilReport = ({
+  metroName,
+  localName,
+  idMap,
+  onLoaded,
+}: Props) => {
   const defaultData: GenderTextData = {
     metroName,
     localName,
@@ -231,6 +237,7 @@ const LocalCouncilReport = ({ metroName, localName, idMap }: Props) => {
   useEffect(fetchGraphColors, []);
 
   useEffect(() => {
+    onLoaded();
     fetchTextData();
     fetchGraphData();
   }, [metroName, localName]);

@@ -22,6 +22,8 @@ const LocalCouncil = () => {
   const { metroName, localName } = useParams();
   const [metroLocalMap, setMetroLocalMap] =
     useState<Map<MetroID, Map<string, [number, number]>>>();
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     if (!metroName || !localName) return;
     scroller.scrollTo("Report", {
@@ -29,7 +31,8 @@ const LocalCouncil = () => {
       delay: 50,
       smooth: "easeInOutQuart",
     });
-  }, [metroName, localName]);
+  }, [metroName, localName, isLoaded]);
+
   useEffect(() => {
     const idMap = new Map<MetroID, Map<string, [number, number]>>();
     axios.get("/localCouncil/regionInfo").then(response => {
@@ -59,6 +62,7 @@ const LocalCouncil = () => {
             metroName={metroName as MetroID}
             localName={localName}
             idMap={metroLocalMap}
+            onLoaded={() => setIsLoaded(true)}
           />
         ) : null}
       </Element>

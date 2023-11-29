@@ -23,6 +23,8 @@ const MetroCouncilPage = () => {
   const [metroLocalMap, setMetroLocalMap] =
     useState<Map<MetroID, Map<string, [number, number]>>>();
   const [metroMap, setMetroMap] = useState<Map<MetroID, number>>();
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     if (!metroName) return;
     scroller.scrollTo("Report", {
@@ -30,7 +32,7 @@ const MetroCouncilPage = () => {
       delay: 50,
       smooth: "easeInOutQuart",
     });
-  }, [metroName]);
+  }, [metroName, isLoaded]);
   useEffect(() => {
     const idMap = new Map<MetroID, Map<string, [number, number]>>();
     const metroAPIMap = new Map<MetroID, number>();
@@ -63,6 +65,7 @@ const MetroCouncilPage = () => {
             metroName={metroName as MetroID}
             metroMap={metroMap}
             idMap={metroLocalMap}
+            onLoaded={() => setIsLoaded(true)}
           />
         ) : null}
       </Element>
