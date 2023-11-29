@@ -19,7 +19,7 @@ import {
 } from "@/components/organisms/Histogram";
 import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
-import { axios, useGetNameFromId } from "@/utils";
+import { axios, useGetNameFromId, useLocalElectionYears } from "@/utils";
 
 const { Title } = Typography;
 
@@ -83,6 +83,7 @@ const LocalCouncilReport = ({
     },
   };
   const [metroId, localId] = idMap.get(metroName)?.get(localName) || [1, 1];
+  const localElectionYears = useLocalElectionYears();
 
   const [ageHistYear] = useState<number>(2022);
   const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
@@ -268,9 +269,12 @@ const LocalCouncilReport = ({
       >
         <DropdownSelector
           innerText="연도를 선택해주세요."
-          options={["2022", "2020", "2016", "2014"]}
+          options={localElectionYears.map(
+            election => `${election.year}년 (제${election.ordinal}대)`,
+          )}
           onClick={key => {
-            setSgYear(parseInt(key));
+            // key: "YYYY년 (제NN대)"
+            setSgYear(parseInt(key.split("년")[0]));
           }}
         />
         <Switch
