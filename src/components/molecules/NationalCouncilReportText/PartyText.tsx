@@ -74,14 +74,12 @@ export const PartyText = ({
     currentElected.filter(
       ({ party }) => bigPartiesAtNational[sgYear].indexOf(party) === -1,
     ).length >
-    (sgYear !== 2010
-      ? prevElected.filter(
-          ({ party }) =>
-            bigPartiesAtNational[(sgYear - 4) as NationalElectionYears].indexOf(
-              party,
-            ) === -1,
-        ).length
-      : 0);
+    prevElected.filter(
+      ({ party }) =>
+        bigPartiesAtNational[(sgYear - 4) as NationalElectionYears].indexOf(
+          party,
+        ) === -1,
+    ).length;
   const minorPartyList = currentElected.filter(
     partyItem => bigPartiesAtNational[sgYear].indexOf(partyItem.party) === -1,
   );

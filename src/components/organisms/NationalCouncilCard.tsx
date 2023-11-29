@@ -57,7 +57,6 @@ const NationalCouncilCard = () => {
       <NationalCouncilReport
         metroName={metroName as MetroID}
         localName={localName}
-        idMap={metroLocalMap}
         onLoaded={() => setIsLoaded(true)}
       />
     </Element>
