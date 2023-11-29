@@ -88,7 +88,7 @@ export const PartyText = ({
       bigParties[sgYear].indexOf(partyItem.party) === -1 &&
       partyItem.party !== "무소속",
   );
-  const anonymousCount = currentElected.filter(
+  const independentCount = currentElected.filter(
     partyItem => partyItem.party === "무소속",
   ).length;
 
@@ -146,12 +146,12 @@ export const PartyText = ({
             명의 당선자가 나왔어요.{" "}
           </>
         ) : null}
-        {anonymousCount !== 0 ? (
+        {independentCount !== 0 ? (
           // 무소속 당선자가 있으면 아래 텍스트 추가
           <>
             <br />
             <br />
-            무소속 후보도 {anonymousCount}명이 당선됐어요.
+            무소속 후보도 <Text strong>{independentCount}</Text>명이 당선됐어요.
           </>
         ) : null}
       </Paragraph>
