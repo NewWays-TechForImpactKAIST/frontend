@@ -104,9 +104,10 @@ export const GenderText = ({
         <Text strong>
           {current.femalePop}명({nowPercentage}%)
         </Text>
-        입니다. <br /> <br /> 전국 지역 의회는 평균적으로 남성이{" "}
+        입니다. <br />
+        전국 지역 의회는 평균적으로 남성이{" "}
         <Text strong>{100 - meanPercentage}%</Text>, 여성이{" "}
-        <Text strong>{meanPercentage}%</Text>를 차지하고 있습니다. <br /> <br />
+        <Text strong>{meanPercentage}%</Text>를 차지하고 있습니다. <br />
         해당 지역 의원 10명 중 남성은{" "}
         <Text strong>{10 - Math.round(nowPercentage / 10)}</Text>명, 여성은{" "}
         <Text strong>{Math.round(nowPercentage / 10)}</Text>명인 정도이기
