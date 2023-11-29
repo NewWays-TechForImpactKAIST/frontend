@@ -24,6 +24,26 @@ export interface GenderTextData {
   };
 }
 
+const defaultData: GenderTextData = {
+  metroName: "서울특별시",
+  localName: "용산구",
+  now: {
+    year: 2020,
+    malePopulation: 50,
+    femalePopulation: 40,
+  },
+  prev: {
+    year: 2016,
+    malePopulation: 35,
+    femalePopulation: 55,
+  },
+  mean: {
+    year: 2020,
+    malePopulation: 60,
+    femalePopulation: 40,
+  },
+};
+
 interface Props {
   /** text variation을 선택할 수 있습니다(기본값: 1). */
   variation?: GenderTextVariation;
@@ -39,7 +59,7 @@ function calculateGenderRatio(a: number, b: number) {
   return Math.max(a / b, b / a);
 }
 
-export const GenderText = ({ variation = 1, data = undefined }: Props) => {
+export const GenderText = ({ variation = 1, data = defaultData }: Props) => {
   if (!data) return <Paragraph>데이터를 불러오는 중입니다..</Paragraph>;
 
   const { metroName, localName, now, prev, mean } = data;

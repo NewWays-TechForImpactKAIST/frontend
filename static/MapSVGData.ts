@@ -17,12 +17,22 @@ export type MetroID =
   | "인천광역시"
   | "서울특별시";
 
+// // original colors (blue-ish)
+// export const themeColors = [
+//   "#5169F1",
+//   "#97ECF1",
+//   "#23A7F6",
+//   "#86CEF1",
+//   "#4CC9F0",
+// ];
+
+// temporary color (green-ish)
 export const themeColors = [
-  "#5169F1",
-  "#97ECF1",
-  "#23A7F6",
-  "#86CEF1",
-  "#4CC9F0",
+  "#00CB83",
+  "#00DA92",
+  "#00E9A1",
+  "#0FF8B0",
+  "#1EFFBF",
 ];
 
 export const MetroInfo: {

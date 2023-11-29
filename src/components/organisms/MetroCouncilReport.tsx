@@ -9,15 +9,29 @@ import {
   GenderText,
   PartyText,
   type AgeTextData,
-  type GenderTextData,
+  // type GenderTextData,
   // type PartyTextData,
 } from "@/components/molecules/MetroCouncilReportText";
-// import { Histogram } from "@/components/organisms/Histogram";
+import {
+  Histogram,
+  type ColorGroup,
+  type BinData,
+} from "@/components/organisms/Histogram";
 import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
 import { axios, useGetNameFromId, useLocalElectionYears } from "@/utils";
 
 const { Title } = Typography;
+
+interface AgeHistogramDataAPIResponse {
+  metroId: number;
+  data: {
+    minAge: number;
+    maxAge: number;
+    count: number;
+    ageGroup: number;
+  }[];
+}
 
 type Gender = "남" | "여";
 
@@ -49,29 +63,12 @@ const MetroCouncilReport = ({
   metroMap,
   onLoaded,
 }: Props) => {
-  const defaultData: GenderTextData = {
-    metroName,
-    now: {
-      year: 2020,
-      malePopulation: 50,
-      femalePopulation: 40,
-    },
-    prev: {
-      year: 2016,
-      malePopulation: 35,
-      femalePopulation: 55,
-    },
-    mean: {
-      year: 2020,
-      malePopulation: 60,
-      femalePopulation: 40,
-    },
-  };
-
   const metroId = metroMap?.get(metroName) || 1;
   const localElectionYears = useLocalElectionYears();
 
+  const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
+
   // const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [sgYear, setSgYear] = useState<number>(2022);
   const [sgType, setSgType] = useState<"candidate" | "elected">("elected");
@@ -149,6 +146,38 @@ const MetroCouncilReport = ({
 
   // 백엔드로부터 그래프 데이터를 가져옵니다.
   const fetchGraphData = () => {
+    axios
+      .get(
+        `age-hist/${metroId}?ageHistType=elected&year=${sgYear}&method=equal`,
+      )
+      .then(response => {
+        const data = response.data as AgeHistogramDataAPIResponse;
+        const newAgeHistogramData: BinData[] = [];
+
+        // colorGroup이 백엔드에서 정렬되어 도착한다는 보장이 없습니다.
+        // 예를 들어, 35세의 colorGroup이 1이지만, 36세의 colorGroup이 0일 수 있습니다.
+        const colorGroupMap = new Map<ColorGroup, ColorGroup>();
+        let lastColorGroup: ColorGroup = 0;
+
+        data.data.forEach(({ minAge, maxAge, count, ageGroup }) => {
+          if (!colorGroupMap.has(ageGroup as ColorGroup)) {
+            colorGroupMap.set(ageGroup as ColorGroup, lastColorGroup);
+            lastColorGroup += 1;
+          }
+          newAgeHistogramData.push({
+            binMin: minAge,
+            binMax: maxAge,
+            count,
+            colorGroup: colorGroupMap.get(ageGroup as ColorGroup) || 0,
+            // colorGroup: ageGroup as ColorGroup,
+          });
+        });
+        setAgeHistogramData(newAgeHistogramData);
+      })
+      .catch(() => {
+        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+      });
+
     axios
       .get(`metroCouncil/chart-data/${metroId}?factor=gender`)
       .then(response => {
@@ -237,13 +266,13 @@ const MetroCouncilReport = ({
         />
       </Flex>
       <Title level={3}>연령 다양성</Title>
-      {/* <Histogram data={sampleAgeHistogramData} /> */}
+      {ageHistogramData ? <Histogram data={ageHistogramData} /> : null}
       <AgeText data={ageTextData} getNameFromId={getNameFromId} />
       <Title level={3}>성별 다양성</Title>
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
-      <GenderText data={defaultData} />
+      <GenderText />
       <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />

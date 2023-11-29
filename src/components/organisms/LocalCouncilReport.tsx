@@ -9,7 +9,7 @@ import {
   GenderText,
   PartyText,
   type AgeTextData,
-  type GenderTextData,
+  // type GenderTextData,
   // type PartyTextData,
 } from "@/components/molecules/LocalCouncilReportText";
 import {
@@ -24,7 +24,8 @@ import { axios, useGetNameFromId, useLocalElectionYears } from "@/utils";
 const { Title } = Typography;
 
 interface AgeHistogramDataAPIResponse {
-  LocalCouncil: number;
+  metroId: number;
+  localId: number;
   data: {
     minAge: number;
     maxAge: number;
@@ -63,29 +64,9 @@ const LocalCouncilReport = ({
   idMap,
   onLoaded,
 }: Props) => {
-  const defaultData: GenderTextData = {
-    metroName,
-    localName,
-    now: {
-      year: 2020,
-      malePopulation: 50,
-      femalePopulation: 40,
-    },
-    prev: {
-      year: 2016,
-      malePopulation: 35,
-      femalePopulation: 55,
-    },
-    mean: {
-      year: 2020,
-      malePopulation: 60,
-      femalePopulation: 40,
-    },
-  };
   const [metroId, localId] = idMap.get(metroName)?.get(localName) || [1, 1];
   const localElectionYears = useLocalElectionYears();
 
-  const [ageHistYear] = useState<number>(2022);
   const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
   const [ageTextData, setAgeTextData] = useState<AgeTextData>();
 
@@ -170,7 +151,7 @@ const LocalCouncilReport = ({
   const fetchGraphData = () => {
     axios
       .get(
-        `age-hist/${metroId}/${localId}?ageHistType=elected&year=${ageHistYear}&method=equal`,
+        `age-hist/${metroId}/${localId}?ageHistType=elected&year=${sgYear}&method=equal`,
       )
       .then(response => {
         const data = response.data as AgeHistogramDataAPIResponse;
@@ -294,7 +275,7 @@ const LocalCouncilReport = ({
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
-      <GenderText data={defaultData} />
+      <GenderText />
       <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />

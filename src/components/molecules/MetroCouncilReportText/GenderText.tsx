@@ -30,6 +30,25 @@ interface Props {
   data?: GenderTextData;
 }
 
+const defaultData: GenderTextData = {
+  metroName: "서울특별시",
+  now: {
+    year: 2020,
+    malePopulation: 50,
+    femalePopulation: 40,
+  },
+  prev: {
+    year: 2016,
+    malePopulation: 35,
+    femalePopulation: 55,
+  },
+  mean: {
+    year: 2020,
+    malePopulation: 60,
+    femalePopulation: 40,
+  },
+};
+
 function calculatePercentage(a: number, b: number) {
   return Math.round((a / (a + b)) * 100);
 }
@@ -38,7 +57,7 @@ function calculateGenderRatio(a: number, b: number) {
   return Math.max(a / b, b / a);
 }
 
-export const GenderText = ({ variation = 1, data = undefined }: Props) => {
+export const GenderText = ({ variation = 1, data = defaultData }: Props) => {
   if (!data) return <Paragraph>데이터를 불러오는 중입니다..</Paragraph>;
 
   const { metroName, now, prev, mean } = data;
