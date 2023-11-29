@@ -4,6 +4,7 @@ import { Element, scroller } from "react-scroll";
 
 import { type MetroID } from "static/MapSVGData";
 import axios from "@/utils/axios";
+import { Divider } from "antd";
 import MapSelector from "./MapSelector";
 import LocalCouncilReport from "./LocalCouncilReport";
 
@@ -56,6 +57,7 @@ const LocalCouncilCard = () => {
   return metroLocalMap ? (
     <>
       <MapSelector idMap={metroLocalMap} />
+      <Divider />
       <Element name="Report">
         {metroName && localName ? (
           <LocalCouncilReport

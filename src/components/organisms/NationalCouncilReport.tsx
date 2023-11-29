@@ -5,13 +5,12 @@ import { type MetroID } from "static/MapSVGData";
 
 import { DropdownSelector } from "@/components/molecules";
 import {
-  AgeText,
   GenderText,
   PartyText,
   type AgeTextData,
   type GenderTextData,
   type PartyTextData,
-} from "@/components/molecules/MetroCouncilReportText";
+} from "@/components/molecules/NationalCouncilReportText";
 import {
   Histogram,
   type ColorGroup,
@@ -21,15 +20,16 @@ import { PieChart, type PieChartData } from "@/components/organisms/PieChart";
 
 import {
   axios,
-  useGetMetroNameFromId,
-  useLocalElectionYears,
-  type ElectionYears,
+  // useGetMetroNameFromId,
+  useNationalElectionYears,
+  type NationalElectionYears,
 } from "@/utils";
 
 const { Title } = Typography;
 
 interface AgeHistogramDataAPIResponse {
   metroId: number;
+  localId: number;
   data: {
     minAge: number;
     maxAge: number;
@@ -57,35 +57,42 @@ type PartyPieChartDataAPIResponse = {
 
 interface Props {
   metroName: MetroID;
-  metroMap: Map<MetroID, number>;
+  localName: string;
+  // idMap: Map<MetroID, Map<string, [number, number]>>;
   onLoaded: () => void;
 }
 
-const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
-  const metroId = metroMap?.get(metroName) || 1;
-  const localElectionYears = useLocalElectionYears();
+const NationalCouncilReport = ({
+  metroName,
+  localName,
+  // idMap,
+  onLoaded,
+}: Props) => {
+  const nationalElectionYears = useNationalElectionYears();
 
   const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
-  const [ageTextData, setAgeTextData] = useState<AgeTextData>();
+  const [, setAgeTextData] = useState<AgeTextData>();
 
   const [genderTextData, setGenderTextData] = useState<GenderTextData>();
-  const [sgYear, setSgYear] = useState<number>(2022);
-  const [sgType, setSgType] = useState<"candidate" | "elected">("elected");
+  const [sgType, setSgType] = useState<"elected" | "candidate">("elected");
+  const [sgYear, setSgYear] = useState<number>(2020);
+
   const [genderPieChartData, setGenderPieChartData] =
     useState<PieChartData[]>();
   const [genderPieChartColorMap, setGenderPieChartColorMap] =
     useState<Map<string, string>>();
+
   const [partyPieChartData, setPartyPieChartData] = useState<PieChartData[]>();
   const [partyPieChartColorMap, setPartyPieChartColorMap] =
     useState<Map<string, string>>();
   const [partyTextData, setPartyTextData] = useState<PartyTextData>();
 
-  const getNameFromId = useGetMetroNameFromId(metroMap);
+  // const getNameFromId = useGetMetroNameFromId(idMap);
 
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {
     axios
-      .get(`metroCouncil/template-data/${metroId}?factor=age`)
+      .get(`nationalCouncil/template-data?factor=age`)
       .then(response => {
         setAgeTextData(response.data as AgeTextData);
       })
@@ -93,7 +100,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(`metroCouncil/template-data/${metroId}?factor=gender`)
+      .get(`nationalCouncil/template-data?factor=gender`)
       .then(response => {
         setGenderTextData(response.data as GenderTextData);
       })
@@ -101,7 +108,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(`metroCouncil/template-data/${metroId}?factor=party`)
+      .get(`nationalCouncil/template-data?factor=party`)
       .then(response => {
         setPartyTextData(response.data as PartyTextData);
       })
@@ -146,9 +153,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
   // 백엔드로부터 그래프 데이터를 가져옵니다.
   const fetchGraphData = () => {
     axios
-      .get(
-        `age-hist/${metroId}?ageHistType=${sgType}&year=${sgYear}&method=equal`,
-      )
+      .get(`age-hist?ageHistType=elected&year=${sgYear}&method=equal`)
       .then(response => {
         const data = response.data as AgeHistogramDataAPIResponse;
         const newAgeHistogramData: BinData[] = [];
@@ -177,7 +182,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
       });
 
     axios
-      .get(`metroCouncil/chart-data/${metroId}?factor=gender`)
+      .get(`nationalCouncil/chart-data?factor=gender`)
       .then(response => {
         const data = response.data.data as GenderPieChartDataAPIResponse;
         const newGenderPieChartData: PieChartData[] = [];
@@ -194,7 +199,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
       });
 
     axios
-      .get(`metroCouncil/chart-data/${metroId}?factor=party`)
+      .get(`nationalCouncil/chart-data?factor=party`)
       .then(response => {
         const data = response.data.data as PartyPieChartDataAPIResponse;
         const newPartyPieChartData: PieChartData[] = [];
@@ -217,7 +222,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
     onLoaded();
     fetchTextData();
     fetchGraphData();
-  }, [metroName]);
+  }, [metroName, localName]);
 
   return (
     <Flex
@@ -232,9 +237,9 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         css={css`
           word-break: keep-all;
         `}
-      >{`${metroName}의 ${sgYear}년도 ${
+      >{`${sgYear}년도 ${
         sgType === "candidate" ? "후보자" : "당선인"
-      } 광역의회 다양성 리포트`}</Title>
+      } 총선 다양성 리포트`}</Title>
       <Flex
         css={css`
           flex-direction: row;
@@ -245,7 +250,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
       >
         <DropdownSelector
           innerText="연도를 선택해주세요."
-          options={localElectionYears.map(
+          options={nationalElectionYears.map(
             election => `${election.year}년 (제${election.ordinal}대)`,
           )}
           onClick={key => {
@@ -265,7 +270,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
       </Flex>
       <Title level={3}>연령 다양성</Title>
       {ageHistogramData ? <Histogram data={ageHistogramData} /> : null}
-      <AgeText data={ageTextData} getNameFromId={getNameFromId} />
+      {/* <AgeText data={ageTextData} getNameFromId={getNameFromId} /> */}
       <Title level={3}>성별 다양성</Title>
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
@@ -276,10 +281,13 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
       ) : null}
       {partyTextData ? (
-        <PartyText sgYear={sgYear as ElectionYears} data={partyTextData} />
+        <PartyText
+          sgYear={sgYear as NationalElectionYears}
+          data={partyTextData}
+        />
       ) : null}
     </Flex>
   );
 };
 
-export default MetroCouncilReport;
+export default NationalCouncilReport;

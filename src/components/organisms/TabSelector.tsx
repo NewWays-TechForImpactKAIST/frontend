@@ -31,6 +31,7 @@ const TabSelctor = () => {
         items={[
           { label: "지역의회", key: "localCouncil" },
           { label: "광역의회", key: "metroCouncil" },
+          { label: "국회", key: "nationalCouncil" },
         ]}
         onChange={key => {
           navigate(

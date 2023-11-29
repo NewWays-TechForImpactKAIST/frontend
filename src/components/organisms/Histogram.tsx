@@ -56,8 +56,9 @@ export const Histogram = ({ data }: Props) => {
 
   useEffect(() => {
     const newHistogramData: HistogramData = [];
+    let countMaxT = 0;
     data.forEach(({ binMin, count, colorGroup }) => {
-      if (count > countMax) setCountMax(count);
+      if (count > countMaxT) countMaxT = count;
       Array(count)
         .fill(0)
         .forEach(() => {
@@ -66,6 +67,7 @@ export const Histogram = ({ data }: Props) => {
     });
     setHistogramData(newHistogramData);
     setBinWidth(data[0].binMax - data[0].binMin);
+    setCountMax(countMaxT);
   }, [data]);
 
   const config: CustomHistogramConfig = {
