@@ -41,6 +41,13 @@ export interface AgeTextData {
   };
 }
 
+const getAgeEmojiFromAge = (age: number) => {
+  if (age < 20) return "👶";
+  if (age < 40) return "👦👧";
+  if (age < 50) return "👨👩";
+  return "👴👵";
+};
+
 interface Props {
   /** text variation을 선택할 수 있습니다(기본값: 1). */
   variation?: AgeTextVariation;
@@ -68,8 +75,10 @@ export const AgeText = ({
         <Text strong>{ageHistogramParagraph.candidateCount}</Text>명이 후보로
         나와 <Text strong>{ageHistogramParagraph.electedCount}</Text>명이{" "}
         당선됐어요. 당선자의 20%가{" "}
-        <Text strong>{ageHistogramParagraph.firstQuintile}</Text>세 이하, 20%가{" "}
-        <Text strong>{ageHistogramParagraph.lastQuintile}</Text>세 이상이에요.
+        <Text strong>{ageHistogramParagraph.firstQuintile}</Text>세 이하
+        {getAgeEmojiFromAge(ageHistogramParagraph.firstQuintile)}, 20%가{" "}
+        <Text strong>{ageHistogramParagraph.lastQuintile}</Text>세 이상
+        {getAgeEmojiFromAge(ageHistogramParagraph.lastQuintile)}이에요.
         <br />
         <br />
         참고로 다양성 지표 전국 1위는 전체 인원의 20%가{" "}
@@ -78,7 +87,7 @@ export const AgeText = ({
         <Text strong>{ageHistogramParagraph.divArea.lastQuintile}</Text>세{" "}
         이상인{" "}
         <Text strong>
-          {getNameFromId(ageHistogramParagraph.divArea.metroId)}
+          {getNameFromId(ageHistogramParagraph.divArea.metroId)}🏆
         </Text>
         , 전국 뒤에서 1위는 전체 인원의 20%가{" "}
         <Text strong>{ageHistogramParagraph.uniArea.firstQuintile}</Text>세
@@ -86,7 +95,7 @@ export const AgeText = ({
         <Text strong>{ageHistogramParagraph.uniArea.lastQuintile}</Text>세
         이상인{" "}
         <Text strong>
-          {getNameFromId(ageHistogramParagraph.uniArea.metroId)}
+          {getNameFromId(ageHistogramParagraph.uniArea.metroId)}😢
         </Text>
         예요.
       </Paragraph>
