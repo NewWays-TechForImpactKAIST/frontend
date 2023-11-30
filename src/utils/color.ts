@@ -33,6 +33,9 @@ export const majorBlend = (
   data: { weight: number; color: Color }[],
   base: Color = { r: 0xff, g: 0xff, b: 0xff },
 ) => {
+  if (data.length === 1) {
+    return data[0].color;
+  }
   const major = data.reduce((a, b) => (a.weight > b.weight ? a : b), {
     weight: 0,
     color: { r: 0, g: 0, b: 0 },
