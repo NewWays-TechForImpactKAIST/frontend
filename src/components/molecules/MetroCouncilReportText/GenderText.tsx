@@ -116,10 +116,10 @@ export const GenderText = ({
         성비는{" "}
         <Text strong>
           {nowGenderDiversity > prevGenderDiversity
-            ? "균형에서 더 멀어졌습니다."
+            ? "균형에서 더 멀어졌어요."
             : nowGenderDiversity === prevGenderDiversity
-            ? "변화하지 않았습니다."
-            : "나아졌습니다."}
+            ? "변화하지 않았어요."
+            : "나아졌어요."}
         </Text>{" "}
         <br /> <br />
         {current.year}년 지방선거에서{" "}
@@ -131,20 +131,20 @@ export const GenderText = ({
         <Text strong>
           {femalePop}명({nowPercentage}%)
         </Text>
-        입니다. <br />
+        이예요. <br />
         전국 지역 의회는 평균적으로 남성이{" "}
         <Text strong>{100 - meanPercentage}%</Text>, 여성이{" "}
-        <Text strong>{meanPercentage}%</Text>를 차지하고 있습니다. <br />
+        <Text strong>{meanPercentage}%</Text>를 차지하고 있어요. <br />
         해당 지역 {sgType === "elected" ? "당선자" : "후보자"} 10명 중 남성은{" "}
         <Text strong>{10 - Math.round(nowPercentage / 10)}</Text>명, 여성은{" "}
         <Text strong>{Math.round(nowPercentage / 10)}</Text>명인 정도이기
         때문에,{" "}
         <Text strong>
           {nowGenderRatio < meanGenderRatio
-            ? "전국 대비 성별 다양성이 충분하다고 보기는 어렵습니다."
+            ? "전국 대비 성별 다양성이 충분하다고 보기는 어려워요."
             : nowGenderRatio === meanGenderRatio
-            ? "전국 평균 수준입니다."
-            : "전국 평균 대비 높은 수준입니다."}
+            ? "전국 평균 수준이예요."
+            : "전국 평균 대비 높은 수준이예요."}
         </Text>
       </Paragraph>
     );
