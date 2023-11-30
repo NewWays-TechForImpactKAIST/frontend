@@ -274,7 +274,9 @@ const NationalCouncilReport = ({
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
-      {genderTextData ? <GenderText data={genderTextData} /> : null}
+      {genderTextData ? (
+        <GenderText sgType={sgType} data={genderTextData} />
+      ) : null}
       <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
