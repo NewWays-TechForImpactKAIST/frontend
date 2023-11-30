@@ -33,7 +33,7 @@ const ReportIntro = ({ reportType }: Props) => {
       </Title>
       {reportType === "nationalCouncil" ? (
         <Paragraph>
-          {lastElection.year}년 제{lastElection.ordinal}회 총선 막을 내렸어요.
+          {lastElection.year}년 제{lastElection.ordinal}회 총선이 막을 내렸어요.
           <br />
           <br />
           뉴웨이즈에서는 지난 {firstElection.year}년 총선부터{" "}

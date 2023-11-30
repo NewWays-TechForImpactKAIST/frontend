@@ -9,8 +9,6 @@ const { Paragraph, Text } = Typography;
 export type PartyTextVariation = 1 | 2;
 
 export interface PartyTextData {
-  /** 광역시도 id */
-  metroId: number;
   /** 다양성 지표 */
   partyDiversityIndex: number;
   /** 정당별 당선자 수 (이전 선거) */
@@ -40,7 +38,6 @@ interface Props {
 }
 
 const defaultData: PartyTextData = {
-  metroId: 1,
   partyDiversityIndex: 0.5,
   prevElected: [
     { party: "국민의힘", count: 5 },
@@ -81,7 +78,9 @@ export const PartyText = ({
         ) === -1,
     ).length;
   const minorPartyList = currentElected.filter(
-    partyItem => bigPartiesAtNational[sgYear].indexOf(partyItem.party) === -1,
+    partyItem =>
+      bigPartiesAtNational[sgYear].indexOf(partyItem.party) === -1 &&
+      partyItem.party !== "무소속",
   );
   const independentCount = currentElected.filter(
     partyItem => partyItem.party === "무소속",
@@ -101,14 +100,14 @@ export const PartyText = ({
           <Text>
             지난 선거에서는 <Text strong>{prevElected.length}</Text>개{" "}
             정당에서만 당선자가 나왔던 걸 생각하면, 이번엔 진짜 다양한 목소리가{" "}
-            들린다는 거죠! 여러분의 국회에서 다양성의 바람이 솔솔~ 역대급 변화가
-            느껴지지 않나요?
+            들린다는 거죠! 🤯🥳😎 우리 국회에서 다양성의 바람이 솔솔~ 역대급{" "}
+            변화가 느껴지지 않나요?🏎️💨
           </Text>
         ) : (
           // 소수정당 당성자 수가 줄었다면 아래 텍스트 표시
           <Text>
-            이번 선거는 군소정당과 무소속 후보에게 어려웠어요.. 두 거대 양당에서{" "}
-            더 많은 당선자가! {bigPartiesAtNational[sgYear][0]}에서{" "}
+            이번 선거는 군소정당과 무소속 후보에게 어려웠어요..😿 두 거대{" "}
+            양당에서 더 많은 당선자가! {bigPartiesAtNational[sgYear][0]}에서{" "}
             <Text strong>
               {currentElected.filter(
                 partyItem =>
@@ -123,7 +122,7 @@ export const PartyText = ({
               )[0]?.count || 0}
             </Text>{" "}
             명의 당선자가 나왔어요. 지난 선거에 비하면 소수정당의 목소리가 좀{" "}
-            줄어든 느낌이에요.
+            줄어든 느낌이에요. 🤫🤫
           </Text>
         )}
         {minorPartyList.length !== 0 ? (
@@ -137,9 +136,9 @@ export const PartyText = ({
             </Text>
             에서도 {minorPartyList.length === 1 ? "" : "각각 "}
             <Text strong>
-              {minorPartyList.map(partyItem => partyItem.count).join("명, ")}
+              {minorPartyList.map(partyItem => partyItem.count).join("명, ")}명
             </Text>
-            명의 당선자가 나왔어요.{" "}
+            의 당선자가 나왔어요.{" "}
           </>
         ) : null}
         {independentCount ? (
@@ -147,7 +146,8 @@ export const PartyText = ({
           <>
             <br />
             <br />
-            무소속 후보도 <Text strong>{independentCount}</Text>명이 당선됐어요.
+            무소속 후보⛹️도 <Text strong>{independentCount}</Text>명이{" "}
+            당선됐어요.{" "}
           </>
         ) : null}
       </Paragraph>

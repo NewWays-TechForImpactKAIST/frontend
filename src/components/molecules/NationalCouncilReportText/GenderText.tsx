@@ -102,12 +102,13 @@ export const GenderText = ({
         성비는{" "}
         <Text strong>
           {nowGenderDiversity > prevGenderDiversity
-            ? "균형에서 더 멀어졌어요."
+            ? "균형에서 더 멀어졌어요. 😭"
             : nowGenderDiversity === prevGenderDiversity
-            ? "변화하지 않았어요."
-            : "나아졌어요."}
-        </Text>{" "}
-        <br /> <br />
+            ? "지난 선거에 비해 변화하지 않았어요. 🤥"
+            : "나아졌어요. 🥰"}
+        </Text>
+        <br />
+        <br />
         {current.year}년 총선에서 {sgType === "elected" ? "당선자" : "후보자"}의
         성별은 남성{" "}
         <Text strong>

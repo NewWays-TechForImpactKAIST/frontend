@@ -5,7 +5,7 @@ import {
 } from "@ant-design/plots";
 import { css } from "@emotion/react";
 
-export type ColorGroup = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type ColorGroup = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export interface BinData {
   binMin: number;
@@ -42,14 +42,13 @@ export const Histogram = ({ data }: Props) => {
 
   const getColor = (colorGroup: ColorGroup): string => {
     const colors = [
-      "#FA9189",
-      "#FCAE7C",
-      "#FFE699",
-      "#F9FFB5",
-      "#B3F5BC",
-      "#D6F6FF",
-      "#E2CBF7",
-      "#D1BDFF",
+      "#d55e00",
+      "#e69f00",
+      "#f0e442",
+      "#009e73",
+      "#56b4e9",
+      "#0072b2",
+      "#cc79a7",
     ];
     return colors[colorGroup];
   };
