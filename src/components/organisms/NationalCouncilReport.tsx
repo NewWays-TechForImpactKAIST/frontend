@@ -180,39 +180,77 @@ const NationalCouncilReport = ({
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
 
-    axios
-      .get(`nationalCouncil/chart-data?factor=gender`)
-      .then(response => {
-        const data = response.data.data as GenderPieChartDataAPIResponse;
-        const newGenderPieChartData: PieChartData[] = [];
-        data.forEach(({ gender, count }) => {
+    if (sgType === "candidate") {
+      axios
+        .get(
+          `nationalCouncil/template-data?year=${sgYear}&year=${sgYear}&factor=party`,
+        )
+        .then(response => {
+          const data = response.data as PartyTextData;
+          const newPartyPieChartData: PieChartData[] = [];
+          data.currentCandidate.forEach(({ party, count }) => {
+            newPartyPieChartData.push({
+              type: party,
+              value: count,
+            });
+          });
+          setPartyPieChartData(newPartyPieChartData);
+        })
+        .catch(() => {
+          throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+        });
+      axios
+        .get(`nationalCouncil/template-data?year=${sgYear}&factor=gender`)
+        .then(response => {
+          const data = response.data as GenderTextData;
+          const newGenderPieChartData: PieChartData[] = [];
           newGenderPieChartData.push({
-            type: `${gender}성`,
-            value: count,
+            type: `남성`,
+            value: data.currentCandidate.malePop,
           });
-        });
-        setGenderPieChartData(newGenderPieChartData);
-      })
-      .catch(() => {
-        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-      });
-
-    axios
-      .get(`nationalCouncil/chart-data?factor=party`)
-      .then(response => {
-        const data = response.data.data as PartyPieChartDataAPIResponse;
-        const newPartyPieChartData: PieChartData[] = [];
-        data.forEach(({ party, count }) => {
-          newPartyPieChartData.push({
-            type: party,
-            value: count,
+          newGenderPieChartData.push({
+            type: `여성`,
+            value: data.currentCandidate.femalePop,
           });
+          setGenderPieChartData(newGenderPieChartData);
+        })
+        .catch(() => {
+          throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
         });
-        setPartyPieChartData(newPartyPieChartData);
-      })
-      .catch(() => {
-        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-      });
+    } else {
+      axios
+        .get(`nationalCouncil/chart-data?factor=party`)
+        .then(response => {
+          const data = response.data.data as PartyPieChartDataAPIResponse;
+          const newPartyPieChartData: PieChartData[] = [];
+          data.forEach(({ party, count }) => {
+            newPartyPieChartData.push({
+              type: party,
+              value: count,
+            });
+          });
+          setPartyPieChartData(newPartyPieChartData);
+        })
+        .catch(() => {
+          throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+        });
+      axios
+        .get(`nationalCouncil/chart-data?factor=gender`)
+        .then(response => {
+          const data = response.data.data as GenderPieChartDataAPIResponse;
+          const newGenderPieChartData: PieChartData[] = [];
+          data.forEach(({ gender, count }) => {
+            newGenderPieChartData.push({
+              type: `${gender}성`,
+              value: count,
+            });
+          });
+          setGenderPieChartData(newGenderPieChartData);
+        })
+        .catch(() => {
+          throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+        });
+    }
   };
 
   useEffect(fetchGraphColors, []);
@@ -220,8 +258,11 @@ const NationalCouncilReport = ({
   useEffect(() => {
     onLoaded();
     fetchTextData();
-    fetchGraphData();
   }, [metroName, localName, sgYear]);
+
+  useEffect(() => {
+    fetchGraphData();
+  }, [sgType, sgYear, metroName, localName]);
 
   return (
     <Flex
