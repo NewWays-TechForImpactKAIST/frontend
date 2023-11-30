@@ -1,4 +1,5 @@
 import { Typography } from "antd";
+
 const { Paragraph, Text } = Typography;
 
 export type AgeTextVariation = 1 | 2;
