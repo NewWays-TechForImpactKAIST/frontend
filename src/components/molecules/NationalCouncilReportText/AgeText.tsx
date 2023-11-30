@@ -62,7 +62,11 @@ export const AgeText = ({ variation = 1, data = undefined }: Props) => {
         <Text strong>{ageHistogramParagraph.firstQuintile}</Text>세 이하
         {getAgeEmojiFromAge(ageHistogramParagraph.firstQuintile)}, 20%가{" "}
         <Text strong>{ageHistogramParagraph.lastQuintile}</Text>세 이상
-        {getAgeEmojiFromAge(ageHistogramParagraph.lastQuintile)}이에요.
+        {getAgeEmojiFromAge(ageHistogramParagraph.lastQuintile)}이에요. 즉,{" "}
+        나머지 60%는{" "}
+        <Text strong>{ageHistogramParagraph.firstQuintile + 1}</Text>세에서{" "}
+        <Text strong>{ageHistogramParagraph.lastQuintile - 1}세</Text> 사이에{" "}
+        있어요.
         <br />
         <br />
       </Paragraph>
