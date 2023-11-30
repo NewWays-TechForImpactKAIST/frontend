@@ -10,6 +10,7 @@ import {
   type AgeTextData,
   type GenderTextData,
   type PartyTextData,
+  AgeText,
 } from "@/components/molecules/NationalCouncilReportText";
 import {
   Histogram,
@@ -71,7 +72,7 @@ const NationalCouncilReport = ({
   const nationalElectionYears = useNationalElectionYears();
 
   const [ageHistogramData, setAgeHistogramData] = useState<BinData[]>();
-  const [, setAgeTextData] = useState<AgeTextData>();
+  const [ageTextData, setAgeTextData] = useState<AgeTextData>();
 
   const [genderTextData, setGenderTextData] = useState<GenderTextData>();
   const [sgType, setSgType] = useState<"elected" | "candidate">("elected");
@@ -86,8 +87,6 @@ const NationalCouncilReport = ({
   const [partyPieChartColorMap, setPartyPieChartColorMap] =
     useState<Map<string, string>>();
   const [partyTextData, setPartyTextData] = useState<PartyTextData>();
-
-  // const getNameFromId = useGetMetroNameFromId(idMap);
 
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {
@@ -153,7 +152,7 @@ const NationalCouncilReport = ({
   // 백엔드로부터 그래프 데이터를 가져옵니다.
   const fetchGraphData = () => {
     axios
-      .get(`age-hist?ageHistType=elected&year=${sgYear}&method=equal`)
+      .get(`age-hist/?ageHistType=elected&year=${sgYear}&method=equal`)
       .then(response => {
         const data = response.data as AgeHistogramDataAPIResponse;
         const newAgeHistogramData: BinData[] = [];
@@ -222,7 +221,7 @@ const NationalCouncilReport = ({
     onLoaded();
     fetchTextData();
     fetchGraphData();
-  }, [metroName, localName]);
+  }, [metroName, localName, sgYear]);
 
   return (
     <Flex
@@ -238,7 +237,7 @@ const NationalCouncilReport = ({
           word-break: keep-all;
         `}
       >{`${sgYear}년도 ${
-        sgType === "candidate" ? "후보자" : "당선인"
+        sgType === "candidate" ? "후보자" : "당선자"
       } 총선 다양성 리포트`}</Title>
       <Flex
         css={css`
@@ -270,7 +269,7 @@ const NationalCouncilReport = ({
       </Flex>
       <Title level={3}>연령 다양성</Title>
       {ageHistogramData ? <Histogram data={ageHistogramData} /> : null}
-      {/* <AgeText data={ageTextData} getNameFromId={getNameFromId} /> */}
+      <AgeText data={ageTextData} />
       <Title level={3}>성별 다양성</Title>
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />

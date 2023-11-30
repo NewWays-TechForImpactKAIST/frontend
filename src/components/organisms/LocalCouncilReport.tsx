@@ -94,7 +94,9 @@ const LocalCouncilReport = ({
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {
     axios
-      .get(`localCouncil/template-data/${metroId}/${localId}?factor=age`)
+      .get(
+        `localCouncil/template-data/${metroId}/${localId}?year=${sgYear}&factor=age`,
+      )
       .then(response => {
         setAgeTextData(response.data as AgeTextData);
       })
@@ -102,7 +104,9 @@ const LocalCouncilReport = ({
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(`localCouncil/template-data/${metroId}/${localId}?factor=gender`)
+      .get(
+        `localCouncil/template-data/${metroId}/${localId}?year=${sgYear}&factor=gender`,
+      )
       .then(response => {
         setGenderTextData(response.data as GenderTextData);
       })
@@ -110,7 +114,9 @@ const LocalCouncilReport = ({
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(`localCouncil/template-data/${metroId}/${localId}?factor=party`)
+      .get(
+        `localCouncil/template-data/${metroId}/${localId}?year=${sgYear}&factor=party`,
+      )
       .then(response => {
         setPartyTextData(response.data as PartyTextData);
       })
@@ -226,7 +232,7 @@ const LocalCouncilReport = ({
     onLoaded();
     fetchTextData();
     fetchGraphData();
-  }, [metroName, localName]);
+  }, [metroName, localName, sgYear]);
 
   return (
     <Flex
@@ -242,7 +248,7 @@ const LocalCouncilReport = ({
           word-break: keep-all;
         `}
       >{`${metroName} ${localName}의 ${sgYear}년도 ${
-        sgType === "candidate" ? "후보자" : "당선인"
+        sgType === "candidate" ? "후보자" : "당선자"
       } 지역의회 다양성 리포트`}</Title>
       <Flex
         css={css`
