@@ -118,7 +118,7 @@ export const GenderText = ({
           {femalePop}명({nowPercentage}%)
         </Text>
         이에요. <br />
-        전체 국회의원 10명 중 남성은{" "}
+        전체 국회의원 {sgType === "elected" ? "" : "후보자 "}10명 중 남성은{" "}
         <Text strong>{10 - Math.round(nowPercentage / 10)}</Text>명, 여성은{" "}
         <Text strong>{Math.round(nowPercentage / 10)}</Text>명인 정도예요.{" "}
       </Paragraph>
