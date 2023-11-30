@@ -102,10 +102,10 @@ export const GenderText = ({
         성비는{" "}
         <Text strong>
           {nowGenderDiversity > prevGenderDiversity
-            ? "균형에서 더 멀어졌습니다."
+            ? "균형에서 더 멀어졌어요."
             : nowGenderDiversity === prevGenderDiversity
-            ? "변화하지 않았습니다."
-            : "나아졌습니다."}
+            ? "변화하지 않았어요."
+            : "나아졌어요."}
         </Text>{" "}
         <br /> <br />
         {current.year}년 총선에서 {sgType === "elected" ? "당선자" : "후보자"}의
@@ -117,10 +117,10 @@ export const GenderText = ({
         <Text strong>
           {femalePop}명({nowPercentage}%)
         </Text>
-        입니다. <br />
+        이예요. <br />
         전체 국회의원 10명 중 남성은{" "}
         <Text strong>{10 - Math.round(nowPercentage / 10)}</Text>명, 여성은{" "}
-        <Text strong>{Math.round(nowPercentage / 10)}</Text>명인 정도입니다.{" "}
+        <Text strong>{Math.round(nowPercentage / 10)}</Text>명인 정도이예요.{" "}
       </Paragraph>
     );
   return <Paragraph>존재하지 않는 템플릿입니다.</Paragraph>;
