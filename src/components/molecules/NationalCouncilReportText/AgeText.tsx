@@ -31,9 +31,9 @@ export interface AgeTextData {
 }
 
 const getAgeEmojiFromAge = (age: number) => {
-  if (age < 20) return "👶";
-  if (age < 40) return "👦👧";
-  if (age < 50) return "👨👩";
+  if (age < 30) return "👶";
+  if (age < 45) return "👦👧";
+  if (age < 60) return "👨👩";
   return "👴👵";
 };
 
