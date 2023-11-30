@@ -11,13 +11,13 @@ import {
 } from "@/components/organisms";
 
 const MainPage = () => {
-  const { reportType } = useParams();
+  const { reportType = "" } = useParams();
 
   return (
     <Layout>
       <TabSelector />
       <Card>
-        <ReportIntro />
+        <ReportIntro reportType={reportType} />
         <Divider />
         {(() => {
           switch (reportType) {
