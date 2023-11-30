@@ -182,39 +182,79 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
 
-    axios
-      .get(`metroCouncil/chart-data/${metroId}?factor=gender`)
-      .then(response => {
-        const data = response.data.data as GenderPieChartDataAPIResponse;
-        const newGenderPieChartData: PieChartData[] = [];
-        data.forEach(({ gender, count }) => {
+    if (sgType === "candidate") {
+      axios
+        .get(
+          `metroCouncil/template-data/${metroId}?year=${sgYear}&year=${sgYear}&factor=party`,
+        )
+        .then(response => {
+          const data = response.data as PartyTextData;
+          const newPartyPieChartData: PieChartData[] = [];
+          data.currentCandidate.forEach(({ party, count }) => {
+            newPartyPieChartData.push({
+              type: party,
+              value: count,
+            });
+          });
+          setPartyPieChartData(newPartyPieChartData);
+        })
+        .catch(() => {
+          throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+        });
+      axios
+        .get(
+          `metroCouncil/template-data/${metroId}?year=${sgYear}&year=${sgYear}&factor=gender`,
+        )
+        .then(response => {
+          const data = response.data as GenderTextData;
+          const newGenderPieChartData: PieChartData[] = [];
           newGenderPieChartData.push({
-            type: `${gender}성`,
-            value: count,
+            type: `남성`,
+            value: data.currentCandidate.malePop,
           });
-        });
-        setGenderPieChartData(newGenderPieChartData);
-      })
-      .catch(() => {
-        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-      });
-
-    axios
-      .get(`metroCouncil/chart-data/${metroId}?factor=party`)
-      .then(response => {
-        const data = response.data.data as PartyPieChartDataAPIResponse;
-        const newPartyPieChartData: PieChartData[] = [];
-        data.forEach(({ party, count }) => {
-          newPartyPieChartData.push({
-            type: party,
-            value: count,
+          newGenderPieChartData.push({
+            type: `여성`,
+            value: data.currentCandidate.femalePop,
           });
+          setGenderPieChartData(newGenderPieChartData);
+        })
+        .catch(() => {
+          throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
         });
-        setPartyPieChartData(newPartyPieChartData);
-      })
-      .catch(() => {
-        throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
-      });
+    } else {
+      axios
+        .get(`metroCouncil/chart-data/${metroId}?factor=party`)
+        .then(response => {
+          const data = response.data.data as PartyPieChartDataAPIResponse;
+          const newPartyPieChartData: PieChartData[] = [];
+          data.forEach(({ party, count }) => {
+            newPartyPieChartData.push({
+              type: party,
+              value: count,
+            });
+          });
+          setPartyPieChartData(newPartyPieChartData);
+        })
+        .catch(() => {
+          throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+        });
+      axios
+        .get(`metroCouncil/chart-data/${metroId}?factor=gender`)
+        .then(response => {
+          const data = response.data.data as GenderPieChartDataAPIResponse;
+          const newGenderPieChartData: PieChartData[] = [];
+          data.forEach(({ gender, count }) => {
+            newGenderPieChartData.push({
+              type: `${gender}성`,
+              value: count,
+            });
+          });
+          setGenderPieChartData(newGenderPieChartData);
+        })
+        .catch(() => {
+          throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
+        });
+    }
   };
 
   useEffect(fetchGraphColors, []);
@@ -222,8 +262,11 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
   useEffect(() => {
     onLoaded();
     fetchTextData();
-    fetchGraphData();
   }, [metroName, sgYear]);
+
+  useEffect(() => {
+    fetchGraphData();
+  }, [metroName, sgYear, sgType]);
 
   return (
     <Flex
@@ -276,7 +319,9 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
       {genderPieChartData && genderPieChartColorMap ? (
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
-      {genderTextData ? <GenderText data={genderTextData} /> : null}
+      {genderTextData ? (
+        <GenderText sgType={sgType} data={genderTextData} />
+      ) : null}
       <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (
         <PieChart data={partyPieChartData} colorMap={partyPieChartColorMap} />
