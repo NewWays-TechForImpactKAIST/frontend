@@ -125,7 +125,7 @@ export const GenderText = ({
           {nowGenderDiversity > prevGenderDiversity
             ? "균형에서 더 멀어졌어요. 😭"
             : nowGenderDiversity === prevGenderDiversity
-            ? "변화하지 않았어요. 🤥"
+            ? "지난 선거에 비해 변화하지 않았어요. 🤥"
             : "나아졌어요. 🥰"}
         </Text>
         <br />

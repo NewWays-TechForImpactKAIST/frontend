@@ -89,9 +89,9 @@ export const PartyText = ({
   if (variation === 1)
     return (
       <Paragraph>
-        <Text strong>{sgYear}</Text>년 지방선거에서는{" "}
-        <Text strong>{currentCandidate.length}</Text>개 정당에서 후보자🗣️가,{" "}
-        <Text strong>{currentElected.length}</Text>개 정당에서 당선자🏅가{" "}
+        <Text strong>{sgYear}</Text>년 총선에서는{" "}
+        <Text strong>{currentCandidate.length}</Text>개 정당에서 후보자가,{" "}
+        <Text strong>{currentElected.length}</Text>개 정당에서 당선자가{" "}
         나왔어요.
         <br />
         <br />

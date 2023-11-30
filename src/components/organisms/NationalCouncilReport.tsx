@@ -91,7 +91,7 @@ const NationalCouncilReport = ({
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {
     axios
-      .get(`nationalCouncil/template-data?factor=age`)
+      .get(`nationalCouncil/template-data?factor=age&year=${sgYear}`)
       .then(response => {
         setAgeTextData(response.data as AgeTextData);
       })
@@ -99,7 +99,7 @@ const NationalCouncilReport = ({
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(`nationalCouncil/template-data?factor=gender`)
+      .get(`nationalCouncil/template-data?factor=gender&year=${sgYear}`)
       .then(response => {
         setGenderTextData(response.data as GenderTextData);
       })
@@ -107,7 +107,7 @@ const NationalCouncilReport = ({
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(`nationalCouncil/template-data?factor=party`)
+      .get(`nationalCouncil/template-data?factor=party&year=${sgYear}`)
       .then(response => {
         setPartyTextData(response.data as PartyTextData);
       })
@@ -182,9 +182,7 @@ const NationalCouncilReport = ({
 
     if (sgType === "candidate") {
       axios
-        .get(
-          `nationalCouncil/template-data?year=${sgYear}&year=${sgYear}&factor=party`,
-        )
+        .get(`nationalCouncil/template-data?year=${sgYear}&factor=party`)
         .then(response => {
           const data = response.data as PartyTextData;
           const newPartyPieChartData: PieChartData[] = [];
@@ -219,7 +217,7 @@ const NationalCouncilReport = ({
         });
     } else {
       axios
-        .get(`nationalCouncil/chart-data?factor=party`)
+        .get(`nationalCouncil/chart-data?factor=party&year=${sgYear}`)
         .then(response => {
           const data = response.data.data as PartyPieChartDataAPIResponse;
           const newPartyPieChartData: PieChartData[] = [];
@@ -235,7 +233,7 @@ const NationalCouncilReport = ({
           throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
         });
       axios
-        .get(`nationalCouncil/chart-data?factor=gender`)
+        .get(`nationalCouncil/chart-data?factor=gender&year=${sgYear}`)
         .then(response => {
           const data = response.data.data as GenderPieChartDataAPIResponse;
           const newGenderPieChartData: PieChartData[] = [];
