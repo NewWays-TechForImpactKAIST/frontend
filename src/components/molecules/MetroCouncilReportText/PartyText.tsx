@@ -137,7 +137,7 @@ export const PartyText = ({
             명의 당선자가 나왔어요.{" "}
           </>
         ) : null}
-        {independentCount !== 0 ? (
+        {independentCount ? (
           // 무소속 당선자가 있으면 아래 텍스트 추가
           <>
             <br />
