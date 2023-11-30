@@ -21,7 +21,7 @@ const ReportIntro = ({ reportType }: Props) => {
         `}
       >
         {reportType === "nationalCouncil"
-          ? "대한민국 국회 다영성 리포트"
+          ? "대한민국 국회 다양성 리포트"
           : "우리동네 정치인 다양성 리포트"}
       </Title>
       {reportType === "nationalCouncil" ? (
