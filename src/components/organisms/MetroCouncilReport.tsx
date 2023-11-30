@@ -217,7 +217,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
     onLoaded();
     fetchTextData();
     fetchGraphData();
-  }, [metroName]);
+  }, [metroName, sgType, sgYear]);
 
   return (
     <Flex
