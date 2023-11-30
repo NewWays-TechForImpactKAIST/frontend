@@ -1,6 +1,6 @@
 import { Typography } from "antd";
 import { css } from "@emotion/react";
-import { useLocalElectionYears } from "@/utils";
+import { useLocalElectionYears, useNationalElectionYears } from "@/utils";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -10,8 +10,15 @@ interface Props {
 
 const ReportIntro = ({ reportType }: Props) => {
   const localElectionYears = useLocalElectionYears();
-  const firstElection = localElectionYears[0];
-  const lastElection = localElectionYears[localElectionYears.length - 1];
+  const nationalElectionYears = useNationalElectionYears();
+  const firstElection =
+    reportType === "nationalCouncil"
+      ? nationalElectionYears[0]
+      : localElectionYears[0];
+  const lastElection =
+    reportType === "nationalCouncil"
+      ? nationalElectionYears[nationalElectionYears.length - 1]
+      : localElectionYears[localElectionYears.length - 1];
   return (
     <>
       <Title
