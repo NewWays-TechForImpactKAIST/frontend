@@ -28,8 +28,6 @@ interface CustomHistogramConfig extends HistogramConfig {
 }
 
 export const Histogram = ({ data }: Props) => {
-  const ageMin = data[0].binMin - 1;
-  const ageMax = data[data.length - 1].binMax + 1;
   const [countMax, setCountMax] = useState<number>(data[0].count);
 
   const [binWidth, setBinWidth] = useState<number>(
@@ -81,9 +79,8 @@ export const Histogram = ({ data }: Props) => {
     },
     meta: {
       range: {
-        min: ageMin,
-        max: ageMax,
         tickInterval: 1,
+        nice: true,
       },
       count: {
         min: 0,
