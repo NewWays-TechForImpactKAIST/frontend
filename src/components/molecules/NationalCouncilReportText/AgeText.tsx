@@ -1,6 +1,4 @@
 import { Typography } from "antd";
-import { type MetroID } from "static/MapSVGData";
-
 const { Paragraph, Text } = Typography;
 
 export type AgeTextVariation = 1 | 2;
@@ -28,16 +26,6 @@ export interface AgeTextData {
     electedCount: number;
     firstQuintile: number;
     lastQuintile: number;
-    divArea: {
-      metroId: number;
-      firstQuintile: number;
-      lastQuintile: number;
-    };
-    uniArea: {
-      metroId: number;
-      firstQuintile: number;
-      lastQuintile: number;
-    };
   };
 }
 
@@ -46,14 +34,9 @@ interface Props {
   variation?: AgeTextVariation;
   /** text에 들어갈 데이터입니다. */
   data?: AgeTextData;
-  getNameFromId: (id: number) => MetroID | undefined;
 }
 
-export const AgeText = ({
-  variation = 1,
-  data = undefined,
-  getNameFromId,
-}: Props) => {
+export const AgeText = ({ variation = 1, data = undefined }: Props) => {
   if (!data) return <Paragraph>데이터를 불러오는 중입니다..</Paragraph>;
 
   const {
@@ -72,23 +55,6 @@ export const AgeText = ({
         <Text strong>{ageHistogramParagraph.lastQuintile}</Text>세 이상이에요.
         <br />
         <br />
-        참고로 다양성 지표 전국 1위는 전체 인원의 20%가{" "}
-        <Text strong>{ageHistogramParagraph.divArea.firstQuintile}</Text>세{" "}
-        이하, 20%가{" "}
-        <Text strong>{ageHistogramParagraph.divArea.lastQuintile}</Text>세{" "}
-        이상인{" "}
-        <Text strong>
-          {getNameFromId(ageHistogramParagraph.divArea.metroId)}
-        </Text>
-        , 전국 뒤에서 1위는 전체 인원의 20%가{" "}
-        <Text strong>{ageHistogramParagraph.uniArea.firstQuintile}</Text>세
-        이하, 20%가{" "}
-        <Text strong>{ageHistogramParagraph.uniArea.lastQuintile}</Text>세
-        이상인{" "}
-        <Text strong>
-          {getNameFromId(ageHistogramParagraph.uniArea.metroId)}
-        </Text>
-        예요.
       </Paragraph>
     );
   return <Paragraph>존재하지 않는 템플릿입니다.</Paragraph>;
