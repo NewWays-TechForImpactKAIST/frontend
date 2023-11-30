@@ -194,7 +194,7 @@ const LocalCouncilReport = ({
     if (sgType === "candidate") {
       axios
         .get(
-          `localCouncil/template-data/${metroId}/${localId}?year=${sgYear}&year=${sgYear}&factor=party`,
+          `localCouncil/template-data/${metroId}/${localId}?year=${sgYear}&factor=party`,
         )
         .then(response => {
           const data = response.data as PartyTextData;
@@ -212,7 +212,7 @@ const LocalCouncilReport = ({
         });
       axios
         .get(
-          `localCouncil/template-data/${metroId}/${localId}?year=${sgYear}&year=${sgYear}&factor=gender`,
+          `localCouncil/template-data/${metroId}/${localId}?year=${sgYear}&factor=gender`,
         )
         .then(response => {
           const data = response.data as GenderTextData;
@@ -232,7 +232,9 @@ const LocalCouncilReport = ({
         });
     } else {
       axios
-        .get(`localCouncil/chart-data/${metroId}/${localId}?factor=party`)
+        .get(
+          `localCouncil/chart-data/${metroId}/${localId}?factor=party&year=${sgYear}`,
+        )
         .then(response => {
           const data = response.data.data as PartyPieChartDataAPIResponse;
           const newPartyPieChartData: PieChartData[] = [];
@@ -248,7 +250,9 @@ const LocalCouncilReport = ({
           throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
         });
       axios
-        .get(`localCouncil/chart-data/${metroId}/${localId}?factor=gender`)
+        .get(
+          `localCouncil/chart-data/${metroId}/${localId}?factor=gender&year=${sgYear}`,
+        )
         .then(response => {
           const data = response.data.data as GenderPieChartDataAPIResponse;
           const newGenderPieChartData: PieChartData[] = [];

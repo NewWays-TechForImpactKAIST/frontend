@@ -85,9 +85,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {
     axios
-      .get(
-        `metroCouncil/template-data/${metroId}?year=${sgYear}&year=${sgYear}&factor=age`,
-      )
+      .get(`metroCouncil/template-data/${metroId}?year=${sgYear}&factor=age`)
       .then(response => {
         setAgeTextData(response.data as AgeTextData);
       })
@@ -95,9 +93,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(
-        `metroCouncil/template-data/${metroId}?year=${sgYear}&year=${sgYear}&factor=gender`,
-      )
+      .get(`metroCouncil/template-data/${metroId}?year=${sgYear}&factor=gender`)
       .then(response => {
         setGenderTextData(response.data as GenderTextData);
       })
@@ -105,9 +101,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(
-        `metroCouncil/template-data/${metroId}?year=${sgYear}&year=${sgYear}&factor=party`,
-      )
+      .get(`metroCouncil/template-data/${metroId}?year=${sgYear}&factor=party`)
       .then(response => {
         setPartyTextData(response.data as PartyTextData);
       })
@@ -185,7 +179,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
     if (sgType === "candidate") {
       axios
         .get(
-          `metroCouncil/template-data/${metroId}?year=${sgYear}&year=${sgYear}&factor=party`,
+          `metroCouncil/template-data/${metroId}?year=${sgYear}&factor=party`,
         )
         .then(response => {
           const data = response.data as PartyTextData;
@@ -203,7 +197,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         });
       axios
         .get(
-          `metroCouncil/template-data/${metroId}?year=${sgYear}&year=${sgYear}&factor=gender`,
+          `metroCouncil/template-data/${metroId}?year=${sgYear}&factor=gender`,
         )
         .then(response => {
           const data = response.data as GenderTextData;
@@ -223,7 +217,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         });
     } else {
       axios
-        .get(`metroCouncil/chart-data/${metroId}?factor=party`)
+        .get(`metroCouncil/chart-data/${metroId}?factor=party&year=${sgYear}`)
         .then(response => {
           const data = response.data.data as PartyPieChartDataAPIResponse;
           const newPartyPieChartData: PieChartData[] = [];
@@ -239,7 +233,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
           throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
         });
       axios
-        .get(`metroCouncil/chart-data/${metroId}?factor=gender`)
+        .get(`metroCouncil/chart-data/${metroId}?factor=gender&year=${sgYear}`)
         .then(response => {
           const data = response.data.data as GenderPieChartDataAPIResponse;
           const newGenderPieChartData: PieChartData[] = [];

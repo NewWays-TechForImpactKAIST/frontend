@@ -90,7 +90,7 @@ export const PartyText = ({
   if (variation === 1)
     return (
       <Paragraph>
-        <Text strong>{sgYear}</Text>년 지방선거에서는{" "}
+        <Text strong>{sgYear}</Text>년 총선에서는{" "}
         <Text strong>{currentCandidate.length}</Text>개 정당에서 후보자가,{" "}
         <Text strong>{currentElected.length}</Text>개 정당에서 당선자가{" "}
         나왔어요.
@@ -101,8 +101,8 @@ export const PartyText = ({
           <Text>
             지난 선거에서는 <Text strong>{prevElected.length}</Text>개{" "}
             정당에서만 당선자가 나왔던 걸 생각하면, 이번엔 진짜 다양한 목소리가{" "}
-            들린다는 거죠! 여러분의 광역의회에서 다양성의 바람이 솔솔~ 역대급
-            변화가 느껴지지 않나요?
+            들린다는 거죠! 여러분의 국회에서 다양성의 바람이 솔솔~ 역대급 변화가
+            느껴지지 않나요?
           </Text>
         ) : (
           // 소수정당 당성자 수가 줄었다면 아래 텍스트 표시
