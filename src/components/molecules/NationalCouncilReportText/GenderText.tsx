@@ -117,10 +117,10 @@ export const GenderText = ({
         <Text strong>
           {femalePop}명({nowPercentage}%)
         </Text>
-        이예요. <br />
+        이에요. <br />
         전체 국회의원 10명 중 남성은{" "}
         <Text strong>{10 - Math.round(nowPercentage / 10)}</Text>명, 여성은{" "}
-        <Text strong>{Math.round(nowPercentage / 10)}</Text>명인 정도이예요.{" "}
+        <Text strong>{Math.round(nowPercentage / 10)}</Text>명인 정도이에요.{" "}
       </Paragraph>
     );
   return <Paragraph>존재하지 않는 템플릿입니다.</Paragraph>;

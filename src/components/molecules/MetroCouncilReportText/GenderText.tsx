@@ -131,7 +131,7 @@ export const GenderText = ({
         <Text strong>
           {femalePop}명({nowPercentage}%)
         </Text>
-        이예요. <br />
+        이에요. <br />
         전국 지역 의회는 평균적으로 남성이{" "}
         <Text strong>{100 - meanPercentage}%</Text>, 여성이{" "}
         <Text strong>{meanPercentage}%</Text>를 차지하고 있어요. <br />
@@ -143,8 +143,8 @@ export const GenderText = ({
           {nowGenderRatio < meanGenderRatio
             ? "전국 대비 성별 다양성이 충분하다고 보기는 어려워요."
             : nowGenderRatio === meanGenderRatio
-            ? "전국 평균 수준이예요."
-            : "전국 평균 대비 높은 수준이예요."}
+            ? "전국 평균 수준이에요."
+            : "전국 평균 대비 높은 수준이에요."}
         </Text>
       </Paragraph>
     );
