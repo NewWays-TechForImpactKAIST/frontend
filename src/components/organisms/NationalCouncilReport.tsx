@@ -152,7 +152,7 @@ const NationalCouncilReport = ({
   // 백엔드로부터 그래프 데이터를 가져옵니다.
   const fetchGraphData = () => {
     axios
-      .get(`age-hist/?ageHistType=elected&year=${sgYear}&method=equal`)
+      .get(`age-hist/?ageHistType=${sgType}&year=${sgYear}&method=equal`)
       .then(response => {
         const data = response.data as AgeHistogramDataAPIResponse;
         const newAgeHistogramData: BinData[] = [];

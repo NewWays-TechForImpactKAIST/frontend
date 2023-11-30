@@ -231,8 +231,11 @@ const LocalCouncilReport = ({
   useEffect(() => {
     onLoaded();
     fetchTextData();
-    fetchGraphData();
   }, [metroName, localName, sgYear]);
+
+  useEffect(() => {
+    fetchGraphData();
+  }, [metroName, localName, sgYear, sgType]);
 
   return (
     <Flex
@@ -286,7 +289,11 @@ const LocalCouncilReport = ({
         <PieChart data={genderPieChartData} colorMap={genderPieChartColorMap} />
       ) : null}
       {genderTextData ? (
-        <GenderText data={genderTextData} getNameFromId={getNameFromId} />
+        <GenderText
+          data={genderTextData}
+          getNameFromId={getNameFromId}
+          sgType={sgType}
+        />
       ) : null}
       <Title level={3}>정당 다양성</Title>
       {partyPieChartData && partyPieChartColorMap ? (

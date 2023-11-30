@@ -12,7 +12,17 @@ export interface GenderTextData {
     malePop: number;
     femalePop: number;
   };
+  currentCandidate: {
+    year: number;
+    malePop: number;
+    femalePop: number;
+  };
   prev: {
+    year: number;
+    malePop: number;
+    femalePop: number;
+  };
+  prevCandidate: {
     year: number;
     malePop: number;
     femalePop: number;
@@ -34,6 +44,16 @@ const defaultData: GenderTextData = {
     malePop: 35,
     femalePop: 55,
   },
+  currentCandidate: {
+    year: 2020,
+    malePop: 50,
+    femalePop: 40,
+  },
+  prevCandidate: {
+    year: 2016,
+    malePop: 35,
+    femalePop: 55,
+  },
   meanMalePop: 60,
   meanFemalePop: 40,
 };
@@ -45,6 +65,7 @@ interface Props {
   data?: GenderTextData;
   /** localId를 지역명으로 변환하는 함수입니다. */
   getNameFromId: (id: number) => [string, string] | undefined;
+  sgType: "elected" | "candidate";
 }
 
 function calculatePercentage(a: number, b: number) {
@@ -63,31 +84,43 @@ export const GenderText = ({
   variation = 1,
   data = defaultData,
   getNameFromId,
+  sgType,
 }: Props) => {
   if (!data) return <Paragraph>데이터를 불러오는 중입니다..</Paragraph>;
 
-  const { localId, current, prev, meanMalePop, meanFemalePop } = data;
+  const {
+    localId,
+    current,
+    prev,
+    meanMalePop,
+    meanFemalePop,
+    currentCandidate,
+    prevCandidate,
+  } = data;
   const localName = getNameFromId(localId)?.join(" ");
-  const nowPercentage = calculatePercentage(current.femalePop, current.malePop);
+  const femalePop =
+    sgType === "elected" ? current.femalePop : currentCandidate.femalePop;
+  const malePop =
+    sgType === "elected" ? current.malePop : currentCandidate.malePop;
+  const prevFemalePop =
+    sgType === "elected" ? prev.femalePop : prevCandidate.femalePop;
+  const prevMalePop =
+    sgType === "elected" ? prev.malePop : prevCandidate.malePop;
+  const nowPercentage = calculatePercentage(femalePop, malePop);
   const meanPercentage = calculatePercentage(meanFemalePop, meanMalePop);
-  const nowGenderDiversity = calculateGenderDiversity(
-    current.femalePop,
-    current.malePop,
-  );
+  const nowGenderDiversity = calculateGenderDiversity(femalePop, malePop);
   const prevGenderDiversity = calculateGenderDiversity(
-    prev.femalePop,
-    prev.malePop,
+    prevFemalePop,
+    prevMalePop,
   );
-  const nowGenderRatio = calculateFemaleRatio(
-    current.femalePop,
-    current.malePop,
-  );
+  const nowGenderRatio = calculateFemaleRatio(femalePop, malePop);
   const meanGenderRatio = calculateFemaleRatio(meanFemalePop, meanMalePop);
 
   if (variation === 1)
     return (
       <Paragraph>
-        {current.year}년 지방선거 당선자의 성비는{" "}
+        {current.year}년 지방선거 {sgType === "elected" ? "당선자" : "후보자"}의
+        성비는{" "}
         <Text strong>
           {nowGenderDiversity > prevGenderDiversity
             ? "퇴보했습니다."
@@ -96,19 +129,20 @@ export const GenderText = ({
             : "나아졌습니다."}
         </Text>{" "}
         <br /> <br />
-        {current.year}년 지방선거에서 {localName}의 당선자의 성별은 남성{" "}
+        {current.year}년 지방선거에서 {localName}의{" "}
+        {sgType === "elected" ? "당선자" : "후보자"}의 성별은 남성{" "}
         <Text strong>
-          {current.malePop}명({100 - nowPercentage}%)
+          {malePop}명({100 - nowPercentage}%)
         </Text>
         , 여성{" "}
         <Text strong>
-          {current.femalePop}명({nowPercentage}%)
+          {femalePop}명({nowPercentage}%)
         </Text>
         입니다. <br />
         전국 지역 의회는 평균적으로 남성이{" "}
         <Text strong>{100 - meanPercentage}%</Text>, 여성이{" "}
         <Text strong>{meanPercentage}%</Text>를 차지하고 있습니다. <br />
-        해당 지역 의원 10명 중 남성은{" "}
+        해당 지역 의원 {sgType === "elected" ? "" : "후보자 "}10명 중 남성은{" "}
         <Text strong>{10 - Math.round(nowPercentage / 10)}</Text>명, 여성은{" "}
         <Text strong>{Math.round(nowPercentage / 10)}</Text>명인 정도이기
         때문에,{" "}

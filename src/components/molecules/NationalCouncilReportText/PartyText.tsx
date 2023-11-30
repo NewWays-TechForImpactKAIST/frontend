@@ -131,7 +131,7 @@ export const PartyText = ({
           <>
             <br />
             <br />
-            이번 지방선거에서는{" "}
+            이번 총선에서는{" "}
             <Text strong>
               {minorPartyList.map(partyItem => partyItem.party).join(", ")}
             </Text>
