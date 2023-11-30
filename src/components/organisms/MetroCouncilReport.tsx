@@ -85,7 +85,9 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
   // 백엔드로부터 텍스트 데이터를 가져옵니다.
   const fetchTextData = () => {
     axios
-      .get(`metroCouncil/template-data/${metroId}?factor=age`)
+      .get(
+        `metroCouncil/template-data/${metroId}?year=${sgYear}&year=${sgYear}&factor=age`,
+      )
       .then(response => {
         setAgeTextData(response.data as AgeTextData);
       })
@@ -93,7 +95,9 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(`metroCouncil/template-data/${metroId}?factor=gender`)
+      .get(
+        `metroCouncil/template-data/${metroId}?year=${sgYear}&year=${sgYear}&factor=gender`,
+      )
       .then(response => {
         setGenderTextData(response.data as GenderTextData);
       })
@@ -101,7 +105,9 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
         throw new Error("네트워크 문제가 발생했습니다. 다시 시도해주세요.");
       });
     axios
-      .get(`metroCouncil/template-data/${metroId}?factor=party`)
+      .get(
+        `metroCouncil/template-data/${metroId}?year=${sgYear}&year=${sgYear}&factor=party`,
+      )
       .then(response => {
         setPartyTextData(response.data as PartyTextData);
       })
@@ -217,7 +223,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
     onLoaded();
     fetchTextData();
     fetchGraphData();
-  }, [metroName]);
+  }, [metroName, sgYear]);
 
   return (
     <Flex
@@ -233,7 +239,7 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
           word-break: keep-all;
         `}
       >{`${metroName}의 ${sgYear}년도 ${
-        sgType === "candidate" ? "후보자" : "당선인"
+        sgType === "candidate" ? "후보자" : "당선자"
       } 광역의회 다양성 리포트`}</Title>
       <Flex
         css={css`

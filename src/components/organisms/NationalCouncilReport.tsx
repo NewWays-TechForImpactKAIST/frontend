@@ -222,7 +222,7 @@ const NationalCouncilReport = ({
     onLoaded();
     fetchTextData();
     fetchGraphData();
-  }, [metroName, localName]);
+  }, [metroName, localName, sgYear]);
 
   return (
     <Flex
@@ -238,7 +238,7 @@ const NationalCouncilReport = ({
           word-break: keep-all;
         `}
       >{`${sgYear}년도 ${
-        sgType === "candidate" ? "후보자" : "당선인"
+        sgType === "candidate" ? "후보자" : "당선자"
       } 총선 다양성 리포트`}</Title>
       <Flex
         css={css`
