@@ -116,7 +116,7 @@ export const GenderText = ({
         성비는{" "}
         <Text strong>
           {nowGenderDiversity > prevGenderDiversity
-            ? "퇴보했습니다."
+            ? "균형에서 더 멀어졌습니다."
             : nowGenderDiversity === prevGenderDiversity
             ? "변화하지 않았습니다."
             : "나아졌습니다."}
