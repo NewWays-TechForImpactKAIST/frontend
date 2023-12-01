@@ -288,9 +288,9 @@ const NationalCouncilReport = ({
       >
         <DropdownSelector
           innerText="연도를 선택해주세요."
-          options={nationalElectionYears.map(
-            election => `${election.year}년 (제${election.ordinal}대)`,
-          )}
+          options={nationalElectionYears
+            .filter(election => election.year !== 2008)
+            .map(election => `${election.year}년 (제${election.ordinal}대)`)}
           onClick={key => {
             // key: "YYYY년 (제NN대)"
             setSgYear(parseInt(key.split("년")[0]));

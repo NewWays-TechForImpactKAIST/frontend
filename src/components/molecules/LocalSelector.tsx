@@ -3,6 +3,7 @@ import { type ReactNode, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { axios, hexToRgb, majorBlend, rgbToHex } from "@/utils";
 import { Flex, Switch } from "antd";
+import { useSearchParams } from "react-router-dom";
 
 interface Props {
   selected: MetroID;
@@ -16,7 +17,8 @@ const LocalSelector = ({ selected, idMap, onClick = () => {} }: Props) => {
   const partyColorMap = new Map<string, Color>();
   const [coloring, setColoring] = useState<"none" | "party">("party");
   const [localPartyColor, setLocalPartyColor] = useState<Map<string, string>>();
-
+  const [searchParams] = useSearchParams();
+  const sgYear = searchParams.get("year") || "2022";
   const fetchPartyColor = async () => {
     await axios
       .get("localCouncil/partyInfo")
@@ -35,7 +37,9 @@ const LocalSelector = ({ selected, idMap, onClick = () => {} }: Props) => {
   const fetchPartyData = () => {
     idMap.get(selected)?.forEach((value, key) => {
       axios
-        .get(`localCouncil/chart-data/${value[0]}/${value[1]}?factor=party`)
+        .get(
+          `localCouncil/chart-data/${value[0]}/${value[1]}?factor=party&year=${sgYear}`,
+        )
         .then(response => {
           setLocalPartyColor(prev => {
             const data = response.data.data as {
@@ -73,7 +77,7 @@ const LocalSelector = ({ selected, idMap, onClick = () => {} }: Props) => {
   };
   useEffect(() => {
     fetchPartyColor().then(fetchPartyData);
-  }, []);
+  }, [searchParams.get("year")]);
   return (
     <Flex
       vertical

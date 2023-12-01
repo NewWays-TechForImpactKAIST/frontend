@@ -288,9 +288,9 @@ const MetroCouncilReport = ({ metroName, metroMap, onLoaded }: Props) => {
       >
         <DropdownSelector
           innerText="연도를 선택해주세요."
-          options={localElectionYears.map(
-            election => `${election.year}년 (제${election.ordinal}대)`,
-          )}
+          options={localElectionYears
+            .filter(election => election.year !== 2010)
+            .map(election => `${election.year}년 (제${election.ordinal}대)`)}
           onClick={key => {
             // key: "YYYY년 (제NN대)"
             setSgYear(parseInt(key.split("년")[0]));
