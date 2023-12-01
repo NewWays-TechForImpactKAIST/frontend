@@ -25,7 +25,7 @@ import {
   useLocalElectionYears,
   type ElectionYears,
 } from "@/utils";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -80,7 +80,6 @@ const LocalCouncilReport = ({
   const [sgType, setSgType] = useState<"elected" | "candidate">("elected");
   const [searchParams, setSearchParams] = useSearchParams();
   const sgYear = searchParams.get("year") || 2022;
-  const navigate = useNavigate();
 
   const [genderPieChartData, setGenderPieChartData] =
     useState<PieChartData[]>();
